@@ -14,6 +14,6 @@ public class main {
         System.out.println("Hola Sebastian");
         System.out.println("Hola Yosmar");
         System.out.println("Hola, soy Gustavo");
-        System.out.println("Prueba Gustavo");
+        System.out.println("Prueba Gustavo 2");
     }
 }
