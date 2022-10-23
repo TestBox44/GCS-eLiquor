@@ -19,5 +19,6 @@ public class main {
         System.out.println("Hola Richard soy Seb");
         System.out.println("Hola soy Gerardo");
         System.out.println("Hola de nuevo");
+        System.out.println("Soy gustavo, he vuelto");
     }
 }
