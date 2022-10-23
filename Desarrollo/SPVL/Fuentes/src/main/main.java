@@ -17,5 +17,6 @@ public class main {
         System.out.println("Prueba Gustavo 2");
         System.out.println("Hola, soy Richard");
         System.out.println("Hola Richard soy Seb");
+        System.out.println("Hola soy Gerardo");
     }
 }
