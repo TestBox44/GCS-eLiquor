@@ -10,7 +10,7 @@ package Presentacion.interfaces;
  */
 public class main {
     public static void main(String[] args) {
-        LoginUsuarios login=new LoginUsuarios();
+       LoginUsuarios login=new LoginUsuarios();
         login.setVisible(true);
     }
 }
