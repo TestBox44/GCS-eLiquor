@@ -80,7 +80,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(51, 51, 51));
         jLabel1.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel1.setText("¡Bienvenid@, USUARIO! ");
+        jLabel1.setText("¡Bienvenid@, Usuario! ");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, -1, -1));
 
         jPanel5.setBackground(new java.awt.Color(153, 153, 153));
