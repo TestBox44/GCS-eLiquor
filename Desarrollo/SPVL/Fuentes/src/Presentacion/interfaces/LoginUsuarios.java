@@ -4,18 +4,65 @@
  */
 package Presentacion.interfaces;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import scrollbar.ScrollBarCustom;
+
 /**
  *
  * @author sortizu
  */
 public class LoginUsuarios extends javax.swing.JFrame {
 
-    /**
-     * Creates new form LoginUsuarios
-     */
+    DefaultTableCellRenderer nuevoCellRenderer = new DefaultTableCellRenderer(){
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            
+            if(value instanceof JLabel){
+                JLabel lbl=(JLabel)value;
+                return lbl;
+            }
+            
+            return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        }
+    };
+    DefaultTableModel modeloListaDeUsuarios;
+    JLabel imagenUsuario;
+    
     public LoginUsuarios() {
         initComponents();
         setLocationRelativeTo(null);
+        imagenUsuario=new JLabel(new ImageIcon(getClass().getResource("/Presentacion/imagenes/iconoCuenta.png")));
+        
+        modeloListaDeUsuarios=(DefaultTableModel)ListaDeUsuarios.getModel();
+        ListaDeUsuarios.setFont(new Font("Arial",Font.PLAIN,25));
+        ListaDeUsuarios.setForeground(Color.decode("#8C8C8C"));
+        ListaDeUsuarios.setDefaultRenderer(Object.class, nuevoCellRenderer);
+        ListaDeUsuarios.setSelectionBackground(Color.decode("#23A020"));
+        ListaDeUsuarios.setSelectionForeground(Color.white);
+        
+        jScrollPane1.setBorder(BorderFactory.createEmptyBorder());
+        jScrollPane1.getViewport().setBackground(Color.WHITE);
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
+        ListaDeUsuarios.getTableHeader().setUI(null);
+        
+        añadirUsuarioALista("Sebas");        
+        añadirUsuarioALista("Sebas");        
+        añadirUsuarioALista("Sebas");        
+        añadirUsuarioALista("Sebas");        
+        añadirUsuarioALista("Sebas");        
+        añadirUsuarioALista("Sebas");        
+        añadirUsuarioALista("Sebas");     
+        añadirUsuarioALista("Sebas");     
+        
     }
 
     /**
@@ -29,14 +76,14 @@ public class LoginUsuarios extends javax.swing.JFrame {
 
         Fondo = new PanelImagen("/Presentacion/imagenes/Fondo.png");
         eLiquor = new javax.swing.JLabel();
-        ListaDeUsuarios = new PanelImagen("/Presentacion/imagenes/Paneles/Login/ListaDeUsuarios.png");
-        jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        PanelListaDeUsuarios = new PanelImagen("/Presentacion/imagenes/Paneles/Login/ListaDeUsuarios.png");
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel11 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ListaDeUsuarios = new javax.swing.JTable();
+        btnSalir = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -44,52 +91,77 @@ public class LoginUsuarios extends javax.swing.JFrame {
 
         Fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        eLiquor.setFont(new java.awt.Font("Roboto Medium", 1, 135)); // NOI18N
+        eLiquor.setFont(new java.awt.Font("Roboto Medium", 1, 140)); // NOI18N
         eLiquor.setForeground(new java.awt.Color(255, 255, 255));
+        eLiquor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         eLiquor.setText("eLiquor");
-        Fondo.add(eLiquor, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 283, -1, -1));
+        eLiquor.setPreferredSize(new java.awt.Dimension(569, 201));
+        Fondo.add(eLiquor, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 283, -1, 160));
 
-        ListaDeUsuarios.setBackground(new java.awt.Color(255, 255, 255));
-        ListaDeUsuarios.setMinimumSize(new java.awt.Dimension(397, 768));
-        ListaDeUsuarios.setPreferredSize(new java.awt.Dimension(397, 768));
-        ListaDeUsuarios.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/imagenes/Barra.png"))); // NOI18N
-        ListaDeUsuarios.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, -1, -1));
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/imagenes/cuenta 1.png"))); // NOI18N
-        ListaDeUsuarios.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
+        PanelListaDeUsuarios.setBackground(new java.awt.Color(255, 255, 255));
+        PanelListaDeUsuarios.setPreferredSize(new java.awt.Dimension(415, 768));
+        PanelListaDeUsuarios.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel7.setFont(new java.awt.Font("Roboto Thin", 0, 30)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(140, 140, 140));
         jLabel7.setText("USUARIOS");
-        ListaDeUsuarios.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, -1, -1));
-
-        jLabel8.setFont(new java.awt.Font("Roboto Light", 0, 25)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel8.setText("Admin");
-        ListaDeUsuarios.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, -1, -1));
+        PanelListaDeUsuarios.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, -1, -1));
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/imagenes/flecha.png"))); // NOI18N
         jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        ListaDeUsuarios.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 560, 60, 60));
+        PanelListaDeUsuarios.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 560, 60, 60));
 
         jSeparator1.setForeground(new java.awt.Color(208, 208, 208));
-        jSeparator1.setPreferredSize(new java.awt.Dimension(50, 230));
-        ListaDeUsuarios.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, 360, 220));
+        jSeparator1.setPreferredSize(new java.awt.Dimension(350, 10));
+        PanelListaDeUsuarios.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
 
-        Fondo.add(ListaDeUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(173, 0, -1, -1));
+        jSeparator2.setForeground(new java.awt.Color(208, 208, 208));
+        jSeparator2.setPreferredSize(new java.awt.Dimension(350, 10));
+        PanelListaDeUsuarios.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 550, -1, -1));
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/imagenes/Boton Salir.png"))); // NOI18N
-        jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel11.setPreferredSize(new java.awt.Dimension(65, 65));
-        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel11MousePressed(evt);
+        ListaDeUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "icono", "nombre"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        Fondo.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 690, 70, 80));
+        ListaDeUsuarios.setAutoscrolls(false);
+        ListaDeUsuarios.setFocusable(false);
+        ListaDeUsuarios.setRowHeight(75);
+        ListaDeUsuarios.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        ListaDeUsuarios.setShowGrid(false);
+        jScrollPane1.setViewportView(ListaDeUsuarios);
+        if (ListaDeUsuarios.getColumnModel().getColumnCount() > 0) {
+            ListaDeUsuarios.getColumnModel().getColumn(0).setResizable(false);
+            ListaDeUsuarios.getColumnModel().getColumn(0).setPreferredWidth(300);
+            ListaDeUsuarios.getColumnModel().getColumn(1).setResizable(false);
+            ListaDeUsuarios.getColumnModel().getColumn(1).setPreferredWidth(800);
+        }
+
+        PanelListaDeUsuarios.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 350, 460));
+
+        Fondo.add(PanelListaDeUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 0, -1, -1));
+
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/imagenes/Boton Salir.png"))); // NOI18N
+        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalir.setPreferredSize(new java.awt.Dimension(65, 65));
+        btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnSalirMousePressed(evt);
+            }
+        });
+        Fondo.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 690, 70, 80));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,11 +176,17 @@ public class LoginUsuarios extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel11MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MousePressed
+    
+    private void btnSalirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMousePressed
         this.dispose();
-    }//GEN-LAST:event_jLabel11MousePressed
-
+    }//GEN-LAST:event_btnSalirMousePressed
+    private void mostrarUsuariosEnLista(){
+    
+    }
+    
+    public void añadirUsuarioALista(String nombre){
+        modeloListaDeUsuarios.addRow(new Object[]{imagenUsuario,nombre});
+    }
     /**
      * @param args the command line arguments
      */
@@ -146,14 +224,14 @@ public class LoginUsuarios extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Fondo;
-    private javax.swing.JPanel ListaDeUsuarios;
+    private javax.swing.JTable ListaDeUsuarios;
+    private javax.swing.JPanel PanelListaDeUsuarios;
+    private javax.swing.JLabel btnSalir;
     private javax.swing.JLabel eLiquor;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     // End of variables declaration//GEN-END:variables
 }
