@@ -4,13 +4,18 @@
  */
 package Presentacion.interfaces;
 
+import Datos.DAO.UsuarioDAO;
+import Datos.Entidades.Usuario;
+import Presentacion.interfaces.Login.Login;
+import Presentacion.interfaces.Login.LoginUsuarios;
+
 /**
  *
  * @author sortizu
  */
 public class main {
     public static void main(String[] args) {
-       LoginUsuarios login=new LoginUsuarios();
-        login.setVisible(true);
+       Login login=new Login();
+       login.setVisible(true);
     }
 }

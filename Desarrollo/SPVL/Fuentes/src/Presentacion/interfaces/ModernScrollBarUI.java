@@ -14,23 +14,32 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 
 public class ModernScrollBarUI extends BasicScrollBarUI {
 
-    private final int THUMB_SIZE = 40;
+    private int thumbSize = 40;
+    private final int minimumThumbSize=40;
 
     @Override
     protected Dimension getMaximumThumbSize() {
         if (scrollbar.getOrientation() == JScrollBar.VERTICAL) {
-            return new Dimension(0, THUMB_SIZE);
+            return new Dimension(0, thumbSize);
         } else {
-            return new Dimension(THUMB_SIZE, 0);
+            return new Dimension(thumbSize, 0);
         }
     }
 
     @Override
     protected Dimension getMinimumThumbSize() {
         if (scrollbar.getOrientation() == JScrollBar.VERTICAL) {
-            return new Dimension(0, THUMB_SIZE);
+            return new Dimension(0, thumbSize);
         } else {
-            return new Dimension(THUMB_SIZE, 0);
+            return new Dimension(thumbSize, 0);
+        }
+    }
+    
+    public void setThumbSize(int thumbSize){
+        if(thumbSize<minimumThumbSize){
+            this.thumbSize=minimumThumbSize;
+        }else{
+            this.thumbSize=thumbSize;
         }
     }
 
@@ -67,7 +76,7 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
             width = rctngl.width;
             height = size;
         }
-        g2.setColor(Color.white);
+        g2.setColor(Color.WHITE);
         g2.fillRect(x, y, width, height);
     }
 
