@@ -29,13 +29,12 @@ public class FramePrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Fondo = new PanelImagen("/Presentacion/imagenes/Fondo.png");
+        Fondo = new PanelImagen("/Presentacion/Imagenes/Fondo.png");
         ContenedorPaneles = new javax.swing.JPanel();
         login = new Presentacion.Interfaces.Login.Login();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1360, 768));
 
         Fondo.setLayout(new java.awt.CardLayout());
 
