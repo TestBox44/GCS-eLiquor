@@ -1,9 +1,9 @@
-package Presentacion.interfaces.Login;
+package Presentacion.Interfaces.Login;
 
 import Datos.DAO.UsuarioDAO;
 import Datos.Entidades.Usuario;
 import Negocio.ControlLogin;
-import Presentacion.interfaces.PanelImagen;
+import Presentacion.Interfaces.PanelImagen;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -18,7 +18,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import scrollbar.ScrollBarCustom;
+import Presentacion.Interfaces.ScrollBarCustom;
 
 /**
  *
@@ -121,7 +121,7 @@ public class LoginUsuarios extends javax.swing.JPanel {
     private void initComponents() {
 
         eLiquor = new javax.swing.JLabel();
-        PanelListaDeUsuarios = new PanelImagen("/Presentacion/imagenes/Paneles/Login/ListaDeUsuarios.png");
+        PanelListaDeUsuarios = new PanelImagen("/Presentacion/imagenes/Paneles/Login/PanelListaDeUsuarios.png");
         jLabel7 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();

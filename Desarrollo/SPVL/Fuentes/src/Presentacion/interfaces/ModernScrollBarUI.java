@@ -1,4 +1,4 @@
-package scrollbar;
+package Presentacion.Interfaces;
 
 import java.awt.Color;
 import java.awt.Dimension;

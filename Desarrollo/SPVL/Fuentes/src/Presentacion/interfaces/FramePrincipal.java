@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Presentacion.interfaces;
+package Presentacion.Interfaces;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -31,7 +31,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         Fondo = new PanelImagen("/Presentacion/imagenes/Fondo.png");
         ContenedorPaneles = new javax.swing.JPanel();
-        login = new Presentacion.interfaces.Login.Login();
+        login = new Presentacion.Interfaces.Login.Login();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -88,6 +88,6 @@ public class FramePrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ContenedorPaneles;
     private javax.swing.JPanel Fondo;
-    private Presentacion.interfaces.Login.Login login;
+    private Presentacion.Interfaces.Login.Login login;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,4 +1,4 @@
-package Presentacion.interfaces;
+package Presentacion.Interfaces;
 
 import javax.swing.JPanel;
 import java.awt.Graphics;

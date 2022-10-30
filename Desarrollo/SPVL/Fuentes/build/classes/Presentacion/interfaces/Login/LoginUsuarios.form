@@ -86,7 +86,7 @@
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new PanelImagen(&quot;/Presentacion/imagenes/Paneles/Login/ListaDeUsuarios.png&quot;)"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new PanelImagen(&quot;/Presentacion/imagenes/Paneles/Login/PanelListaDeUsuarios.png&quot;)"/>
       </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">

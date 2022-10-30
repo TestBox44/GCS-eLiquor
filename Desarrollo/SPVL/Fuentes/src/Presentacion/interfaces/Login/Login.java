@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package Presentacion.interfaces.Login;
+package Presentacion.Interfaces.Login;
 
 /**
  *
@@ -10,9 +10,8 @@ package Presentacion.interfaces.Login;
  */
 public class Login extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Login
-     */
+    private int idUsuarioSeleccionado;
+    
     public Login() {
         initComponents();
     }
@@ -26,9 +25,10 @@ public class Login extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        loginUsuarios = new Presentacion.interfaces.Login.LoginUsuarios();
+        loginUsuarios = new Presentacion.Interfaces.Login.LoginUsuarios();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(1360, 768));
         setPreferredSize(new java.awt.Dimension(1360, 768));
         setLayout(new java.awt.CardLayout());
         add(loginUsuarios, "card2");
@@ -36,6 +36,6 @@ public class Login extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Presentacion.interfaces.Login.LoginUsuarios loginUsuarios;
+    private Presentacion.Interfaces.Login.LoginUsuarios loginUsuarios;
     // End of variables declaration//GEN-END:variables
 }
