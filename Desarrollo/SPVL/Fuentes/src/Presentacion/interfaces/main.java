@@ -6,7 +6,6 @@ package Presentacion.interfaces;
 
 import Datos.DAO.UsuarioDAO;
 import Datos.Entidades.Usuario;
-import Presentacion.interfaces.Login.Login;
 import Presentacion.interfaces.Login.LoginUsuarios;
 
 /**
@@ -15,7 +14,7 @@ import Presentacion.interfaces.Login.LoginUsuarios;
  */
 public class main {
     public static void main(String[] args) {
-       Login login=new Login();
-       login.setVisible(true);
+       FramePrincipal framePrincipal=new FramePrincipal();
+       framePrincipal.setVisible(true);
     }
 }

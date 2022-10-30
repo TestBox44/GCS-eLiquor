@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -235,7 +236,9 @@ public class LoginUsuarios extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMousePressed
-        ((JFrame)getTopLevelAncestor()).dispose();
+        /*Utilizando utilidades de swing para obtener la ventana principal (FramePrincipal)
+        y cerrar todo el programa*/
+        ((JFrame) SwingUtilities.getWindowAncestor(this)).dispose();
     }//GEN-LAST:event_btnSalirMousePressed
 
 
