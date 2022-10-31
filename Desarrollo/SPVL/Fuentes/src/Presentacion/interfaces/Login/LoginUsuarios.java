@@ -142,7 +142,7 @@ public class LoginUsuarios extends javax.swing.JPanel {
         PanelListaDeUsuarios.setPreferredSize(new java.awt.Dimension(435, 768));
         PanelListaDeUsuarios.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel7.setFont(new java.awt.Font("Roboto Thin", 0, 30)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Inter", 0, 30)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(140, 140, 140));
         jLabel7.setText("USUARIOS");
         PanelListaDeUsuarios.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, -1, -1));

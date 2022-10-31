@@ -7,6 +7,6 @@ import java.util.List;
 public interface CRUD {
     public int add(Object[] o);
     public int actualizar(Object[] o);
-    public void eliminar(String id);
+    public void eliminar(int id);
     public List listar();
 }

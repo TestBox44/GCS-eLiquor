@@ -17,4 +17,5 @@ public class main {
        FramePrincipal framePrincipal=new FramePrincipal();
        framePrincipal.setVisible(true);
     }
+    
 }
