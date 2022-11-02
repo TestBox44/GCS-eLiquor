@@ -19,6 +19,10 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import Presentacion.Interfaces.ScrollBarCustom;
+import Presentacion.Utilidades.UtilidadesFuentes;
+import java.awt.CardLayout;
+import java.awt.Graphics;
+import javax.swing.JPanel;
 
 /**
  *
@@ -46,12 +50,16 @@ public class LoginUsuarios extends javax.swing.JPanel {
     Pues es el unico dato que necesitamos, el nombre puede cargarse
     en el metodo mostrarUsuariosEnLista
     */
-    Usuario [] usuarios;
+    Object[][] datosDeUsuarios;
     public LoginUsuarios() {
         initComponents();
-        setBackground(new Color(0,0,0,0));
+        btnSiguiente.setEnabled(false);
+        btnSiguiente.setVisible(false);
+        //setBackground(new Color(0,0,0,0));
+        setOpaque(false);
+     
         modeloListaDeUsuarios=(DefaultTableModel)ListaDeUsuarios.getModel();
-        ListaDeUsuarios.setFont(new Font("Arial",Font.PLAIN,25));
+        ListaDeUsuarios.setFont(UtilidadesFuentes.InterExtraLight.deriveFont(25.0f));
         ListaDeUsuarios.setForeground(Color.decode("#8C8C8C"));
         ListaDeUsuarios.setDefaultRenderer(Object.class, nuevoCellRenderer);
         ListaDeUsuarios.setSelectionBackground(Color.decode("#23A020"));
@@ -69,12 +77,11 @@ public class LoginUsuarios extends javax.swing.JPanel {
         //Seleccion de fila para iconos
         ListaDeUsuarios.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
         public void valueChanged(ListSelectionEvent event) {
-            // do some actions here, for example
-            // print first column value from selected row
+            btnSiguiente.setEnabled(true);
+            btnSiguiente.setVisible(true);
             for (int i = 0; i < ListaDeUsuarios.getRowCount(); i++) {
                 JLabel icono=(JLabel)ListaDeUsuarios.getValueAt(i, 0);
                 if(i==ListaDeUsuarios.getSelectedRow()){
-                    System.out.println(ListaDeUsuarios.getSelectedRow());
                     icono.setBackground(ListaDeUsuarios.getSelectionBackground());
                 }else{
                     icono.setBackground(ListaDeUsuarios.getBackground());
@@ -91,14 +98,10 @@ public class LoginUsuarios extends javax.swing.JPanel {
     private void mostrarUsuariosEnLista(){
     //Metodo donde se cargaran los usuarios de la BD y se mostraran en la lista
     //Se debe ejecutar al inicio
-        Object[][] datosDeUsuario=ControlLogin.mostrarListaDeUsuarios();
-        for (int i = 0; i < datosDeUsuario.length; i++) {
-            añadirUsuarioALista((String)datosDeUsuario[i][1]);
+        datosDeUsuarios=ControlLogin.mostrarListaDeUsuarios();
+        for (int i = 0; i < datosDeUsuarios.length; i++) {
+            añadirUsuarioALista((String)datosDeUsuarios[i][1]);
         }
-        /*UsuarioDAO udao=new UsuarioDAO();
-        for(Object u:udao.listar()){
-            añadirUsuarioALista(((Usuario)u).getNombre());
-        }*/
     }
     
     public void añadirUsuarioALista(String nombre){
@@ -122,43 +125,49 @@ public class LoginUsuarios extends javax.swing.JPanel {
 
         eLiquor = new javax.swing.JLabel();
         PanelListaDeUsuarios = new PanelImagen("/Presentacion/imagenes/Paneles/Login/PanelListaDeUsuarios.png");
-        jLabel7 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
+        btnSiguiente = new javax.swing.JLabel();
+        cabecera = new javax.swing.JSeparator();
+        pieDeLista = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         ListaDeUsuarios = new javax.swing.JTable();
+        TITULO1 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1360, 768));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        eLiquor.setFont(new java.awt.Font("Roboto Medium", 1, 140)); // NOI18N
+        eLiquor.setFont(UtilidadesFuentes.InterBold.deriveFont(140.0f));
         eLiquor.setForeground(new java.awt.Color(255, 255, 255));
         eLiquor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         eLiquor.setText("eLiquor");
         eLiquor.setPreferredSize(new java.awt.Dimension(569, 201));
+        add(eLiquor, new org.netbeans.lib.awtextra.AbsoluteConstraints(659, 283, -1, 160));
 
         PanelListaDeUsuarios.setBackground(new java.awt.Color(255, 255, 255));
         PanelListaDeUsuarios.setPreferredSize(new java.awt.Dimension(435, 768));
         PanelListaDeUsuarios.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel7.setFont(new java.awt.Font("Inter", 0, 30)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(140, 140, 140));
-        jLabel7.setText("USUARIOS");
-        PanelListaDeUsuarios.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, -1, -1));
+        btnSiguiente.setFont(UtilidadesFuentes.InterBlack.deriveFont(30.0f)
+        );
+        btnSiguiente.setForeground(Color.decode("#AEAEAE"));
+        btnSiguiente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnSiguiente.setText("→");
+        btnSiguiente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSiguiente.setPreferredSize(new java.awt.Dimension(70, 70));
+        btnSiguiente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnSiguienteMousePressed(evt);
+            }
+        });
+        PanelListaDeUsuarios.add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 560, -1, -1));
 
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/imagenes/flecha.png"))); // NOI18N
-        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelListaDeUsuarios.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 560, 60, 60));
+        cabecera.setForeground(new java.awt.Color(208, 208, 208));
+        cabecera.setPreferredSize(new java.awt.Dimension(350, 10));
+        PanelListaDeUsuarios.add(cabecera, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 370, -1));
 
-        jSeparator1.setForeground(new java.awt.Color(208, 208, 208));
-        jSeparator1.setPreferredSize(new java.awt.Dimension(350, 10));
-        PanelListaDeUsuarios.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 370, -1));
-
-        jSeparator2.setForeground(new java.awt.Color(208, 208, 208));
-        jSeparator2.setPreferredSize(new java.awt.Dimension(350, 10));
-        PanelListaDeUsuarios.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 550, 370, -1));
+        pieDeLista.setForeground(new java.awt.Color(208, 208, 208));
+        pieDeLista.setPreferredSize(new java.awt.Dimension(350, 10));
+        PanelListaDeUsuarios.add(pieDeLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 550, 370, -1));
 
         ListaDeUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -193,6 +202,15 @@ public class LoginUsuarios extends javax.swing.JPanel {
 
         PanelListaDeUsuarios.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 370, 460));
 
+        TITULO1.setFont(UtilidadesFuentes.InterExtraLight.deriveFont(25.0f));
+        TITULO1.setForeground(new java.awt.Color(140, 140, 140));
+        TITULO1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TITULO1.setText("SELECCIONE UN USUARIO");
+        TITULO1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        PanelListaDeUsuarios.add(TITULO1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 370, 90));
+
+        add(PanelListaDeUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 0, -1, -1));
+
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/imagenes/Boton Salir.png"))); // NOI18N
         btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -200,39 +218,7 @@ public class LoginUsuarios extends javax.swing.JPanel {
                 btnSalirMousePressed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(btnSalir)
-                .addContainerGap(1262, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(PanelListaDeUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(92, 92, 92)
-                    .addComponent(eLiquor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(689, Short.MAX_VALUE)
-                .addComponent(btnSalir)
-                .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(PanelListaDeUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(283, 283, 283)
-                            .addComponent(eLiquor, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 689, -1, 80));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMousePressed
@@ -241,16 +227,29 @@ public class LoginUsuarios extends javax.swing.JPanel {
         ((JFrame) SwingUtilities.getWindowAncestor(this)).dispose();
     }//GEN-LAST:event_btnSalirMousePressed
 
+    private void btnSiguienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSiguienteMousePressed
+        int ordenUsuarioSeleccionado = ListaDeUsuarios.getSelectedRow();
+        if(datosDeUsuarios!=null){
+            if(ordenUsuarioSeleccionado!=-1){
+                Login contenedorLogin = (Login)getParent();
+                contenedorLogin.setIdUsuarioSeleccionado((int)datosDeUsuarios[ListaDeUsuarios.getSelectedRow()][0]);
+                contenedorLogin.setNombreDeUsuarioSeleccionado((String)datosDeUsuarios[ListaDeUsuarios.getSelectedRow()][1]);
+                CardLayout layout = (CardLayout) contenedorLogin.getLayout();
+                layout.show(contenedorLogin, "loginPIN");
+            }
+        }
+    }//GEN-LAST:event_btnSiguienteMousePressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ListaDeUsuarios;
     private javax.swing.JPanel PanelListaDeUsuarios;
+    private javax.swing.JLabel TITULO1;
     private javax.swing.JLabel btnSalir;
+    private javax.swing.JLabel btnSiguiente;
+    private javax.swing.JSeparator cabecera;
     private javax.swing.JLabel eLiquor;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator pieDeLista;
     // End of variables declaration//GEN-END:variables
 }

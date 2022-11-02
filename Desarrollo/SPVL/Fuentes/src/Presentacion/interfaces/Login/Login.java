@@ -4,6 +4,9 @@
  */
 package Presentacion.Interfaces.Login;
 
+import java.awt.CardLayout;
+import java.awt.Color;
+
 /**
  *
  * @author sortizu
@@ -11,11 +14,31 @@ package Presentacion.Interfaces.Login;
 public class Login extends javax.swing.JPanel {
 
     private int idUsuarioSeleccionado;
+    private String nombreDeUsuarioSeleccionado;
     
     public Login() {
         initComponents();
+        setOpaque(false);
     }
 
+    public int getIdUsuarioSeleccionado() {
+        return idUsuarioSeleccionado;
+    }
+
+    public void setIdUsuarioSeleccionado(int idUsuarioSeleccionado) {
+        this.idUsuarioSeleccionado = idUsuarioSeleccionado;
+    }
+
+    public String getNombreDeUsuarioSeleccionado() {
+        return nombreDeUsuarioSeleccionado;
+    }
+
+    public void setNombreDeUsuarioSeleccionado(String nombreUsuarioSeleccionado) {
+        this.nombreDeUsuarioSeleccionado = nombreUsuarioSeleccionado;
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,16 +49,19 @@ public class Login extends javax.swing.JPanel {
     private void initComponents() {
 
         loginUsuarios = new Presentacion.Interfaces.Login.LoginUsuarios();
+        loginPIN = new Presentacion.Interfaces.Login.LoginPIN();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1360, 768));
         setPreferredSize(new java.awt.Dimension(1360, 768));
         setLayout(new java.awt.CardLayout());
-        add(loginUsuarios, "card2");
+        add(loginUsuarios, "loginUsuarios");
+        add(loginPIN, "loginPIN");
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private Presentacion.Interfaces.Login.LoginPIN loginPIN;
     private Presentacion.Interfaces.Login.LoginUsuarios loginUsuarios;
     // End of variables declaration//GEN-END:variables
 }

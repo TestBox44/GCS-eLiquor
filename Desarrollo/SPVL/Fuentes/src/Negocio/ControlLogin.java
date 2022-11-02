@@ -19,4 +19,16 @@ public class ControlLogin {
         }
         return datosUsuario;
     }
+    /*
+    Oportunidad: Se podria crear metodos en las entidades DAO para consultar
+    solo un usuario a la vez, sin tener que recorrer a todos los usuarios tal
+    como se hacer ahora.
+    */
+    public static boolean verificarPassword(int id, int ps){
+        UsuarioDAO udao = new UsuarioDAO();
+        List<Usuario> usuarios=udao.listar();
+        /*Se usa el id como indice porque internamente los id se definen segun
+        el orden de registro*/
+        return usuarios.get(id-1).getPIN()==ps;
+    }
 }

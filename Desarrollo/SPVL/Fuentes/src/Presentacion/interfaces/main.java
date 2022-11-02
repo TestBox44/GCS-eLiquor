@@ -14,8 +14,8 @@ import Presentacion.Interfaces.Login.LoginUsuarios;
  */
 public class main {
     public static void main(String[] args) {
-       FramePrincipal framePrincipal=new FramePrincipal();
-       framePrincipal.setVisible(true);
+        FramePrincipal framePrincipal=new FramePrincipal();
+        framePrincipal.setVisible(true);
     }
     
 }

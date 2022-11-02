@@ -5,7 +5,6 @@
 package Presentacion.Interfaces;
 
 import java.awt.CardLayout;
-import java.awt.Color;
 
 /**
  *
@@ -17,7 +16,9 @@ public class FramePrincipal extends javax.swing.JFrame {
     
     public FramePrincipal() {
         initComponents();
+        ContenedorPaneles.setOpaque(false);
         layoutContenedorPaneles=(CardLayout)(ContenedorPaneles.getLayout());
+        //layoutContenedorPaneles.show(ContenedorPaneles, "panelModulos");
     }
 
     /**
@@ -32,15 +33,16 @@ public class FramePrincipal extends javax.swing.JFrame {
         Fondo = new PanelImagen("/Presentacion/Imagenes/Fondo.png");
         ContenedorPaneles = new javax.swing.JPanel();
         login = new Presentacion.Interfaces.Login.Login();
+        panelModulos = new Presentacion.Interfaces.Menu.PanelModulos();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
         Fondo.setLayout(new java.awt.CardLayout());
 
-        ContenedorPaneles.setBackground(new Color(0,0,0,0));
         ContenedorPaneles.setLayout(new java.awt.CardLayout());
         ContenedorPaneles.add(login, "card2");
+        ContenedorPaneles.add(panelModulos, "panelModulos");
 
         Fondo.add(ContenedorPaneles, "card2");
 
@@ -88,5 +90,6 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel ContenedorPaneles;
     private javax.swing.JPanel Fondo;
     private Presentacion.Interfaces.Login.Login login;
+    private Presentacion.Interfaces.Menu.PanelModulos panelModulos;
     // End of variables declaration//GEN-END:variables
 }
