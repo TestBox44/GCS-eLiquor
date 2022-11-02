@@ -9,11 +9,13 @@ import java.io.InputStream;
  */
 public final class UtilidadesFuentes {
     public static final Font InterExtraLight;
+    public static final Font InterLight;
     public static final Font InterBlack;
     public static final Font InterBold;
     public static final Font InterRegular;
     static{
         InterExtraLight = cargarFuente("/Presentacion/Fuentes/Inter-ExtraLight.ttf",12);
+        InterLight = cargarFuente("/Presentacion/Fuentes/Inter-Light.ttf",12);
         InterBlack = cargarFuente("/Presentacion/Fuentes/Inter-Black.ttf",12);
         InterBold = cargarFuente("/Presentacion/Fuentes/Inter-Bold.ttf",12);
         InterRegular = cargarFuente("/Presentacion/Fuentes/Inter-Regular.ttf",12);

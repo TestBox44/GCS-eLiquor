@@ -1,6 +1,7 @@
 package Presentacion.Interfaces.Login;
 
 import Negocio.ControlLogin;
+import Negocio.ControlMenu;
 import Presentacion.Interfaces.PanelImagen;
 import Presentacion.Interfaces.PasswordFieldRedondeado;
 import Presentacion.Utilidades.UtilidadSesion;
@@ -409,8 +410,15 @@ public class LoginPIN extends javax.swing.JPanel {
             int ps = Integer.parseInt(String.valueOf(txtpassword.getPassword()));
             if(ControlLogin.verificarPassword(idUsuarioSeleccionado, ps)){
                 UtilidadSesion.idUsuarioActual=idUsuarioSeleccionado;
+                UtilidadSesion.nombreUsuarioActual=nombreDeUsuarioSeleccionado.getText();
                 JPanel parent = (JPanel)getParent().getParent();
                 CardLayout layout = (CardLayout) parent.getLayout();
+                //Instanciando el panel contenedor del menu y los otros modulos
+                Presentacion.Interfaces.Menu.PanelModulos panelModulos=new Presentacion.Interfaces.Menu.PanelModulos();
+                Presentacion.Interfaces.Menu.Menu menu=
+                        new Presentacion.Interfaces.Menu.Menu(nombreDeUsuarioSeleccionado.getText(),ControlMenu.cargarPermisosDeUsuario(idUsuarioSeleccionado));
+                panelModulos.add("menu",menu);
+                parent.add("panelModulos",panelModulos);
                 layout.show(parent, "panelModulos");
             }else{
                 throw new Exception("La contraseña no coincide");
@@ -420,7 +428,7 @@ public class LoginPIN extends javax.swing.JPanel {
             lblAlerta.setVisible(true);
         }
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelPIN;
     private javax.swing.JPanel PanelTeclado;

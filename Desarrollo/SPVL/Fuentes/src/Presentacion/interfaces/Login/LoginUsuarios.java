@@ -108,7 +108,7 @@ public class LoginUsuarios extends javax.swing.JPanel {
         JLabel imagenUsuario=new JLabel(new ImageIcon(getClass().getResource("/Presentacion/imagenes/iconoCuenta.png")));
         modeloListaDeUsuarios.addRow(new Object[]{imagenUsuario,nombre});
         //Adaptando el tamaño de la barra de Scroll
-        double newScrollBarHeight=Math.pow(jScrollPane1.getHeight(),2)/(
+        double newScrollBarHeight=Math.pow(jScrollPane1.getPreferredSize().getHeight(),2)/(
                 ListaDeUsuarios.getRowHeight()*ListaDeUsuarios.getRowCount());
         
         scrollCustom.setThumbSize((int)newScrollBarHeight);
@@ -169,6 +169,8 @@ public class LoginUsuarios extends javax.swing.JPanel {
         pieDeLista.setPreferredSize(new java.awt.Dimension(350, 10));
         PanelListaDeUsuarios.add(pieDeLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 550, 370, -1));
 
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(370, 460));
+
         ListaDeUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -200,7 +202,7 @@ public class LoginUsuarios extends javax.swing.JPanel {
             ListaDeUsuarios.getColumnModel().getColumn(1).setPreferredWidth(800);
         }
 
-        PanelListaDeUsuarios.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 370, 460));
+        PanelListaDeUsuarios.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
 
         TITULO1.setFont(UtilidadesFuentes.InterExtraLight.deriveFont(25.0f));
         TITULO1.setForeground(new java.awt.Color(140, 140, 140));

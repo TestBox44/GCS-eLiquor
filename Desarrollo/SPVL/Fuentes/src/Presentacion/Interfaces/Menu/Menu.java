@@ -4,9 +4,16 @@
  */
 package Presentacion.Interfaces.Menu;
 
+import Negocio.ControlMenu;
 import Presentacion.Interfaces.PanelImagen;
+import Presentacion.Utilidades.UtilidadSesion;
 import Presentacion.Utilidades.UtilidadesFuentes;
+import java.awt.CardLayout;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.HierarchyListener;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -18,11 +25,18 @@ public class Menu extends javax.swing.JPanel {
     /**
      * Creates new form Menu
      */
-    public Menu() {
+    public Menu(String nombreUsuario, boolean [] permisos) {
         initComponents();
         setOpaque(false);
+        btnModuloVentas.setEnabled(permisos[0]);
+        btnModuloUsuarios.setEnabled(permisos[1]);
+        btnModuloProveedores.setEnabled(permisos[2]);
+        btnModuloClientes.setEnabled(permisos[3]);
+        btnModuloInventario.setEnabled(permisos[4]);
+        btnModuloReportes.setEnabled(permisos[5]);
+        lblUsuario.setText("¡Bienvenido, "+nombreUsuario.split(" ")[0]+"!");
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,11 +68,12 @@ public class Menu extends javax.swing.JPanel {
         btnModuloProveedores = new javax.swing.JLabel();
         btnModuloUsuarios = new javax.swing.JLabel();
         lblNombreDeSistema = new javax.swing.JLabel();
-        lblNombreDeSistema1 = new javax.swing.JLabel();
+        lvlversion = new javax.swing.JLabel();
         btnSalir = new javax.swing.JLabel();
         btnConfiguracion = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
+        setMinimumSize(new java.awt.Dimension(1360, 768));
         setPreferredSize(new java.awt.Dimension(1360, 768));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -181,6 +196,11 @@ public class Menu extends javax.swing.JPanel {
 
         btnModuloUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Usuarios.png"))); // NOI18N
         btnModuloUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModuloUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnModuloUsuariosMousePressed(evt);
+            }
+        });
         PanelDeBotonesDeModulos.add(btnModuloUsuarios);
 
         PanelSistema.add(PanelDeBotonesDeModulos, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 365, -1, 310));
@@ -192,12 +212,12 @@ public class Menu extends javax.swing.JPanel {
         lblNombreDeSistema.setPreferredSize(new java.awt.Dimension(425, 30));
         PanelSistema.add(lblNombreDeSistema, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 738, -1, -1));
 
-        lblNombreDeSistema1.setFont(UtilidadesFuentes.InterRegular.deriveFont(15.0f));
-        lblNombreDeSistema1.setForeground(new java.awt.Color(140, 140, 140));
-        lblNombreDeSistema1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblNombreDeSistema1.setText("V 1.0");
-        lblNombreDeSistema1.setPreferredSize(new java.awt.Dimension(425, 30));
-        PanelSistema.add(lblNombreDeSistema1, new org.netbeans.lib.awtextra.AbsoluteConstraints(464, 738, -1, -1));
+        lvlversion.setFont(UtilidadesFuentes.InterRegular.deriveFont(15.0f));
+        lvlversion.setForeground(new java.awt.Color(140, 140, 140));
+        lvlversion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lvlversion.setText("V 1.0");
+        lvlversion.setPreferredSize(new java.awt.Dimension(425, 30));
+        PanelSistema.add(lvlversion, new org.netbeans.lib.awtextra.AbsoluteConstraints(464, 738, -1, -1));
 
         add(PanelSistema, new org.netbeans.lib.awtextra.AbsoluteConstraints(216, 0, -1, -1));
 
@@ -226,6 +246,14 @@ public class Menu extends javax.swing.JPanel {
         ((JFrame) SwingUtilities.getWindowAncestor(this)).dispose();
     }//GEN-LAST:event_btnSalirMousePressed
 
+    private void btnModuloUsuariosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloUsuariosMousePressed
+        JPanel parent = (JPanel)getParent();
+        CardLayout layout = (CardLayout) parent.getLayout();
+        Presentacion.Interfaces.Usuarios.Usuarios usuarios = new Presentacion.Interfaces.Usuarios.Usuarios();
+        parent.add("usuarios",usuarios);
+        layout.show(parent, "usuarios");
+    }//GEN-LAST:event_btnModuloUsuariosMousePressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelDeBotonesDeModulos;
@@ -249,10 +277,10 @@ public class Menu extends javax.swing.JPanel {
     private javax.swing.JLabel lblHorasAperturadas;
     private javax.swing.JLabel lblMENU;
     private javax.swing.JLabel lblNombreDeSistema;
-    private javax.swing.JLabel lblNombreDeSistema1;
     private javax.swing.JLabel lblNombreLicoreria;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel lnlNumTerminal;
+    private javax.swing.JLabel lvlversion;
     private javax.swing.JSeparator pie;
     // End of variables declaration//GEN-END:variables
 }

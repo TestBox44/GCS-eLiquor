@@ -4,6 +4,10 @@
  */
 package Presentacion.Interfaces.Menu;
 
+import Presentacion.Interfaces.Login.Login;
+import java.awt.event.HierarchyEvent;
+import javax.swing.JComponent;
+
 /**
  *
  * @author sortizu
@@ -27,15 +31,25 @@ public class PanelModulos extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        menu = new Presentacion.Interfaces.Menu.Menu();
-
         setPreferredSize(new java.awt.Dimension(1360, 768));
+        addHierarchyListener(new java.awt.event.HierarchyListener() {
+            public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
+                formHierarchyChanged(evt);
+            }
+        });
         setLayout(new java.awt.CardLayout());
-        add(menu, "menu");
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formHierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_formHierarchyChanged
+        JComponent component = (JComponent)evt.getSource();
+        if ((HierarchyEvent.SHOWING_CHANGED & evt.getChangeFlags()) != 0
+        &&  component.isShowing())
+        {
+            
+        }
+    }//GEN-LAST:event_formHierarchyChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Presentacion.Interfaces.Menu.Menu menu;
     // End of variables declaration//GEN-END:variables
 }
