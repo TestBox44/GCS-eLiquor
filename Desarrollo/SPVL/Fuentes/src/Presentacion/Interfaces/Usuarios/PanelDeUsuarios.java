@@ -139,7 +139,7 @@ public class PanelDeUsuarios extends javax.swing.JPanel implements PropertyChang
         lblHora = new javax.swing.JLabel();
         lblSeleccion = new javax.swing.JLabel();
         selectorSeleccion = new Selector(new String[]{"SI","NO"},50,37);
-        PanelBotonesCRUD = new PanelImagen("/Presentacion/Imagenes/Botones CRUD.png");
+        PanelBotonesCRUD = new PanelImagen("/Presentacion/Imagenes/BotonesCRUD3.png");
         btnEliminar = new javax.swing.JLabel();
         btnModificar = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JLabel();

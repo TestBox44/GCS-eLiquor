@@ -5,9 +5,6 @@
 package Presentacion.Interfaces.Usuarios;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 /**
