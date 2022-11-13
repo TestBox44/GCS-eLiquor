@@ -180,6 +180,11 @@ public class Menu extends javax.swing.JPanel {
 
         btnModuloInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Inventario.png"))); // NOI18N
         btnModuloInventario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModuloInventario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnModuloInventarioMousePressed(evt);
+            }
+        });
         PanelDeBotonesDeModulos.add(btnModuloInventario);
 
         btnModuloReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Reportes.png"))); // NOI18N
@@ -253,6 +258,14 @@ public class Menu extends javax.swing.JPanel {
         parent.add("usuarios",usuarios);
         layout.show(parent, "usuarios");
     }//GEN-LAST:event_btnModuloUsuariosMousePressed
+
+    private void btnModuloInventarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloInventarioMousePressed
+        JPanel parent = (JPanel)getParent();
+        CardLayout layout = (CardLayout) parent.getLayout();
+        Presentacion.Interfaces.Inventario.Inventario inventario = new Presentacion.Interfaces.Inventario.Inventario();
+        parent.add("inventario",inventario);
+        layout.show(parent, "inventario");
+    }//GEN-LAST:event_btnModuloInventarioMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
