@@ -4,6 +4,7 @@
  */
 package Presentacion.Interfaces;
 
+import Presentacion.Utilidades.UtilidadSesion;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -11,6 +12,9 @@ import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import javax.swing.JPanel;
 
+//Paquetes importados para debug
+import Presentacion.Interfaces.Inventario.Inventario;
+import Presentacion.Interfaces.Usuarios.Usuarios;
 /**
  *
  * @author sortizu
@@ -40,7 +44,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         overlay.setBackground(new Color(129,129,129,114));
         overlay.addMouseListener( new MouseAdapter() { } );
         setGlassPane(overlay);
-        
+        //-------------------------------------------------------------------------------------------------------------------------
         //Considerar este codigo como el modo "Debug"
         //Instancia el contenedor de modulo que desees probar y este aparecera 
         //al ejecutar el programa
@@ -48,12 +52,28 @@ public class FramePrincipal extends javax.swing.JFrame {
         //Existe entonces el contenedor "Clientes","Usuarios",etc. dentro de paquetes con el mismo nombre
         //en el paquete de interfaces. Si deseas ver las interfaces de un modulo asegurate que estas instanciando
         //su contenedor, caso contrario puede que las interfaces no funcionen correctamente.
-        /*
-        Presentacion.Interfaces.Usuarios.Usuarios usuarios = 
-            new Presentacion.Interfaces.Usuarios.Usuarios(); //Este es el contenedor de las interfaces de usuario
-        ContenedorPaneles.add("usuarios",usuarios);
-        layoutContenedorPaneles.show(ContenedorPaneles, "usuarios");*/
+        //Para ver el inicio normal del sistema, debes comentar toda la zona de debug.
+        //Inicio de zona de debug
+        {
+        UtilidadSesion.nombreUsuarioActual="Debug";
         
+        //Cambiar a partir de aqui
+        
+        //Descomenta las tres lineas de abajo para entrar directamente al modulo de usuarios
+        /*Usuarios usuarios = new Usuarios();
+        ContenedorPaneles.add("usuarios",usuarios);
+        layoutContenedorPaneles.show(ContenedorPaneles, "usuarios");
+        */
+        
+        
+        //Descomenta las tres lineas de abajo para entrar directamente al modulo de inventario
+        Inventario inventario = new Inventario();
+        ContenedorPaneles.add("inventario",inventario);
+        layoutContenedorPaneles.show(ContenedorPaneles, "inventario");
+        
+        }
+        //Fin de zona de debug
+        //-------------------------------------------------------------------------------------------------------------------------
     }
 
     /**

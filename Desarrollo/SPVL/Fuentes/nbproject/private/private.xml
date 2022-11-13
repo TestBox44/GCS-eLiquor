@@ -3,14 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/FramePrincipal.java</file>
+            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/TextFieldRedondeado.java</file>
             <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/Login/LoginUsuarios.java</file>
-            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/Menu/Menu.java</file>
-            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Datos/Entidades/Usuario.java</file>
-            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/Selector.java</file>
+            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/Inventario/Inventario.java</file>
+            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/Inventario/PanelDeInventario.java</file>
+            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/Buscador.java</file>
             <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/Usuarios/PanelDeUsuarios.java</file>
-            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/RenderDeCabecera.java</file>
-            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/Usuarios/Usuarios.java</file>
-            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Negocio/ControlUsuarios.java</file>
+            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/VentanaEmergente.java</file>
+            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Negocio/ControlInventario.java</file>
+            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/Inventario/AgregarDepartamento.java</file>
+            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Datos/Entidades/Departamento.java</file>
+            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/Usuarios/AgregarUsuario.java</file>
         </group>
     </open-files>
 </project-private>

@@ -19,6 +19,10 @@ public class PanelImagen extends JPanel{
         this.direcciondeimagen=direcciondeimagen;
         imagen=new ImageIcon(PanelImagen.class.getResource(direcciondeimagen)).getImage();
     }
+
+    public Image getImagen() {
+        return imagen;
+    }
     
     @Override
     public void paintComponent(Graphics g){
