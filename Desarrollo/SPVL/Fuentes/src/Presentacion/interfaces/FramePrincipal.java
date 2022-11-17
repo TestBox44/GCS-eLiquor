@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 //Paquetes importados para debug
 import Presentacion.Interfaces.Inventario.Inventario;
 import Presentacion.Interfaces.Usuarios.Usuarios;
+import Presentacion.Interfaces.Ventas.Ventas;
 /**
  *
  * @author sortizu
@@ -27,7 +28,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         initComponents();
         ContenedorPaneles.setOpaque(false);
         layoutContenedorPaneles=(CardLayout)(ContenedorPaneles.getLayout());
-        
+        setLocationRelativeTo(null);
         //Configuracion del overlay (Ventanas desplegables)
         JPanel overlay=new JPanel(){
             @Override
@@ -67,9 +68,15 @@ public class FramePrincipal extends javax.swing.JFrame {
         
         
         //Descomenta las tres lineas de abajo para entrar directamente al modulo de inventario
-        Inventario inventario = new Inventario();
+        /*Inventario inventario = new Inventario();
         ContenedorPaneles.add("inventario",inventario);
-        layoutContenedorPaneles.show(ContenedorPaneles, "inventario");
+        layoutContenedorPaneles.show(ContenedorPaneles, "inventario");*/
+        
+        //Descomenta las tres lineas de abajo para entrar directamente al modulo de ventas
+        Ventas ventas = new Ventas();
+        ContenedorPaneles.add("ventas",ventas);
+        layoutContenedorPaneles.show(ContenedorPaneles, "ventas");
+        
         
         }
         //Fin de zona de debug
