@@ -1,3 +1,0 @@
-Presentacion.Interfaces.Inventario.AgregarProducto
-Presentacion.Interfaces.Inventario.AgregarProducto$2
-Presentacion.Interfaces.Inventario.AgregarProducto$1

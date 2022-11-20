@@ -22,6 +22,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
@@ -116,11 +117,13 @@ public class PanelDeInventario extends javax.swing.JPanel implements PropertyCha
         
         ((Buscador)buscador).getTxtABuscar().setFont(UtilidadesFuentes.InterRegular.deriveFont(20.0f));
         ((Buscador)buscador).getTxtABuscar().setForeground(Color.decode("#8C8C8C"));
-        
+        ((Buscador)buscador).setPreferredSize(new Dimension(375,37));
         ((Buscador)buscador).getTxtABuscar().addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
+            @Override
+            public void keyPressed(KeyEvent e) {
                 BuscarDeFiltro(((Buscador)buscador).getTxtABuscar().getText());
             }
+            
         });
         
         //Creando tabla de items

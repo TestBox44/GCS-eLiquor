@@ -14,15 +14,15 @@ import javax.swing.JPanel;
  */
 public class Ventas extends javax.swing.JPanel {
 
-    private JPanel panelDeUsuarios;
+    private JPanel panelDeVentas;
     
     public Ventas() {
         initComponents();
         setOpaque(false);
         //panelDeUsuarios.setPreferredSize(new Dimension(1360,768));
-        panelDeUsuarios=new PanelDeUsuarios();
-        panelDeUsuarios.setBounds(0, 0, 1360, 768);
-        add(panelDeUsuarios,BorderLayout.CENTER);
+        panelDeVentas=new PanelDeVentas();
+        panelDeVentas.setBounds(0, 0, 1360, 768);
+        add(panelDeVentas,BorderLayout.CENTER);
     }
 
     

@@ -8,6 +8,8 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JSeparator;
@@ -20,35 +22,47 @@ import javax.swing.border.LineBorder;
  */
 public class Buscador extends PanelRedondeado{
     private JLabel btnBuscar = new JLabel(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/lupa.png")));
-    private JTextField txtABuscar=new JTextField();
+    private JTextField txtABuscar=new JTextField(0);
     
     public Buscador() {
         super(30,3,Color.white,Color.decode("#8C8C8C"));
         setOpaque(false);
-        FlowLayout layout = new FlowLayout();
-        layout.setVgap(0);
-        layout.setHgap(0);
-        this.setLayout(layout);
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints gbc= new GridBagConstraints();
         
         setBorder( BorderFactory.createEmptyBorder(0, 10, 0, 0) );
         
-        txtABuscar.setPreferredSize(new Dimension(320,37));
+        txtABuscar.setPreferredSize(new Dimension(0,0));
         txtABuscar.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         txtABuscar.setOpaque(false);
+        gbc.gridx=0;
+        gbc.gridy=0;
+        gbc.fill=GridBagConstraints.BOTH;
+        gbc.weightx=1;
+        gbc.weighty=1;
+        this.add(txtABuscar,gbc);
         
         JSeparator separador = new JSeparator(javax.swing.SwingConstants.VERTICAL);
-        separador.setPreferredSize(new Dimension(getGrosorDeBorde(),37));
+        separador.setPreferredSize(new Dimension(getGrosorDeBorde(),0));
         separador.setBorder(new LineBorder(getColorBorde(),getGrosorDeBorde()));
+        gbc.gridx=1;
+        gbc.gridy=0;
+        gbc.fill=GridBagConstraints.VERTICAL;
+        gbc.weightx=0;
+        gbc.weighty=1;
+        this.add(separador,gbc);
         
         btnBuscar.setHorizontalAlignment(JLabel.CENTER);
-        btnBuscar.setPreferredSize(new Dimension(40,37));
-        btnBuscar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        this.setPreferredSize(new Dimension(375,37));
+        btnBuscar.setPreferredSize(new Dimension(40,0));
+        btnBuscar.setBorder( BorderFactory.createEmptyBorder(0, 0, 0, 5) );
+        gbc.gridx=2;
+        gbc.gridy=0;
+        gbc.fill=GridBagConstraints.VERTICAL;
+        gbc.weightx=0;
+        gbc.weighty=1;
+        this.add(btnBuscar,gbc);
+        this.setPreferredSize(new Dimension(0,37));
         
-
-        this.add(txtABuscar);
-        this.add(separador);
-        this.add(btnBuscar);
     }
 
     public JLabel getBtnBuscar() {

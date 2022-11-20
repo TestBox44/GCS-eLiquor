@@ -1,5 +1,0 @@
-Presentacion.Interfaces.Inventario.IngresoProducto1
-Presentacion.Interfaces.Inventario.IngresoProducto1$4
-Presentacion.Interfaces.Inventario.IngresoProducto1$3
-Presentacion.Interfaces.Inventario.IngresoProducto1$2
-Presentacion.Interfaces.Inventario.IngresoProducto1$1

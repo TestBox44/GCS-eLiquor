@@ -2,10 +2,16 @@ package Presentacion.Interfaces;
 
 import Presentacion.Utilidades.UtilidadesFuentes;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.beans.EventHandler;
 import javax.swing.JTextPane;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -54,13 +60,37 @@ public class Item extends PanelImagen{
         docCantidad.setParagraphAttributes(0, docCantidad.getLength(), center, false);
         
         gbc.weightx=1.0;
-        gbc.fill=GridBagConstraints.HORIZONTAL;
+        gbc.fill=GridBagConstraints.BOTH;
         gbc.gridx=0;
         gbc.gridy=0;
         add(nombre,gbc);
         gbc.gridx=0;
         gbc.gridy=1;
+        gbc.fill=GridBagConstraints.HORIZONTAL;
         add(subtitulo,gbc);
+        
+        final Container padreItem = (Container)this;
+        MouseListener mouseListener=new MouseListener(){
+            @Override
+            public void mouseClicked(MouseEvent e) {}
+
+            @Override
+            public void mousePressed(MouseEvent e) {}
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                e.setSource(padreItem);
+                padreItem.dispatchEvent(e);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        };
+       nombre.addMouseListener(mouseListener);
+       subtitulo.addMouseListener(mouseListener);
     }
     
     public Item(String nombre, String cantidad) {
@@ -116,7 +146,6 @@ public class Item extends PanelImagen{
         this.ancho = ancho;
         setPreferredSize(new Dimension(ancho,alto));
     }
-    
     
     
 }
