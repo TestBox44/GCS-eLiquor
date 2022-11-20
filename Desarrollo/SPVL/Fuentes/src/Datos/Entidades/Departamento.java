@@ -20,9 +20,10 @@ public class Departamento {
     public Departamento() {
     }
 
-    public Departamento(int idDepartamento, String nombre, boolean mostrarEnCaja, LocalDate fechaRegistro) {
+    public Departamento(int idDepartamento, String nombre /* , int cantidad*/ , boolean mostrarEnCaja, LocalDate fechaRegistro) {
         this.idDepartamento = idDepartamento;
         this.nombre = nombre;
+       // this.cantidad = cantidad;
         this.mostrarEnCaja = mostrarEnCaja;
         this.fechaRegistro = fechaRegistro;
     }
@@ -66,5 +67,7 @@ public class Departamento {
     public void setFechaRegistro(LocalDate fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
+    
+  
     
 }

@@ -4,6 +4,8 @@
  */
 package Presentacion.Interfaces;
 
+import Datos.DAO.DepartamentoDAO;
+import Datos.Entidades.Departamento;
 import Presentacion.Utilidades.UtilidadSesion;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -15,6 +17,7 @@ import javax.swing.JPanel;
 //Paquetes importados para debug
 import Presentacion.Interfaces.Inventario.Inventario;
 import Presentacion.Interfaces.Usuarios.Usuarios;
+import java.time.LocalDate;
 /**
  *
  * @author sortizu
@@ -25,6 +28,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     
     public FramePrincipal() {
         initComponents();
+        setLocationRelativeTo(null);
         ContenedorPaneles.setOpaque(false);
         layoutContenedorPaneles=(CardLayout)(ContenedorPaneles.getLayout());
         
@@ -62,11 +66,12 @@ public class FramePrincipal extends javax.swing.JFrame {
         //Descomenta las tres lineas de abajo para entrar directamente al modulo de usuarios
         /*Usuarios usuarios = new Usuarios();
         ContenedorPaneles.add("usuarios",usuarios);
-        layoutContenedorPaneles.show(ContenedorPaneles, "usuarios");
-        */
+        layoutContenedorPaneles.show(ContenedorPaneles, "usuarios");*/
+        
         
         
         //Descomenta las tres lineas de abajo para entrar directamente al modulo de inventario
+        
         Inventario inventario = new Inventario();
         ContenedorPaneles.add("inventario",inventario);
         layoutContenedorPaneles.show(ContenedorPaneles, "inventario");

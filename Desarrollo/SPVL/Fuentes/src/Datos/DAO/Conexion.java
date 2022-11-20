@@ -9,7 +9,7 @@ public class Conexion {
     Connection con;
     String url = "jdbc:mysql://localhost/spvl?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDateTimeCode=false&serverTimezone=UTC&useSSL=false";
     String user = "root";
-    String pass = "1234";
+    String pass = "raw456789";
     
     //Método para realizar la conexión con la BD
     public Connection Conectar(){
