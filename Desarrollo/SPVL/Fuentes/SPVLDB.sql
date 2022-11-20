@@ -21,13 +21,16 @@ create table departamento(
     mostrarEnCaja bool NOT NULL
 );
 
-
-
+drop table DepartamentoProducto;
+drop table producto;
+drop table departamento;
 
 create table DepartamentoProducto(
 	idDepartamentoProducto int AUTO_INCREMENT PRIMARY KEY NOT NULL,
     idDepartamento int NOT NULL,
-    idProducto int NOT NULL
+    idProducto int NOT NULL,
+    constraint fk_producto foreign key (idProducto) references producto (idProducto) on update cascade on delete cascade,
+    constraint fk_departamento foreign key (idDepartamento) references departamento (idDepartamento) on update cascade on delete cascade
 );
 
 create table producto(
@@ -51,11 +54,23 @@ select * from producto;
 select nombre, precio, costo, stock from producto where idProducto=2;
 select * from departamento;
 
-drop table departamento;
-
+drop table departamentoProducto;
 
 select idProducto from producto;
 select idProducto from departamentoproducto where idDepartamento=2;
 delete from departamento where idDepartamento=2;
 
+
+insert into usuarios(nombre,PIN,gestionarVentas,gestionarUsuarios,gestionarProveedores,gestionarClientes,gestionarInventario,generarReportes) values
+("alonso",2222,1,1,1,1,1,1);
+select * from departamentoProducto;
+select * from departamento;
+select * from producto;
+select * from usuarios;
+select * from venta;
+
+delete from producto where idProducto = 3;
+drop table departamentoProducto;
+drop table producto;
+drop table departamento;
 

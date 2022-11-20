@@ -171,9 +171,9 @@ public class ControlInventario {
         
         DepartamentoDAO ddao=new DepartamentoDAO();
         for (Departamento departamento: departamentosABorrar) {
-            ddao.eliminar(departamento.getIdDepartamento());
-            System.out.println("El id del dep es"+departamento.getNombre());
             eliminarProductos(cargarProductos(departamento.getIdDepartamento()));
+            ddao.eliminar(departamento.getIdDepartamento());
+            
         }
     }
     
