@@ -32,7 +32,7 @@ public class VentaPago1 extends VentanaEmergente{
     private PanelDeVentas panelPrincipalDeModuloDeVentas;
     private Venta ventaActual;
     private JLabel lblMonto;
-    private TextFieldRedondeado txtMonto;
+    private TextFieldRedondeado txtMonto; //Valor de pago cliente
     private BotonMontoPago btn10;
     private BotonMontoPago btn20;
     private BotonMontoPago btn50;
@@ -40,12 +40,15 @@ public class VentaPago1 extends VentanaEmergente{
     private BotonMontoPago btn200;
     
     
-    public VentaPago1(PanelDeVentas panelPrincipalDeModuloDeVentas, Venta ventaActual) {
+    public VentaPago1(PanelDeVentas panelPrincipalDeModuloDeVentas, Venta ventaActualRef) {
         super("/Presentacion/Imagenes/Paneles/Ventas/PanelPago1.png");
         cambiarDisposicionDePanelDeBotones(VentanaEmergente.PRIMERVENTANA);
         this.panelPrincipalDeModuloDeVentas=panelPrincipalDeModuloDeVentas;
         setTextoTitulo("PAGO");
-        this.ventaActual=ventaActual;
+        ventaActual= new Venta();
+        ventaActual.setDetallesVenta(ventaActualRef.getDetallesVenta());
+        ventaActual.setPagoCliente(ventaActualRef.getPagoCliente());
+        
         setColorTitulo(Color.decode("#8CC560"));
         JPanel cuerpo = getCuerpo();
         cuerpo.setLayout(new GridBagLayout());
@@ -73,7 +76,7 @@ public class VentaPago1 extends VentanaEmergente{
         txtMonto.setBorder( BorderFactory.createEmptyBorder(2, 20, 0, 20) );
         txtMonto.setPreferredSize(new Dimension(1,45));
         txtMonto.setMinimumSize(new Dimension(1,45));
-        txtMonto.setText(Double.toString(0));
+        txtMonto.setText(Double.toString(ventaActual.getPagoCliente()));
         gbc.insets = new Insets(0, 50, 15, 50);
         gbc.gridx=0;
         gbc.gridy=1;
@@ -122,7 +125,15 @@ public class VentaPago1 extends VentanaEmergente{
 
     @Override
     public void btnSiguientePresionado(MouseEvent evt) {
+        try{
+            ventaActual.setPagoCliente(Double.parseDouble(txtMonto.getText()));
+        }catch(NumberFormatException er){
+            ventaActual.setPagoCliente(0);
+        }
         ((FramePrincipal)((JFrame) SwingUtilities.getWindowAncestor(this))).cerrarPanelesEmergentes();
+         VentaPago2 ventaPago2 = new VentaPago2(panelPrincipalDeModuloDeVentas,ventaActual);
+         ((FramePrincipal) SwingUtilities.getWindowAncestor(panelPrincipalDeModuloDeVentas)).mostrarPanelEmergente(ventaPago2);
+         ventaPago2.requestFocus();
     }
 
     
