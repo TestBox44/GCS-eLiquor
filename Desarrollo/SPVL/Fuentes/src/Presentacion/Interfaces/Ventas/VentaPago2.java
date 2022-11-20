@@ -48,7 +48,7 @@ public class VentaPago2 extends VentanaEmergente{
         ventaActual= new Venta();
         ventaActual.setDetallesVenta(ventaActualRef.getDetallesVenta());
         ventaActual.setPagoCliente(ventaActualRef.getPagoCliente());
-        ventaActual.setCambio(ventaActual.getVentaNeta()-ventaActual.getPagoCliente());
+        ventaActual.setCambio(ventaActual.getPagoCliente()-ventaActual.getVentaNeta());
         setColorTitulo(Color.decode("#8CC560"));
         JPanel cuerpo = getCuerpo();
         cuerpo.setLayout(new GridBagLayout());
