@@ -4,29 +4,19 @@ import Datos.Entidades.Usuario;
 import Datos.Entidades.Venta;
 import Negocio.ControlVentas;
 import Presentacion.Interfaces.FramePrincipal;
-import Presentacion.Interfaces.PanelRedondeado;
-import Presentacion.Interfaces.TextFieldRedondeado;
 import Presentacion.Interfaces.VentanaEmergente;
 import Presentacion.Utilidades.UtilidadSesion;
 import Presentacion.Utilidades.UtilidadesFuentes;
 import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
-import javax.swing.text.PlainDocument;
 
 /**
  *
@@ -138,6 +128,9 @@ public class VentaPago2 extends VentanaEmergente{
         ventaARegistrar.setUsuario(usuarioEnSesion);
         ControlVentas.registrarVenta(ventaARegistrar);
         ((FramePrincipal)((JFrame) SwingUtilities.getWindowAncestor(this))).cerrarPanelesEmergentes();
+        panelPrincipalDeModuloDeVentas.ventaActual=new Venta();
+        panelPrincipalDeModuloDeVentas.modeloDeListaDeVenta.setRowCount(0);
+        panelPrincipalDeModuloDeVentas.actualizarDatosVenta();
     }
     
     @Override

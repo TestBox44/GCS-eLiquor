@@ -176,6 +176,11 @@ public class Menu extends javax.swing.JPanel {
 
         btnModuloVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Ventas.png"))); // NOI18N
         btnModuloVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModuloVentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnModuloVentasMousePressed(evt);
+            }
+        });
         PanelDeBotonesDeModulos.add(btnModuloVentas);
 
         btnModuloInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Inventario.png"))); // NOI18N
@@ -266,6 +271,14 @@ public class Menu extends javax.swing.JPanel {
         parent.add("inventario",inventario);
         layout.show(parent, "inventario");
     }//GEN-LAST:event_btnModuloInventarioMousePressed
+
+    private void btnModuloVentasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloVentasMousePressed
+        JPanel parent = (JPanel)getParent();
+        CardLayout layout = (CardLayout) parent.getLayout();
+        Presentacion.Interfaces.Ventas.Ventas ventas = new Presentacion.Interfaces.Ventas.Ventas();
+        parent.add("ventas",ventas);
+        layout.show(parent, "ventas");
+    }//GEN-LAST:event_btnModuloVentasMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

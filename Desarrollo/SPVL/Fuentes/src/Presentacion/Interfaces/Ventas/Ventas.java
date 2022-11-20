@@ -4,7 +4,6 @@
  */
 package Presentacion.Interfaces.Ventas;
 
-import Presentacion.Interfaces.Usuarios.*;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
