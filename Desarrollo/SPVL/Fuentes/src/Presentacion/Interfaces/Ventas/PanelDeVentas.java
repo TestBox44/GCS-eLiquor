@@ -56,6 +56,7 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
+
 /**
  *
  * @author sortizu
@@ -70,7 +71,7 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
     private int[] cursor = new int[]{0,0};
     private JScrollPane scrollPaneDeListaDeItems;
     private JTable TablaListaDeItems;
-    private DefaultTableModel modeloDeListaDeItems;
+    public DefaultTableModel modeloDeListaDeItems;
     private ScrollBarCustom scrollBarListaItems;
     public JLabel lblDepartamentoActual;
     //Selectores de Tabla
@@ -109,7 +110,7 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
     //Elementos del panel de Lista de venta
     //Tabla de lista de venta
     private JTable TablaListaDeVenta;
-    private DefaultTableModel modeloDeListaDeVenta;
+    public DefaultTableModel modeloDeListaDeVenta;
     private JScrollPane scrollPaneDeListaVenta;
     private ScrollBarCustom scrollBarListaVenta;
     DefaultTableCellRenderer nuevoCellRenderer = new DefaultTableCellRenderer(){
@@ -149,12 +150,6 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         lblDia.setText(UtilidadSesion.nombreUsuarioActual.split(" ")[0]+", "+
                 fecha.format(DateTimeFormatter.ofPattern("dd 'de' MMMM 'de' YYYY", new Locale("es", "ES"))));
         cargarListaDeDepartamentos();
-        for(int i=0;i<25;i++){
-            Departamento nuevoDepartamento = new Departamento(i, "WHISKY"+i, true, null);
-            departamentos.add(nuevoDepartamento);
-            añadirDepartamentoATabla(nuevoDepartamento);
-        }
-            
         
     }
 
@@ -1184,11 +1179,19 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
                 String nuevoMonto="";
                 int posicionInicioSeleccion=montoTeclado.getSelectionStart();
                 int posicionFinSeleccion=montoTeclado.getSelectionEnd();
-                nuevoMonto += valorMonto.substring(0,posicionInicioSeleccion);
+                
+                String primeraParte = valorMonto.substring(0,posicionInicioSeleccion);
+                String ultimaParte= valorMonto.substring(posicionFinSeleccion,valorMonto.length());
+                
+                if(valorTeclado.equals(".")){
+                    primeraParte=primeraParte.replace(".", "");
+                    ultimaParte=ultimaParte.replace(".", "");
+                }
+                nuevoMonto += primeraParte;
                 nuevoMonto += valorTeclado;
-                nuevoMonto += valorMonto.substring(posicionFinSeleccion,valorMonto.length());
+                nuevoMonto += ultimaParte;
                 montoTeclado.setText(nuevoMonto);
-                montoTeclado.setCaretPosition(posicionInicioSeleccion+valorTeclado.length());
+                montoTeclado.setCaretPosition((primeraParte.length()+valorTeclado.length()));
             }
         };
         
@@ -1248,9 +1251,17 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
                                 int cantidad=0;
                                 double precio = producto.getPrecio();
                                 if(QtPc.getOpcionSeleccionada()==0){
-                                    cantidad = (int)Double.parseDouble(montoTeclado.getText());
+                                    try {
+                                        cantidad = (int)Double.parseDouble(montoTeclado.getText());
+                                    } catch (Exception er) {
+                                        cantidad=0;
+                                    }
                                 }else{
-                                    precio = Double.parseDouble(montoTeclado.getText());
+                                    try {
+                                        precio = Double.parseDouble(montoTeclado.getText());
+                                    } catch (Exception er) {
+                                        precio=0;
+                                    }
                                 }
                                 DetalleVenta nuevoDetalleVenta = new DetalleVenta(producto,cantidad,precio,0);
                                 ventaActual.getDetallesVenta().add(nuevoDetalleVenta);
@@ -1753,47 +1764,8 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
                         idDepartamento = departamentoSeleccionado.getIdDepartamento();
                     }
                     lblDepartamentoActual.setVisible(true);
-                    //separadorLblDpto.setVisible(true);
+                    //separadorLblDpto.setVisible(true);                    
                     productos=ControlInventario.cargarProductos(idDepartamento);
-                    {
-                        Producto[] nuevoProductos=new Producto[8];
-                        for(int i =0;i<nuevoProductos.length;i++){
-                            nuevoProductos[i]=new Producto(i, "producto "+i, i+i*i, i/5, i*5, true, true, true, LocalDate.now());
-                            if(i%4==0){
-                                nuevoProductos[i].setIGV(true);
-                                nuevoProductos[i].setISC(true);
-                            }
-                        }
-                        switch(idDepartamento){
-                            case -1:
-                                productos.add(nuevoProductos[0]);
-                                productos.add(nuevoProductos[1]);
-                                productos.add(nuevoProductos[2]);
-                                productos.add(nuevoProductos[3]);
-                                productos.add(nuevoProductos[4]);
-                                productos.add(nuevoProductos[5]);
-                                productos.add(nuevoProductos[6]);
-                                productos.add(nuevoProductos[7]);
-                                break;
-                            case 0:
-                                productos.add(nuevoProductos[0]);
-                                productos.add(nuevoProductos[1]);
-                                break;
-                            case 10:
-                                productos.add(nuevoProductos[5]);
-                                productos.add(nuevoProductos[6]);
-                                productos.add(nuevoProductos[7]);
-                                break;
-                            case 12:
-                                productos.add(nuevoProductos[4]);
-                                break;
-                            case 15:
-                                productos.add(nuevoProductos[2]);
-                                productos.add(nuevoProductos[3]);
-                                break;
-                        }
-                    }
-                    
                     mostrarListaProductosCargadaEnTabla();
                     
                 }else{
@@ -1801,7 +1773,7 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
                     //separadorLblDpto.setVisible(false);
                     departamentoSeleccionado=null;
                     productos=null;
-                    //cargarListaDeDepartamentos();
+                    cargarListaDeDepartamentos();
                     mostrarListaDepartamentosCargadaEnTabla();
                     
                 }

@@ -19,9 +19,9 @@ public class DetalleVenta {
 
     public DetalleVenta(Producto producto, int cantidad, double precio, double descuento) {
         this.producto = producto;
-        this.cantidad = cantidad;
-        this.precio = precio;
-        this.descuento = descuento;
+        setCantidad(cantidad);
+        setPrecio(precio);
+        setDescuento(descuento);
         IGV=producto.isIGV();
         ISC=producto.isISC();
     }
@@ -39,7 +39,15 @@ public class DetalleVenta {
     }
 
     public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+        if(cantidad>=0){
+            if(cantidad<=producto.getStock()){
+                this.cantidad = cantidad;
+            }else{
+                this.cantidad = producto.getStock();
+            }
+        } else{
+            cantidad=0;
+        }
     }
 
     public double getPrecio() {
@@ -47,7 +55,11 @@ public class DetalleVenta {
     }
 
     public void setPrecio(double precio) {
-        this.precio = precio;
+        if(precio>=0){
+            this.precio = precio;
+        } else{
+            precio=0;
+        }
     }
 
     public double getDescuento() {
@@ -55,7 +67,11 @@ public class DetalleVenta {
     }
 
     public void setDescuento(double descuento) {
-        this.descuento = descuento;
+        if(descuento>=0){
+            this.descuento = descuento;
+        } else{
+            descuento=0;
+        }
     }
 
     public boolean isIGV() {

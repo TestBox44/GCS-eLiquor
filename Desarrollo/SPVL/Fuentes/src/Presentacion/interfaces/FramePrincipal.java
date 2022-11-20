@@ -71,10 +71,10 @@ public class FramePrincipal extends javax.swing.JFrame {
         
         
         //Descomenta las tres lineas de abajo para entrar directamente al modulo de inventario
-
+        /*
         Inventario inventario = new Inventario();
         ContenedorPaneles.add("inventario",inventario);
-        layoutContenedorPaneles.show(ContenedorPaneles, "inventario");
+        layoutContenedorPaneles.show(ContenedorPaneles, "inventario");*/
         
         //Descomenta las tres lineas de abajo para entrar directamente al modulo de ventas
         /*Ventas ventas = new Ventas();
