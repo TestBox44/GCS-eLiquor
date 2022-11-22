@@ -4,10 +4,6 @@
  */
 package Presentacion.Interfaces;
 
-import Datos.DAO.UsuarioDAO;
-import Datos.Entidades.Usuario;
-import Presentacion.Interfaces.Login.LoginUsuarios;
-
 /**
  *
  * @author sortizu

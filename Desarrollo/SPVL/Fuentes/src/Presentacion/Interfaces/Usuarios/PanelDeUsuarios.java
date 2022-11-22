@@ -73,7 +73,7 @@ public class PanelDeUsuarios extends javax.swing.JPanel implements PropertyChang
         
         ((Buscador)buscador).getTxtABuscar().setFont(UtilidadesFuentes.InterRegular.deriveFont(20.0f));
         ((Buscador)buscador).getTxtABuscar().setForeground(Color.decode("#8C8C8C"));
-        
+        ((Buscador)buscador).setPreferredSize(new Dimension(375,37));
         ((Buscador)buscador).getTxtABuscar().addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 BuscarDeFiltro(((Buscador)buscador).getTxtABuscar().getText());
@@ -139,7 +139,7 @@ public class PanelDeUsuarios extends javax.swing.JPanel implements PropertyChang
         lblHora = new javax.swing.JLabel();
         lblSeleccion = new javax.swing.JLabel();
         selectorSeleccion = new Selector(new String[]{"SI","NO"},50,37);
-        PanelBotonesCRUD = new PanelImagen("/Presentacion/Imagenes/Botones CRUD.png");
+        PanelBotonesCRUD = new PanelImagen("/Presentacion/Imagenes/BotonesCRUD3.png");
         btnEliminar = new javax.swing.JLabel();
         btnModificar = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JLabel();

@@ -39,7 +39,7 @@ public class LoginUsuarios extends javax.swing.JPanel {
                 return lbl;
             }
             
-            return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+            return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column); 
         }
     };
     DefaultTableModel modeloListaDeUsuarios;
@@ -89,7 +89,6 @@ public class LoginUsuarios extends javax.swing.JPanel {
                 icono.setOpaque(true);
                 ListaDeUsuarios.setValueAt(icono, i, 0);
             }
-            
         }
     });
         mostrarUsuariosEnLista();

@@ -21,7 +21,11 @@ public class TextFieldRedondeado extends JTextField{
     private int radioDeBorde;
     public TextFieldRedondeado() {
         super(4);
-        setOpaque(false); // As suggested by @AVD in comment.
+        setOpaque(false); 
+    }
+    public TextFieldRedondeado(int columns) {
+        super(columns);
+        setOpaque(false); 
     }
 
     public int getGrosorBorde() {
