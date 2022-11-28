@@ -46,6 +46,39 @@ create table producto(
     IGV tinyint NOT NULL,
     ISC tinyint NOT NULL
 );
+
+create table cliente(
+	idCliente int AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    nombre varchar(45) NOT NULL,
+    telefono int NOT NULL,
+    correo varchar(45) NOT NULL,
+    fechaRegistro datetime NOT NULL
+);
+
+create table venta(
+	idVenta int AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    fechaRegistro datetime NOT NULL,
+    ventaBruta double NOT NULL,
+    totalImpuestos double NOT NULL,
+    totalDescuentos double NOT NULL,
+    totalCosto double NOT NULL,
+    pagoCliente double NOT NULL,
+    cambio double NOT NULL,
+    idCliente int ,
+    idUsuario int NOT NULL,
+    constraint fk_cliente foreign key (idCliente) references cliente (idCliente) on update cascade on delete cascade,
+    constraint fk_usuario foreign key (idUsuario) references usuarios (idUsuario) on update cascade on delete cascade
+);
+
+create table ventaProducto(
+	idVentaProducto int AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    idVenta int NOT NULL,
+    idProducto int NOT NULL,
+    constraint fk_venta foreign key (idVenta) references venta (idVenta) on update cascade on delete cascade,
+    constraint fk_productoVP foreign key (idProducto) references producto (idProducto) on update cascade on delete cascade
+);
+
+
 show tables;
 alter table departamento change mostrarEnCaja mostrarEnCaja bool NOT NULL;
 select * from usuarios;

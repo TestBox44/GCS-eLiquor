@@ -9,8 +9,8 @@ import java.util.ArrayList;
  */
 public class Venta {
     private int idVenta;
-    private Cliente cliente;
-    private Usuario usuario;
+    private int idCliente=-1;
+    private int idUsuario=-1;
     private ArrayList<DetalleVenta> detallesVenta;
     private LocalDate fechaRegistro;
     private double pagoCliente;
@@ -20,15 +20,16 @@ public class Venta {
     private double totalImpuestos=-1;
     private int totalCantidad=-1;
     private double totalDescuento=-1;
+    
 
     public Venta() {
         detallesVenta=new ArrayList<DetalleVenta>();
     }
 
-    public Venta(int idVenta, Cliente cliente, Usuario usuario, ArrayList<DetalleVenta> detallesVenta, LocalDate fechaRegistro, double pagoCliente, double cambio, double ventaBruta, double totalCosto, double totalImpuestos, int totalCantidad, double totalDescuento) {
+    public Venta(int idVenta, int idCliente, int idUsuario, ArrayList<DetalleVenta> detallesVenta, LocalDate fechaRegistro, double pagoCliente, double cambio, double ventaBruta, double totalCosto, double totalImpuestos, int totalCantidad, double totalDescuento) {
         this.idVenta = idVenta;
-        this.cliente = cliente;
-        this.usuario = usuario;
+        this.idCliente = idCliente;
+        this.idUsuario = idUsuario;
         this.detallesVenta = detallesVenta;
         this.fechaRegistro = fechaRegistro;
         this.pagoCliente = pagoCliente;
@@ -50,22 +51,22 @@ public class Venta {
         this.idVenta = idVenta;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public int getIdCliente() {
+        return idCliente;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public int getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
-
+      
     public ArrayList<DetalleVenta> getDetallesVenta() {
         return detallesVenta;
     }

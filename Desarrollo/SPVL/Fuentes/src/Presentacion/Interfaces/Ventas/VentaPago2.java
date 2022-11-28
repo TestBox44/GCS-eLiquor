@@ -123,14 +123,14 @@ public class VentaPago2 extends VentanaEmergente{
         ventaARegistrar.setPagoCliente(ventaActual.getPagoCliente());
         ventaARegistrar.setCambio(ventaActual.getCambio());
         ventaARegistrar.setFechaRegistro(LocalDate.now());
-        Usuario usuarioEnSesion = new Usuario();
-        usuarioEnSesion.setIdUsuario(UtilidadSesion.idUsuarioActual);
-        ventaARegistrar.setUsuario(usuarioEnSesion);
+        ventaARegistrar.setIdUsuario(UtilidadSesion.idUsuarioActual);
         ControlVentas.registrarVenta(ventaARegistrar);
         ((FramePrincipal)((JFrame) SwingUtilities.getWindowAncestor(this))).cerrarPanelesEmergentes();
         panelPrincipalDeModuloDeVentas.ventaActual=new Venta();
         panelPrincipalDeModuloDeVentas.modeloDeListaDeVenta.setRowCount(0);
         panelPrincipalDeModuloDeVentas.actualizarDatosVenta();
+        panelPrincipalDeModuloDeVentas.cargarListaDeDepartamentos();
+        
     }
     
     @Override
