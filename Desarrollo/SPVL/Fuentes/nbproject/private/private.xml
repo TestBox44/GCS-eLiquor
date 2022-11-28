@@ -3,25 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< Updated upstream
-            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/FramePrincipal.java</file>
-<<<<<<< HEAD
-            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/Ventas/VentaPago2.java</file>
-            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Negocio/ControlUsuarios.java</file>
-            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Datos/DAO/UsuarioDAO.java</file>
-=======
-            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Negocio/ControlInventario.java</file>
->>>>>>> Sebastian
-=======
-            <file>file:/C:/Users/richa/Documents/6toCiclo/GestiondelaC/NeoVision/Desarrollo/SPVL/Fuentes/src/Datos/DAO/DepartamentoProductoDAO.java</file>
-            <file>file:/C:/Users/richa/Documents/6toCiclo/GestiondelaC/NeoVision/Desarrollo/SPVL/Fuentes/src/Negocio/ControlUsuarios.java</file>
-            <file>file:/C:/Users/richa/Documents/6toCiclo/GestiondelaC/NeoVision/Desarrollo/SPVL/Fuentes/src/Datos/Entidades/Departamento_Producto.java</file>
-            <file>file:/C:/Users/richa/Documents/6toCiclo/GestiondelaC/NeoVision/Desarrollo/SPVL/Fuentes/src/Datos/DAO/ProductoDAO.java</file>
-            <file>file:/C:/Users/richa/Documents/6toCiclo/GestiondelaC/NeoVision/Desarrollo/SPVL/Fuentes/src/Datos/Entidades/Departamento.java</file>
-            <file>file:/C:/Users/richa/Documents/6toCiclo/GestiondelaC/NeoVision/Desarrollo/SPVL/Fuentes/src/Datos/DAO/DepartamentoDAO.java</file>
-            <file>file:/C:/Users/richa/Documents/6toCiclo/GestiondelaC/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/interfaces/FramePrincipal.java</file>
-            <file>file:/C:/Users/richa/Documents/6toCiclo/GestiondelaC/NeoVision/Desarrollo/SPVL/Fuentes/src/Negocio/ControlInventario.java</file>
->>>>>>> Stashed changes
+            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/Menu/Menu.java</file>
+            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/Reportes/PanelDeReportes.java</file>
+            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/PanelModulo.java</file>
+            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/Reportes/Reportes.java</file>
+            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/Login/LoginPIN.java</file>
+            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/BotonRedondeado.java</file>
         </group>
     </open-files>
 </project-private>

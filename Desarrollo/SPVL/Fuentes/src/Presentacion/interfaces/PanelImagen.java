@@ -2,8 +2,9 @@ package Presentacion.Interfaces;
 
 import javax.swing.JPanel;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
-import java.net.URL;
+import java.awt.RenderingHints;
 import javax.swing.ImageIcon;
 
 public class PanelImagen extends JPanel{
@@ -26,7 +27,9 @@ public class PanelImagen extends JPanel{
     
     @Override
     public void paintComponent(Graphics g){
-        g.drawImage(imagen,0,0,getWidth(),getHeight(),this);
+        Graphics2D graphics = (Graphics2D)g;
+        graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        graphics.drawImage(imagen,0,0,getWidth(),getHeight(),this);
         setOpaque(false);
         super.paintComponent(g);
     }

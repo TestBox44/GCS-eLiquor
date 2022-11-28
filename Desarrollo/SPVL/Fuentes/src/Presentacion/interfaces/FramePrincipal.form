@@ -26,7 +26,7 @@
   <SubComponents>
     <Container class="javax.swing.JPanel" name="Fondo">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new PanelImagen(&quot;/Presentacion/Imagenes/Fondo.png&quot;)"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new PanelImagen(&quot;/Presentacion/Imagenes/FondoBlanco.png&quot;)"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package Presentacion.Interfaces.Menu;
 
 import Presentacion.Interfaces.PanelImagen;
@@ -194,6 +190,11 @@ public class Menu extends javax.swing.JPanel {
 
         btnModuloReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Reportes.png"))); // NOI18N
         btnModuloReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModuloReportes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnModuloReportesMousePressed(evt);
+            }
+        });
         PanelDeBotonesDeModulos.add(btnModuloReportes);
 
         btnModuloClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Clientes.png"))); // NOI18N
@@ -279,6 +280,14 @@ public class Menu extends javax.swing.JPanel {
         parent.add("ventas",ventas);
         layout.show(parent, "ventas");
     }//GEN-LAST:event_btnModuloVentasMousePressed
+
+    private void btnModuloReportesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloReportesMousePressed
+        JPanel parent = (JPanel)getParent();
+        CardLayout layout = (CardLayout) parent.getLayout();
+        Presentacion.Interfaces.Reportes.Reportes reportes = new Presentacion.Interfaces.Reportes.Reportes(parent);
+        parent.add("reportes",reportes);
+        layout.show(parent, "reportes");
+    }//GEN-LAST:event_btnModuloReportesMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

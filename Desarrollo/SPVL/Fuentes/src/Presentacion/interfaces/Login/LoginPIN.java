@@ -421,12 +421,11 @@ public class LoginPIN extends javax.swing.JPanel {
                 JPanel parent = (JPanel)getParent().getParent();
                 CardLayout layout = (CardLayout) parent.getLayout();
                 //Instanciando el panel contenedor del menu y los otros modulos
-                Presentacion.Interfaces.Menu.PanelModulos panelModulos=new Presentacion.Interfaces.Menu.PanelModulos();
                 Presentacion.Interfaces.Menu.Menu menu=
                         new Presentacion.Interfaces.Menu.Menu(nombreDeUsuarioSeleccionado.getText(),ControlMenu.cargarPermisosDeUsuario(indiceSeleccion));
-                panelModulos.add("menu",menu);
-                parent.add("panelModulos",panelModulos);
-                layout.show(parent, "panelModulos");
+                parent.add("menu",menu);
+                layout.show(parent, "menu");
+
             }else{
                 throw new Exception("La contraseña no coincide");
             }
