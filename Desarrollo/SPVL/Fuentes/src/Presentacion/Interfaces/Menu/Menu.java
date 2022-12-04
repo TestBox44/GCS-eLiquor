@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package Presentacion.Interfaces.Menu;
 
 import Presentacion.Interfaces.PanelImagen;
@@ -45,21 +41,18 @@ public class Menu extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        btnSalir = new javax.swing.JLabel();
         PanelSistema = new PanelImagen("/Presentacion/Imagenes/Paneles/Menu/PanelMenu.png");
         lblNombreLicoreria = new javax.swing.JLabel();
         cabecera = new javax.swing.JSeparator();
-        SeparadorDatos1 = new javax.swing.JSeparator();
-        lblHora = new javax.swing.JLabel();
-        lblDia = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
-        lblApertura = new javax.swing.JLabel();
-        lnlNumTerminal = new javax.swing.JLabel();
+        lblDia = new javax.swing.JLabel();
+        SeparadorDatos1 = new javax.swing.JSeparator();
         lblCodigoTienda = new javax.swing.JLabel();
-        lblHorasAperturadas = new javax.swing.JLabel();
+        lnlNumTerminal = new javax.swing.JLabel();
         SeparadorDatos2 = new javax.swing.JSeparator();
-        pie = new javax.swing.JSeparator();
-        lblMENU = new javax.swing.JLabel();
         PanelDeBotonesDeModulos = new javax.swing.JPanel();
         btnModuloVentas = new javax.swing.JLabel();
         btnModuloInventario = new javax.swing.JLabel();
@@ -67,118 +60,158 @@ public class Menu extends javax.swing.JPanel {
         btnModuloClientes = new javax.swing.JLabel();
         btnModuloProveedores = new javax.swing.JLabel();
         btnModuloUsuarios = new javax.swing.JLabel();
+        lblMENU = new javax.swing.JLabel();
+        pie = new javax.swing.JSeparator();
         lblNombreDeSistema = new javax.swing.JLabel();
         lvlversion = new javax.swing.JLabel();
-        btnSalir = new javax.swing.JLabel();
         btnConfiguracion = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        btnAyuda = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(1360, 768));
         setPreferredSize(new java.awt.Dimension(1360, 768));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setLayout(new java.awt.GridBagLayout());
+
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/BotonSalirModulo.png"))); // NOI18N
+        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnSalirMousePressed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        add(btnSalir, gridBagConstraints);
 
         PanelSistema.setBackground(new java.awt.Color(255, 255, 255));
-        PanelSistema.setPreferredSize(new java.awt.Dimension(928, 768));
-        PanelSistema.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        PanelSistema.setMinimumSize(new java.awt.Dimension(1073, 768));
+        PanelSistema.setPreferredSize(new java.awt.Dimension(1073, 768));
+        PanelSistema.setLayout(new java.awt.GridBagLayout());
 
         lblNombreLicoreria.setFont(UtilidadesFuentes.InterRegular.deriveFont(15.0f));
         lblNombreLicoreria.setForeground(new java.awt.Color(140, 140, 140));
         lblNombreLicoreria.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNombreLicoreria.setText("Licoreria \"Ruta 99\"");
-        PanelSistema.add(lblNombreLicoreria, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 0, 850, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        PanelSistema.add(lblNombreLicoreria, gridBagConstraints);
 
         cabecera.setForeground(new java.awt.Color(208, 208, 208));
-        cabecera.setPreferredSize(new java.awt.Dimension(850, 10));
-        PanelSistema.add(cabecera, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 30, -1, 10));
+        cabecera.setPreferredSize(new java.awt.Dimension(1025, 10));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 40, 0, 40);
+        PanelSistema.add(cabecera, gridBagConstraints);
 
-        SeparadorDatos1.setForeground(new java.awt.Color(208, 208, 208));
-        SeparadorDatos1.setPreferredSize(new java.awt.Dimension(700, 10));
-        PanelSistema.add(SeparadorDatos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(114, 250, -1, 10));
+        lblUsuario.setFont(UtilidadesFuentes.InterBlack.deriveFont(64.0f));
+        lblUsuario.setForeground(new java.awt.Color(88, 88, 88));
+        lblUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblUsuario.setText("¡Bienvenido, Usuario!");
+        lblUsuario.setPreferredSize(new java.awt.Dimension(684, 77));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(50, 0, 0, 0);
+        PanelSistema.add(lblUsuario, gridBagConstraints);
 
-        lblHora.setFont(UtilidadesFuentes.InterBlack.deriveFont(90.0f));
-        lblHora.setForeground(new java.awt.Color(88, 88, 88));
-        lblHora.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHora.setText("12:00");
-        lblHora.setPreferredSize(new java.awt.Dimension(850, 110));
-        PanelSistema.add(lblHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 30, -1, 100));
-
-        lblDia.setFont(UtilidadesFuentes.InterBlack.deriveFont(30.0f));
+        lblDia.setFont(UtilidadesFuentes.InterBlack.deriveFont(40.0f));
         lblDia.setForeground(new java.awt.Color(88, 88, 88));
         lblDia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblDia.setText("9 de octubre de 2020");
         lblDia.setPreferredSize(new java.awt.Dimension(850, 16));
-        PanelSistema.add(lblDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 130, -1, 40));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 30, 0);
+        PanelSistema.add(lblDia, gridBagConstraints);
 
-        lblUsuario.setFont(UtilidadesFuentes.InterBlack.deriveFont(50.0f));
-        lblUsuario.setForeground(new java.awt.Color(88, 88, 88));
-        lblUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblUsuario.setText("¡Bienvenido, Usuario!");
-        lblUsuario.setPreferredSize(new java.awt.Dimension(850, 16));
-        PanelSistema.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 176, -1, 70));
+        SeparadorDatos1.setForeground(new java.awt.Color(208, 208, 208));
+        SeparadorDatos1.setPreferredSize(new java.awt.Dimension(700, 10));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 100, 0, 100);
+        PanelSistema.add(SeparadorDatos1, gridBagConstraints);
 
-        lblApertura.setFont(UtilidadesFuentes.InterRegular.deriveFont(20.0f));
-        lblApertura.setForeground(new java.awt.Color(140, 140, 140));
-        lblApertura.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblApertura.setText("Aperturado hace:");
-        lblApertura.setMaximumSize(new java.awt.Dimension(280, 50));
-        lblApertura.setMinimumSize(new java.awt.Dimension(280, 50));
-        lblApertura.setPreferredSize(new java.awt.Dimension(165, 50));
-        PanelSistema.add(lblApertura, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 256, -1, -1));
-
-        lnlNumTerminal.setFont(UtilidadesFuentes.InterRegular.deriveFont(25.0f));
-        lnlNumTerminal.setForeground(new java.awt.Color(140, 140, 140));
-        lnlNumTerminal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lnlNumTerminal.setText("Terminal: 1");
-        lnlNumTerminal.setMaximumSize(new java.awt.Dimension(280, 50));
-        lnlNumTerminal.setMinimumSize(new java.awt.Dimension(280, 50));
-        lnlNumTerminal.setPreferredSize(new java.awt.Dimension(280, 50));
-        PanelSistema.add(lnlNumTerminal, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, -1, -1));
-
-        lblCodigoTienda.setFont(UtilidadesFuentes.InterRegular.deriveFont(20.0f));
+        lblCodigoTienda.setFont(UtilidadesFuentes.InterRegular.deriveFont(25.0f));
         lblCodigoTienda.setForeground(new java.awt.Color(140, 140, 140));
-        lblCodigoTienda.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCodigoTienda.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCodigoTienda.setText("Codigo de Tienda: XW962");
         lblCodigoTienda.setMaximumSize(new java.awt.Dimension(280, 50));
         lblCodigoTienda.setMinimumSize(new java.awt.Dimension(280, 50));
         lblCodigoTienda.setPreferredSize(new java.awt.Dimension(280, 50));
-        PanelSistema.add(lblCodigoTienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 256, -1, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 80, 10, 20);
+        PanelSistema.add(lblCodigoTienda, gridBagConstraints);
 
-        lblHorasAperturadas.setFont(UtilidadesFuentes.InterRegular.deriveFont(50.0f));
-        lblHorasAperturadas.setForeground(new java.awt.Color(140, 140, 140));
-        lblHorasAperturadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHorasAperturadas.setText("04:00 H");
-        lblHorasAperturadas.setToolTipText("");
-        lblHorasAperturadas.setMaximumSize(new java.awt.Dimension(220, 90));
-        lblHorasAperturadas.setMinimumSize(new java.awt.Dimension(220, 90));
-        lblHorasAperturadas.setPreferredSize(new java.awt.Dimension(220, 90));
-        PanelSistema.add(lblHorasAperturadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(595, 270, -1, -1));
+        lnlNumTerminal.setFont(UtilidadesFuentes.InterRegular.deriveFont(25.0f));
+        lnlNumTerminal.setForeground(new java.awt.Color(140, 140, 140));
+        lnlNumTerminal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lnlNumTerminal.setText("Terminal: 1");
+        lnlNumTerminal.setMaximumSize(new java.awt.Dimension(280, 50));
+        lnlNumTerminal.setMinimumSize(new java.awt.Dimension(280, 50));
+        lnlNumTerminal.setPreferredSize(new java.awt.Dimension(280, 50));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 80);
+        PanelSistema.add(lnlNumTerminal, gridBagConstraints);
 
         SeparadorDatos2.setForeground(new java.awt.Color(208, 208, 208));
         SeparadorDatos2.setPreferredSize(new java.awt.Dimension(800, 10));
-        PanelSistema.add(SeparadorDatos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 360, -1, -1));
-
-        pie.setForeground(new java.awt.Color(208, 208, 208));
-        pie.setPreferredSize(new java.awt.Dimension(850, 2));
-        PanelSistema.add(pie, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 738, -1, -1));
-
-        lblMENU.setFont(UtilidadesFuentes.InterRegular.deriveFont(35.0f));
-        lblMENU.setForeground(new java.awt.Color(140, 140, 140));
-        lblMENU.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblMENU.setText("MENÚ");
-        lblMENU.setMaximumSize(new java.awt.Dimension(280, 50));
-        lblMENU.setMinimumSize(new java.awt.Dimension(280, 50));
-        lblMENU.setPreferredSize(new java.awt.Dimension(850, 50));
-        PanelSistema.add(lblMENU, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 690, -1, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 80, 0, 80);
+        PanelSistema.add(SeparadorDatos2, gridBagConstraints);
 
         PanelDeBotonesDeModulos.setBackground(new java.awt.Color(255, 255, 255));
+        PanelDeBotonesDeModulos.setOpaque(false);
         PanelDeBotonesDeModulos.setPreferredSize(new java.awt.Dimension(800, 310));
         PanelDeBotonesDeModulos.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
 
         btnModuloVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Ventas.png"))); // NOI18N
         btnModuloVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnModuloVentas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnModuloVentasMousePressed(evt);
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnModuloVentasMouseReleased(evt);
             }
         });
         PanelDeBotonesDeModulos.add(btnModuloVentas);
@@ -186,14 +219,19 @@ public class Menu extends javax.swing.JPanel {
         btnModuloInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Inventario.png"))); // NOI18N
         btnModuloInventario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnModuloInventario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnModuloInventarioMousePressed(evt);
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnModuloInventarioMouseReleased(evt);
             }
         });
         PanelDeBotonesDeModulos.add(btnModuloInventario);
 
         btnModuloReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Reportes.png"))); // NOI18N
         btnModuloReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModuloReportes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnModuloReportesMouseReleased(evt);
+            }
+        });
         PanelDeBotonesDeModulos.add(btnModuloReportes);
 
         btnModuloClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Clientes.png"))); // NOI18N
@@ -202,52 +240,114 @@ public class Menu extends javax.swing.JPanel {
 
         btnModuloProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Proveedores.png"))); // NOI18N
         btnModuloProveedores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModuloProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnModuloProveedoresMouseReleased(evt);
+            }
+        });
         PanelDeBotonesDeModulos.add(btnModuloProveedores);
 
         btnModuloUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Usuarios.png"))); // NOI18N
         btnModuloUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnModuloUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnModuloUsuariosMousePressed(evt);
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnModuloUsuariosMouseReleased(evt);
             }
         });
         PanelDeBotonesDeModulos.add(btnModuloUsuarios);
 
-        PanelSistema.add(PanelDeBotonesDeModulos, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 365, -1, 310));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        PanelSistema.add(PanelDeBotonesDeModulos, gridBagConstraints);
+
+        lblMENU.setFont(UtilidadesFuentes.InterRegular.deriveFont(35.0f));
+        lblMENU.setForeground(new java.awt.Color(140, 140, 140));
+        lblMENU.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMENU.setText("MENÚ");
+        lblMENU.setMaximumSize(new java.awt.Dimension(280, 50));
+        lblMENU.setMinimumSize(new java.awt.Dimension(280, 50));
+        lblMENU.setPreferredSize(new java.awt.Dimension(850, 50));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        PanelSistema.add(lblMENU, gridBagConstraints);
+
+        pie.setForeground(new java.awt.Color(208, 208, 208));
+        pie.setPreferredSize(new java.awt.Dimension(850, 2));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 40, 0, 40);
+        PanelSistema.add(pie, gridBagConstraints);
 
         lblNombreDeSistema.setFont(UtilidadesFuentes.InterRegular.deriveFont(15.0f));
         lblNombreDeSistema.setForeground(new java.awt.Color(140, 140, 140));
         lblNombreDeSistema.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblNombreDeSistema.setText("POS eLiquor");
         lblNombreDeSistema.setPreferredSize(new java.awt.Dimension(425, 30));
-        PanelSistema.add(lblNombreDeSistema, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 738, -1, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 40, 5, 0);
+        PanelSistema.add(lblNombreDeSistema, gridBagConstraints);
 
         lvlversion.setFont(UtilidadesFuentes.InterRegular.deriveFont(15.0f));
         lvlversion.setForeground(new java.awt.Color(140, 140, 140));
         lvlversion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lvlversion.setText("V 1.0");
         lvlversion.setPreferredSize(new java.awt.Dimension(425, 30));
-        PanelSistema.add(lvlversion, new org.netbeans.lib.awtextra.AbsoluteConstraints(464, 738, -1, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 40);
+        PanelSistema.add(lvlversion, gridBagConstraints);
 
-        add(PanelSistema, new org.netbeans.lib.awtextra.AbsoluteConstraints(216, 0, -1, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        add(PanelSistema, gridBagConstraints);
 
-        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/imagenes/Boton Salir.png"))); // NOI18N
-        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSalir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnSalirMousePressed(evt);
-            }
-        });
-        add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 689, -1, 80));
-
-        btnConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Config.png"))); // NOI18N
+        btnConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/BotonConfigModulo.png"))); // NOI18N
         btnConfiguracion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        add(btnConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(1265, 688, -1, 80));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTH;
+        gridBagConstraints.weightx = 1.0;
+        add(btnConfiguracion, gridBagConstraints);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Ayuda.png"))); // NOI18N
-        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1265, 7, -1, 80));
+        btnAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/BotonAyudaModulo.png"))); // NOI18N
+        btnAyuda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        add(btnAyuda, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMousePressed
@@ -256,29 +356,45 @@ public class Menu extends javax.swing.JPanel {
         ((JFrame) SwingUtilities.getWindowAncestor(this)).dispose();
     }//GEN-LAST:event_btnSalirMousePressed
 
-    private void btnModuloUsuariosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloUsuariosMousePressed
+    private void btnModuloUsuariosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloUsuariosMouseReleased
         JPanel parent = (JPanel)getParent();
         CardLayout layout = (CardLayout) parent.getLayout();
         Presentacion.Interfaces.Usuarios.Usuarios usuarios = new Presentacion.Interfaces.Usuarios.Usuarios();
         parent.add("usuarios",usuarios);
         layout.show(parent, "usuarios");
-    }//GEN-LAST:event_btnModuloUsuariosMousePressed
+    }//GEN-LAST:event_btnModuloUsuariosMouseReleased
 
-    private void btnModuloInventarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloInventarioMousePressed
-        JPanel parent = (JPanel)getParent();
-        CardLayout layout = (CardLayout) parent.getLayout();
-        Presentacion.Interfaces.Inventario.Inventario inventario = new Presentacion.Interfaces.Inventario.Inventario();
-        parent.add("inventario",inventario);
-        layout.show(parent, "inventario");
-    }//GEN-LAST:event_btnModuloInventarioMousePressed
-
-    private void btnModuloVentasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloVentasMousePressed
+    private void btnModuloVentasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloVentasMouseReleased
         JPanel parent = (JPanel)getParent();
         CardLayout layout = (CardLayout) parent.getLayout();
         Presentacion.Interfaces.Ventas.Ventas ventas = new Presentacion.Interfaces.Ventas.Ventas();
         parent.add("ventas",ventas);
         layout.show(parent, "ventas");
-    }//GEN-LAST:event_btnModuloVentasMousePressed
+    }//GEN-LAST:event_btnModuloVentasMouseReleased
+
+    private void btnModuloInventarioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloInventarioMouseReleased
+        JPanel parent = (JPanel)getParent();
+        CardLayout layout = (CardLayout) parent.getLayout();
+        Presentacion.Interfaces.Inventario.Inventario inventario = new Presentacion.Interfaces.Inventario.Inventario();
+        parent.add("inventario",inventario);
+        layout.show(parent, "inventario");
+    }//GEN-LAST:event_btnModuloInventarioMouseReleased
+
+    private void btnModuloReportesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloReportesMouseReleased
+        JPanel parent = (JPanel)getParent();
+        CardLayout layout = (CardLayout) parent.getLayout();
+        Presentacion.Interfaces.Reportes.Reportes reportes = new Presentacion.Interfaces.Reportes.Reportes(parent);
+        parent.add("reportes",reportes);
+        layout.show(parent, "reportes");
+    }//GEN-LAST:event_btnModuloReportesMouseReleased
+
+    private void btnModuloProveedoresMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloProveedoresMouseReleased
+        JPanel parent = (JPanel)getParent();
+        CardLayout layout = (CardLayout) parent.getLayout();
+        Presentacion.Interfaces.Proveedores.Proveedores reportes = new Presentacion.Interfaces.Proveedores.Proveedores(parent);
+        parent.add("proveedores",reportes);
+        layout.show(parent, "proveedores");
+    }//GEN-LAST:event_btnModuloProveedoresMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -286,6 +402,7 @@ public class Menu extends javax.swing.JPanel {
     private javax.swing.JPanel PanelSistema;
     private javax.swing.JSeparator SeparadorDatos1;
     private javax.swing.JSeparator SeparadorDatos2;
+    private javax.swing.JLabel btnAyuda;
     private javax.swing.JLabel btnConfiguracion;
     private javax.swing.JLabel btnModuloClientes;
     private javax.swing.JLabel btnModuloInventario;
@@ -295,12 +412,8 @@ public class Menu extends javax.swing.JPanel {
     private javax.swing.JLabel btnModuloVentas;
     private javax.swing.JLabel btnSalir;
     private javax.swing.JSeparator cabecera;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel lblApertura;
     private javax.swing.JLabel lblCodigoTienda;
     private javax.swing.JLabel lblDia;
-    private javax.swing.JLabel lblHora;
-    private javax.swing.JLabel lblHorasAperturadas;
     private javax.swing.JLabel lblMENU;
     private javax.swing.JLabel lblNombreDeSistema;
     private javax.swing.JLabel lblNombreLicoreria;
