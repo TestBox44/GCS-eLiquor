@@ -184,7 +184,7 @@ public class PanelDeProveedores extends JPanel implements PropertyChangeListener
                         eliminarProveedores.requestFocusInWindow();
                         break;
                     case 1:
-                        ModificarProveedores modificarProveedores = new ModificarProveedores(panelPrincipalProveedores);
+                        ModificarProveedores modificarProveedores = new ModificarProveedores(panelPrincipalProveedores,tablaProveedores.getTabla().getSelectedRow());
                         ((FramePrincipal) SwingUtilities.getWindowAncestor(panelPrincipalProveedores)).mostrarPanelEmergente(modificarProveedores);
                         modificarProveedores.requestFocusInWindow();
                         break;
@@ -234,6 +234,12 @@ public class PanelDeProveedores extends JPanel implements PropertyChangeListener
             p.getFechaRegistro().format(DateTimeFormatter.ofPattern("dd/MM/YYYY"))
         };
         tablaProveedores.getModeloTabla().addRow(datos);
+    }
+    
+    public void modificarProveedorDeTabla(int fila, Proveedor p){
+        tablaProveedores.getModeloTabla().setValueAt(p.getRazonSocial(),fila ,0);
+        tablaProveedores.getModeloTabla().setValueAt(p.getCorreo(),fila ,1);
+        tablaProveedores.getModeloTabla().setValueAt(p.getTelefono(),fila ,2);
     }
     
     private void BuscarDeFiltro(String textoBusqueda){

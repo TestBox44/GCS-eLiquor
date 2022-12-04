@@ -137,6 +137,18 @@ public class BotonRedondeadoMultiple extends PanelRedondeado{
             }
         }
     }
+    
+    public void desactivarBoton(int indice){
+        if(indice>=0 && indice<lblOpciones.size()){
+            lblOpciones.get(indice).setEnabled(false);
+        }
+    }
+    
+    public void activarBoton(int indice){
+        if(indice>=0 && indice<lblOpciones.size()){
+            lblOpciones.get(indice).setEnabled(true);
+        }
+    }
 
     public ArrayList<JLabel> getLblOpciones() {
         return lblOpciones;

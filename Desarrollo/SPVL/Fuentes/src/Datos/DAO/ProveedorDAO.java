@@ -18,7 +18,7 @@ public class ProveedorDAO implements CRUD{
         int r = 0;
         int id=setLastId()+1;
         String sql = 
-            "insert into proveedor(razonSocial, telefono, correo, fechaRegistro,idProveedor)values(?,?,?,?,?)";
+            "insert into proveedor(razonSocial, correo, telefono, fechaRegistro,idProveedor)values(?,?,?,?,?)";
         try{
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
@@ -74,7 +74,7 @@ public class ProveedorDAO implements CRUD{
     @Override
     public int actualizar(Object[] o) {
         int r = 0;
-        String sql = "update proveedor set razonSocial=?,telefono=?,correo=?,fechaRegistro=? where IdProveedor=?";
+        String sql = "update proveedor set razonSocial=?,correo=?,telefono=?,fechaRegistro=? where IdProveedor=?";
         try{
            con = cn.Conectar();
            ps = con.prepareStatement(sql);

@@ -1,5 +1,7 @@
 package Presentacion.Interfaces.Proveedores;
 
+import Datos.Entidades.Proveedor;
+import Negocio.ControlProveedores;
 import Presentacion.Interfaces.FramePrincipal;
 import Presentacion.Interfaces.TextFieldRedondeado;
 import Presentacion.Interfaces.VentanaEmergente;
@@ -10,6 +12,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,10 +34,13 @@ public class ModificarProveedores extends VentanaEmergente{
     private TextFieldRedondeado txtCorreo;
     private TextFieldRedondeado txtTelefono;
     private PanelDeProveedores panelPrincipalDeModuloDeProveedores;
+    private Proveedor proveedorModificado;
+    private int fila;
     
-    public ModificarProveedores(PanelDeProveedores panelPrincipalDeModuloDeProveedores) {
+    public ModificarProveedores(PanelDeProveedores panelPrincipalDeModuloDeProveedores, int fila) {
         super("/Presentacion/Imagenes/Paneles/Proveedores/PanelAgregarProveedores.png");
         this.panelPrincipalDeModuloDeProveedores=panelPrincipalDeModuloDeProveedores;
+        this.fila = fila;
         setTextoTitulo("MODIFICAR PROVEEDOR");
         setColorTitulo(Color.decode("#5F7ECD"));
         JPanel cuerpo = getCuerpo();
@@ -122,21 +128,21 @@ public class ModificarProveedores extends VentanaEmergente{
         gbc.weightx=1.0;
         cuerpo.add(lblTelefono,gbc);
         
-        txtCorreo=new TextFieldRedondeado(0);
-        txtCorreo.setGrosorBorde(4);
-        txtCorreo.setRadioDeBorde(40);
-        txtCorreo.setColorBorde(Color.decode("#CACACA"));
-        txtCorreo.setFont(UtilidadesFuentes.InterLight.deriveFont(25.0f));
-        txtCorreo.setForeground(Color.decode("#8C8C8C"));
-        txtCorreo.setHorizontalAlignment(JLabel.CENTER);
-        txtCorreo.setBorder( BorderFactory.createEmptyBorder(2, 20, 0, 20) );
-        txtCorreo.setPreferredSize(dimTxt);
+        txtTelefono=new TextFieldRedondeado(0);
+        txtTelefono.setGrosorBorde(4);
+        txtTelefono.setRadioDeBorde(40);
+        txtTelefono.setColorBorde(Color.decode("#CACACA"));
+        txtTelefono.setFont(UtilidadesFuentes.InterLight.deriveFont(25.0f));
+        txtTelefono.setForeground(Color.decode("#8C8C8C"));
+        txtTelefono.setHorizontalAlignment(JLabel.CENTER);
+        txtTelefono.setBorder( BorderFactory.createEmptyBorder(2, 20, 0, 20) );
+        txtTelefono.setPreferredSize(dimTxt);
         gbc.insets=insetTxt;
         gbc.gridx=0;
         gbc.gridy=6;
         gbc.fill=GridBagConstraints.HORIZONTAL;
         gbc.weightx=0;
-        cuerpo.add(txtCorreo,gbc);
+        cuerpo.add(txtTelefono,gbc);
         
         
         
@@ -150,14 +156,27 @@ public class ModificarProveedores extends VentanaEmergente{
         });
         lblAlertaRazonSocial.setVisible(false);
         /*Cargando datos del departamento*/
+        proveedorModificado = panelPrincipalDeModuloDeProveedores.proveedores.get(fila);
+        txtRazonSocial.setText(proveedorModificado.getRazonSocial());
+        txtCorreo.setText(proveedorModificado.getCorreo());
+        txtTelefono.setText(""+proveedorModificado.getTelefono());
     }
 
     @Override
     public void btnAceptarPresionado(MouseEvent evt) {
         if(txtRazonSocial.getText().isBlank()){
-                lblAlertaRazonSocial.setVisible(true);
+            lblAlertaRazonSocial.setVisible(true);
         }else{
-               
+            int telefono=0;
+            try{
+                telefono=Integer.parseInt(txtTelefono.getText());
+            }catch(Exception er){System.err.println(er);}
+            proveedorModificado.setRazonSocial(txtRazonSocial.getText());
+            proveedorModificado.setCorreo(txtCorreo.getText());
+            proveedorModificado.setTelefono(telefono);
+            panelPrincipalDeModuloDeProveedores.modificarProveedorDeTabla(fila, proveedorModificado);
+            ControlProveedores.modificarUsuario(proveedorModificado);
+            ((FramePrincipal)((JFrame) SwingUtilities.getWindowAncestor(this))).cerrarPanelesEmergentes();   
         }
     }
 

@@ -22,7 +22,7 @@ public class ControlProveedores {
     
     public static void agregarProveedor(Proveedor proveedor){
         ProveedorDAO pdao=new ProveedorDAO();
-        pdao.add(new Object[]{proveedor.getRazonSocial(),proveedor.getTelefono(),proveedor.getCorreo(),proveedor.getFechaRegistro(),proveedor.getIdProveedor()});
+        pdao.add(new Object[]{proveedor.getRazonSocial(),proveedor.getCorreo(),proveedor.getTelefono(),proveedor.getFechaRegistro(),proveedor.getIdProveedor()});
     }
     
     public static void eliminarUsuarios(ArrayList<Usuario> usuarios){
