@@ -43,7 +43,7 @@ public class BotonRedondeadoMultiple extends PanelRedondeado{
         };
     
     public BotonRedondeadoMultiple(String[]opciones) {
-        super(20,3,new Color(0,0,0,0),Color.decode("#8C8C8C"));
+        super(10,3,new Color(0,0,0,0),Color.decode("#8C8C8C"));
         setLayout(new GridBagLayout());
         setOpaque(false);
         Color [] coloresTexto=new Color[opciones.length];
@@ -53,26 +53,12 @@ public class BotonRedondeadoMultiple extends PanelRedondeado{
         agregarBotones(opciones, coloresTexto, fuenteTexto);
     }
     
-    public BotonRedondeadoMultiple(int radio, int grosorBorde, Color colorBoton,String[]opciones) {
-        this(opciones);
-        setRadioDeEsquina(radio);
-        setGrosorDeBorde(grosorBorde);
-        setColorBorde(colorBoton);
-    }
 
-    public BotonRedondeadoMultiple(int radio, int grosorBorde, Color colorBoton,String[]opciones,Dimension dimensionBotones) {
-        this(radio, grosorBorde, colorBoton, opciones);
+    public BotonRedondeadoMultiple(String[]opciones,Dimension dimensionBotones) {
+        this(opciones);
         this.dimensionBotones=dimensionBotones;
         actualizarBotones();
     }
-
-    public BotonRedondeadoMultiple(int radio, int grosorBorde, Color colorBoton,String[]opciones, Font fuenteOpciones, Dimension dimensionBotones) {
-        this(radio, grosorBorde, colorBoton, opciones, dimensionBotones);
-        for(JLabel lblOpcion:lblOpciones){
-            lblOpcion.setFont(fuenteOpciones);
-        }
-    }
-    
     
     
     public void setColorOpcion(int indice, Color color){

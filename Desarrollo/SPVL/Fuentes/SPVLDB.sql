@@ -13,6 +13,22 @@ create table usuarios(
     generarReportes bool NOT NULL
 );
 
+create table proveedor( 
+	idProveedor int AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    razonSocial varchar(45) NOT NULL,
+    telefono int NOT NULL,
+    correo varchar(45) NOT NULL,
+    fechaRegistro datetime NOT NULL
+);
+
+create table cliente(
+	idCliente int AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    nombre varchar(45) NOT NULL,
+    telefono int NOT NULL,
+    correo varchar(45) NOT NULL,
+    fechaRegistro datetime NOT NULL
+);
+
 create table departamento(
 	idDepartamento int AUTO_INCREMENT PRIMARY KEY NOT NULL,
     fechaRegistro datetime NOT NULL,
@@ -45,14 +61,6 @@ create table producto(
     fechaRegistro datetime NOT NULL,
     IGV tinyint NOT NULL,
     ISC tinyint NOT NULL
-);
-
-create table cliente(
-	idCliente int AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    nombre varchar(45) NOT NULL,
-    telefono int NOT NULL,
-    correo varchar(45) NOT NULL,
-    fechaRegistro datetime NOT NULL
 );
 
 create table venta(
@@ -99,6 +107,8 @@ insert into usuarios(nombre,PIN,gestionarVentas,gestionarUsuarios,gestionarProve
 ("alonso",2222,1,1,1,1,1,1);
 select * from departamentoProducto;
 select * from departamento;
+select * from proveedor;
+select * from cliente;
 select * from producto;
 select * from usuarios;
 select * from ventaproducto;

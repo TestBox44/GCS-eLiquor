@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 //Paquetes importados para debug
 import Presentacion.Interfaces.Inventario.Inventario;
 import Presentacion.Interfaces.Login.Login;
+import Presentacion.Interfaces.Proveedores.Proveedores;
 import Presentacion.Interfaces.Reportes.Reportes;
 import Presentacion.Interfaces.Usuarios.Usuarios;
 import Presentacion.Interfaces.Ventas.Ventas;
@@ -71,9 +72,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         //Cambiar a partir de aqui
         
         //Descomenta las tres lineas de abajo para entrar directamente al modulo de login
-        Login login = new Login();
+        /*Login login = new Login();
         ContenedorPaneles.add("login",login);
-        layoutContenedorPaneles.show(ContenedorPaneles, "login");
+        layoutContenedorPaneles.show(ContenedorPaneles, "login");*/
         
         
         //Descomenta las tres lineas de abajo para entrar directamente al modulo de usuarios
@@ -98,6 +99,11 @@ public class FramePrincipal extends javax.swing.JFrame {
         /*Reportes reportes = new Reportes(ContenedorPaneles);
         ContenedorPaneles.add("reportes",reportes);
         layoutContenedorPaneles.show(ContenedorPaneles, "reportes");*/
+        
+        //Descomenta las tres lineas de abajo para entrar directamente al modulo de proveedores
+        Proveedores proveedores = new Proveedores(ContenedorPaneles);
+        ContenedorPaneles.add("proveedores",proveedores);
+        layoutContenedorPaneles.show(ContenedorPaneles, "proveedores");
         
         }
         //Fin de zona de debug
