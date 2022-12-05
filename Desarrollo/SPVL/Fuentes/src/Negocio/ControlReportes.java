@@ -4,7 +4,6 @@
  */
 package Negocio;
 
-import Datos.DAO.ClienteDAO;
 import Datos.DAO.ProductoDAO;
 import Datos.DAO.UsuarioDAO;
 import Datos.DAO.VentaDAO;
