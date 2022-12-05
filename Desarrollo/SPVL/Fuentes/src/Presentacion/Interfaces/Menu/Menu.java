@@ -210,8 +210,8 @@ public class Menu extends javax.swing.JPanel {
         btnModuloVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Ventas.png"))); // NOI18N
         btnModuloVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnModuloVentas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnModuloVentasMousePressed(evt);
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnModuloVentasMouseReleased(evt);
             }
         });
         PanelDeBotonesDeModulos.add(btnModuloVentas);
@@ -219,8 +219,8 @@ public class Menu extends javax.swing.JPanel {
         btnModuloInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Inventario.png"))); // NOI18N
         btnModuloInventario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnModuloInventario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnModuloInventarioMousePressed(evt);
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnModuloInventarioMouseReleased(evt);
             }
         });
         PanelDeBotonesDeModulos.add(btnModuloInventario);
@@ -228,25 +228,35 @@ public class Menu extends javax.swing.JPanel {
         btnModuloReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Reportes.png"))); // NOI18N
         btnModuloReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnModuloReportes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnModuloReportesMousePressed(evt);
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnModuloReportesMouseReleased(evt);
             }
         });
         PanelDeBotonesDeModulos.add(btnModuloReportes);
 
         btnModuloClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Clientes.png"))); // NOI18N
         btnModuloClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModuloClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnModuloClientesMouseReleased(evt);
+            }
+        });
         PanelDeBotonesDeModulos.add(btnModuloClientes);
 
         btnModuloProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Proveedores.png"))); // NOI18N
         btnModuloProveedores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModuloProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnModuloProveedoresMouseReleased(evt);
+            }
+        });
         PanelDeBotonesDeModulos.add(btnModuloProveedores);
 
         btnModuloUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Usuarios.png"))); // NOI18N
         btnModuloUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnModuloUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnModuloUsuariosMousePressed(evt);
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnModuloUsuariosMouseReleased(evt);
             }
         });
         PanelDeBotonesDeModulos.add(btnModuloUsuarios);
@@ -335,9 +345,6 @@ public class Menu extends javax.swing.JPanel {
 
         btnAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/BotonAyudaModulo.png"))); // NOI18N
         btnAyuda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAyuda.setMaximumSize(new java.awt.Dimension(89, 89));
-        btnAyuda.setMinimumSize(new java.awt.Dimension(89, 89));
-        btnAyuda.setPreferredSize(new java.awt.Dimension(89, 89));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -348,43 +355,59 @@ public class Menu extends javax.swing.JPanel {
         add(btnAyuda, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnModuloUsuariosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloUsuariosMousePressed
-        JPanel parent = (JPanel)getParent();
-        CardLayout layout = (CardLayout) parent.getLayout();
-        Presentacion.Interfaces.Usuarios.Usuarios usuarios = new Presentacion.Interfaces.Usuarios.Usuarios();
-        parent.add("usuarios",usuarios);
-        layout.show(parent, "usuarios");
-    }//GEN-LAST:event_btnModuloUsuariosMousePressed
-
-    private void btnModuloInventarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloInventarioMousePressed
-        JPanel parent = (JPanel)getParent();
-        CardLayout layout = (CardLayout) parent.getLayout();
-        Presentacion.Interfaces.Inventario.Inventario inventario = new Presentacion.Interfaces.Inventario.Inventario();
-        parent.add("inventario",inventario);
-        layout.show(parent, "inventario");
-    }//GEN-LAST:event_btnModuloInventarioMousePressed
-
-    private void btnModuloVentasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloVentasMousePressed
-        JPanel parent = (JPanel)getParent();
-        CardLayout layout = (CardLayout) parent.getLayout();
-        Presentacion.Interfaces.Ventas.Ventas ventas = new Presentacion.Interfaces.Ventas.Ventas();
-        parent.add("ventas",ventas);
-        layout.show(parent, "ventas");
-    }//GEN-LAST:event_btnModuloVentasMousePressed
-
-    private void btnModuloReportesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloReportesMousePressed
-        JPanel parent = (JPanel)getParent();
-        CardLayout layout = (CardLayout) parent.getLayout();
-        Presentacion.Interfaces.Reportes.Reportes reportes = new Presentacion.Interfaces.Reportes.Reportes(parent);
-        parent.add("reportes",reportes);
-        layout.show(parent, "reportes");
-    }//GEN-LAST:event_btnModuloReportesMousePressed
-
     private void btnSalirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMousePressed
         /*Utilizando utilidades de swing para obtener la ventana principal (FramePrincipal)
         y cerrar todo el programa*/
         ((JFrame) SwingUtilities.getWindowAncestor(this)).dispose();
     }//GEN-LAST:event_btnSalirMousePressed
+
+    private void btnModuloUsuariosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloUsuariosMouseReleased
+        JPanel parent = (JPanel)getParent();
+        CardLayout layout = (CardLayout) parent.getLayout();
+        Presentacion.Interfaces.Usuarios.Usuarios usuarios = new Presentacion.Interfaces.Usuarios.Usuarios();
+        parent.add("usuarios",usuarios);
+        layout.show(parent, "usuarios");
+    }//GEN-LAST:event_btnModuloUsuariosMouseReleased
+
+    private void btnModuloVentasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloVentasMouseReleased
+        JPanel parent = (JPanel)getParent();
+        CardLayout layout = (CardLayout) parent.getLayout();
+        Presentacion.Interfaces.Ventas.Ventas ventas = new Presentacion.Interfaces.Ventas.Ventas();
+        parent.add("ventas",ventas);
+        layout.show(parent, "ventas");
+    }//GEN-LAST:event_btnModuloVentasMouseReleased
+
+    private void btnModuloInventarioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloInventarioMouseReleased
+        JPanel parent = (JPanel)getParent();
+        CardLayout layout = (CardLayout) parent.getLayout();
+        Presentacion.Interfaces.Inventario.Inventario inventario = new Presentacion.Interfaces.Inventario.Inventario();
+        parent.add("inventario",inventario);
+        layout.show(parent, "inventario");
+    }//GEN-LAST:event_btnModuloInventarioMouseReleased
+
+    private void btnModuloReportesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloReportesMouseReleased
+        JPanel parent = (JPanel)getParent();
+        CardLayout layout = (CardLayout) parent.getLayout();
+        Presentacion.Interfaces.Reportes.Reportes reportes = new Presentacion.Interfaces.Reportes.Reportes(parent);
+        parent.add("reportes",reportes);
+        layout.show(parent, "reportes");
+    }//GEN-LAST:event_btnModuloReportesMouseReleased
+
+    private void btnModuloProveedoresMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloProveedoresMouseReleased
+        JPanel parent = (JPanel)getParent();
+        CardLayout layout = (CardLayout) parent.getLayout();
+        Presentacion.Interfaces.Proveedores.Proveedores reportes = new Presentacion.Interfaces.Proveedores.Proveedores(parent);
+        parent.add("proveedores",reportes);
+        layout.show(parent, "proveedores");
+    }//GEN-LAST:event_btnModuloProveedoresMouseReleased
+
+    private void btnModuloClientesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloClientesMouseReleased
+        JPanel parent = (JPanel)getParent();
+        CardLayout layout = (CardLayout) parent.getLayout();
+        Presentacion.Interfaces.Clientes.Clientes clientes = new Presentacion.Interfaces.Clientes.Clientes(parent);
+        parent.add("clientes",clientes);
+        layout.show(parent, "clientes");
+    }//GEN-LAST:event_btnModuloClientesMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

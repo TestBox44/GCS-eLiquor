@@ -36,14 +36,16 @@ public class BotonRedondeadoMultiple extends PanelRedondeado{
                     if(indice<0){
                         throw new NullPointerException("Hubo un error buscando el boton en la lista");
                     }else{
-                        botonOpcionPresionado(indice);
+                        if(lblOpciones.get(indice).isEnabled()){
+                            botonOpcionPresionado(indice);
+                        }
                     }
                 } catch (Exception er) {System.err.println(er);}
             }
         };
     
     public BotonRedondeadoMultiple(String[]opciones) {
-        super(20,3,new Color(0,0,0,0),Color.decode("#8C8C8C"));
+        super(10,3,new Color(0,0,0,0),Color.decode("#8C8C8C"));
         setLayout(new GridBagLayout());
         setOpaque(false);
         Color [] coloresTexto=new Color[opciones.length];
@@ -53,26 +55,12 @@ public class BotonRedondeadoMultiple extends PanelRedondeado{
         agregarBotones(opciones, coloresTexto, fuenteTexto);
     }
     
-    public BotonRedondeadoMultiple(int radio, int grosorBorde, Color colorBoton,String[]opciones) {
-        this(opciones);
-        setRadioDeEsquina(radio);
-        setGrosorDeBorde(grosorBorde);
-        setColorBorde(colorBoton);
-    }
 
-    public BotonRedondeadoMultiple(int radio, int grosorBorde, Color colorBoton,String[]opciones,Dimension dimensionBotones) {
-        this(radio, grosorBorde, colorBoton, opciones);
+    public BotonRedondeadoMultiple(String[]opciones,Dimension dimensionBotones) {
+        this(opciones);
         this.dimensionBotones=dimensionBotones;
         actualizarBotones();
     }
-
-    public BotonRedondeadoMultiple(int radio, int grosorBorde, Color colorBoton,String[]opciones, Font fuenteOpciones, Dimension dimensionBotones) {
-        this(radio, grosorBorde, colorBoton, opciones, dimensionBotones);
-        for(JLabel lblOpcion:lblOpciones){
-            lblOpcion.setFont(fuenteOpciones);
-        }
-    }
-    
     
     
     public void setColorOpcion(int indice, Color color){
@@ -149,6 +137,18 @@ public class BotonRedondeadoMultiple extends PanelRedondeado{
                 add(separadorDeBotones,gbc);
                 gbc.gridx=gbc.gridx++;
             }
+        }
+    }
+    
+    public void desactivarBoton(int indice){
+        if(indice>=0 && indice<lblOpciones.size()){
+            lblOpciones.get(indice).setEnabled(false);
+        }
+    }
+    
+    public void activarBoton(int indice){
+        if(indice>=0 && indice<lblOpciones.size()){
+            lblOpciones.get(indice).setEnabled(true);
         }
     }
 

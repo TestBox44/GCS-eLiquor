@@ -1,6 +1,6 @@
 package Datos.DAO;
 
-import Datos.Entidades.Cliente;
+import Datos.Entidades.Proveedor;
 import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
  *
  * @author 
  */
-public class ClienteDAO implements CRUD{
+public class ProveedorDAO implements CRUD{
     Conexion cn=new Conexion();
     Connection con;
     PreparedStatement ps;
@@ -18,7 +18,7 @@ public class ClienteDAO implements CRUD{
         int r = 0;
         int id=setLastId()+1;
         String sql = 
-            "insert into cliente(nombre, correo, telefono, fechaRegistro,idCliente)values(?,?,?,?,?)";
+            "insert into proveedor(razonSocial, correo, telefono, fechaRegistro,idProveedor)values(?,?,?,?,?)";
         try{
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
@@ -37,20 +37,20 @@ public class ClienteDAO implements CRUD{
 
     @Override
     public List listar() {
-        List<Cliente> lista = new ArrayList<>();
-        String sql = "select * from cliente";
+        List<Proveedor> lista = new ArrayList<>();
+        String sql = "select * from proveedor";
         try{
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while(rs.next()){
-                Cliente c = new Cliente();
-                c.setIdCliente(rs.getInt(1));
-                c.setNombre(rs.getString(2));
-                c.setTelefono(rs.getInt(3));
-                c.setCorreo(rs.getString(4));
-                c.setFechaRegistro(rs.getDate(5).toLocalDate());
-                lista.add(c);
+                Proveedor p = new Proveedor();
+                p.setIdProveedor(rs.getInt(1));
+                p.setRazonSocial(rs.getString(2));
+                p.setTelefono(rs.getInt(3));
+                p.setCorreo(rs.getString(4));
+                p.setFechaRegistro(rs.getDate(5).toLocalDate());
+                lista.add(p);
             }
         }catch(SQLException e){
              System.out.println(e.toString());
@@ -60,7 +60,7 @@ public class ClienteDAO implements CRUD{
 
     @Override
     public void eliminar(int id) {
-        String sql = "delete from cliente where idCliente=?";
+        String sql = "delete from proveedor where idProveedor=?";
         try{
            con = cn.Conectar();
            ps = con.prepareStatement(sql);
@@ -74,7 +74,7 @@ public class ClienteDAO implements CRUD{
     @Override
     public int actualizar(Object[] o) {
         int r = 0;
-        String sql = "update cliente set nombre=?,correo=?,telefono=?,fechaRegistro=? where IdCliente=?";
+        String sql = "update proveedor set razonSocial=?,correo=?,telefono=?,fechaRegistro=? where IdProveedor=?";
         try{
            con = cn.Conectar();
            ps = con.prepareStatement(sql);
@@ -92,7 +92,7 @@ public class ClienteDAO implements CRUD{
     
     public int setLastId(){
         int id=1;
-       String sql = "SELECT MAX(idCliente) from cliente;";
+       String sql = "SELECT MAX(idProveedor) from proveedor;";
        try{
            con = cn.Conectar();
            ps = con.prepareStatement(sql);

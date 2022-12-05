@@ -26,10 +26,10 @@ public class TablaDefault extends JPanel{
     private ScrollBarCustom scrollBarTabla;
     private DefaultTableModel modeloTabla;
     private RenderDeCabecera renderDeCabecera;
-    private float dimensionFuenteCabecera=21;
-    private float dimensionFuenteFila=25;
+    private float dimensionFuenteCabecera=22;
+    private float dimensionFuenteFila=27;
     private Dimension dimBase;
-    private int altoFilaBase = 35;
+    private int altoFilaBase = 45;
     private Container parent;
     
     public TablaDefault(String[] columnas, int [] anchoColumnas,Container parent) {
@@ -150,7 +150,7 @@ public class TablaDefault extends JPanel{
 
     public void setAltoFilaBase(int altoFilaBase) {
         this.altoFilaBase = altoFilaBase;
-        ajustarDimensionesDeComponentes();
+        //ajustarDimensionesDeComponentes();
     }
 
     public Dimension getDimBase() {

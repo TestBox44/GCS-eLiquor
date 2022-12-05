@@ -1,4 +1,4 @@
-package Presentacion.Interfaces.Clientes;
+package Presentacion.Interfaces.Proveedores;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -7,17 +7,17 @@ import java.awt.Container;
  *
  * @author sortizu
  */
-public class Clientes extends javax.swing.JPanel {
+public class Proveedores extends javax.swing.JPanel {
 
-    private PanelDeClientes panelDeClientes;
+    private PanelDeProveedores panelDeProveedores;
     Container parent;
     
-    public Clientes(Container parent) {
+    public Proveedores(Container parent) {
         initComponents();
         setOpaque(false);
-        panelDeClientes=new PanelDeClientes  (parent);
+        panelDeProveedores=new PanelDeProveedores  (parent);
         //panelDeReportes.setBounds(0, 0, 1360, 768);
-        add(panelDeClientes,BorderLayout.CENTER);
+        add(panelDeProveedores,BorderLayout.CENTER);
     }
 
     
