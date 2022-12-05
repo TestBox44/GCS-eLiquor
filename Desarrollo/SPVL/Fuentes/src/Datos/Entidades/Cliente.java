@@ -4,6 +4,8 @@
  */
 package Datos.Entidades;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author Asus
@@ -13,15 +15,17 @@ public class Cliente {
     private String nombre;
     private String correo;
     private int telefono;
-
+    private LocalDate fechaRegistro;
+    
     public Cliente() {
     }
 
-    public Cliente(int idCliente, String nombre, String correo, int telefono) {
+    public Cliente(int idCliente, String nombre, String correo, int telefono, LocalDate fechaRegistro) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.correo = correo;
         this.telefono = telefono;
+        this.fechaRegistro = fechaRegistro;
     }
 
     public int getTelefono() {
@@ -55,5 +59,12 @@ public class Cliente {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    
+
+    public LocalDate getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(LocalDate fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
 }
