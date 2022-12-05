@@ -236,6 +236,11 @@ public class Menu extends javax.swing.JPanel {
 
         btnModuloClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Clientes.png"))); // NOI18N
         btnModuloClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModuloClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnModuloClientesMouseReleased(evt);
+            }
+        });
         PanelDeBotonesDeModulos.add(btnModuloClientes);
 
         btnModuloProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Proveedores.png"))); // NOI18N
@@ -395,6 +400,14 @@ public class Menu extends javax.swing.JPanel {
         parent.add("proveedores",reportes);
         layout.show(parent, "proveedores");
     }//GEN-LAST:event_btnModuloProveedoresMouseReleased
+
+    private void btnModuloClientesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloClientesMouseReleased
+        JPanel parent = (JPanel)getParent();
+        CardLayout layout = (CardLayout) parent.getLayout();
+        Presentacion.Interfaces.Clientes.Clientes clientes = new Presentacion.Interfaces.Clientes.Clientes(parent);
+        parent.add("clientes",clientes);
+        layout.show(parent, "clientes");
+    }//GEN-LAST:event_btnModuloClientesMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

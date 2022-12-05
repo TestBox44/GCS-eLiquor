@@ -24,7 +24,7 @@ public class ControlClientes {
         cdao.add(new Object[]{Cliente.getNombre(),Cliente.getCorreo(),Cliente.getTelefono(),Cliente.getFechaRegistro(),Cliente.getIdCliente()});
     }
     
-    public static void eliminarClientees(ArrayList<Cliente> Clientes){
+    public static void eliminarClientes(ArrayList<Cliente> Clientes){
         ClienteDAO cdao=new ClienteDAO();
         for (Cliente Cliente: Clientes) {
             cdao.eliminar(Cliente.getIdCliente());

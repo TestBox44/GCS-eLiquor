@@ -1,6 +1,21 @@
 create database spvl;
 use spvl; 
 desc usuarios;
+
+create table sistema(
+	idSistema int AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	razonSocial varchar(45) NOT NULL,
+    numeroTerminal int NOT NULL,
+    RUC varchar(15) NOT NULL,
+    telefono int NOT NULL,
+    codigoTienda varchar(45) NOT NULL,
+    ciudad varchar(45) NOT NULL,
+    provincia varchar(45) NOT NULL,
+    distrito varchar(45) NOT NULL,
+    direccion varchar(45) NOT NULL,
+    codigoPostal int NOT NULL
+);
+
 create table usuarios( 
 	idUsuario int AUTO_INCREMENT PRIMARY KEY NOT NULL,
     nombre varchar(45) NOT NULL,

@@ -6,6 +6,7 @@ package Presentacion.Interfaces;
 
 import Datos.DAO.DepartamentoDAO;
 import Datos.Entidades.Departamento;
+import Presentacion.Interfaces.Clientes.Clientes;
 import Presentacion.Utilidades.UtilidadSesion;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -101,9 +102,14 @@ public class FramePrincipal extends javax.swing.JFrame {
         layoutContenedorPaneles.show(ContenedorPaneles, "reportes");*/
         
         //Descomenta las tres lineas de abajo para entrar directamente al modulo de proveedores
-        Proveedores proveedores = new Proveedores(ContenedorPaneles);
+        /*Proveedores proveedores = new Proveedores(ContenedorPaneles);
         ContenedorPaneles.add("proveedores",proveedores);
-        layoutContenedorPaneles.show(ContenedorPaneles, "proveedores");
+        layoutContenedorPaneles.show(ContenedorPaneles, "proveedores");*/
+        
+        //Descomenta las tres lineas de abajo para entrar directamente al modulo de cliente
+        Clientes clientes = new Clientes(ContenedorPaneles);
+        ContenedorPaneles.add("clientes",clientes);
+        layoutContenedorPaneles.show(ContenedorPaneles, "clientes");
         
         }
         //Fin de zona de debug

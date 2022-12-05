@@ -154,6 +154,17 @@ public class ModificarProveedores extends VentanaEmergente{
                 super.replace(fb, offset, length, text, attrs);
             }
         });
+        
+        PlainDocument documentTelefono = (PlainDocument) txtTelefono.getDocument();
+        documentTelefono.setDocumentFilter(new DocumentFilter() {
+            @Override
+            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                if(text.matches("[0-9]+")){
+                    super.replace(fb, offset, length, text, attrs);
+                }
+            }
+        });
+        
         lblAlertaRazonSocial.setVisible(false);
         /*Cargando datos del departamento*/
         proveedorModificado = panelPrincipalDeModuloDeProveedores.proveedores.get(fila);

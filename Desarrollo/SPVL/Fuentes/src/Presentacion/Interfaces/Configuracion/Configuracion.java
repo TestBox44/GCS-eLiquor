@@ -1,5 +1,6 @@
-package Presentacion.Interfaces.Clientes;
+package Presentacion.Interfaces.Configuracion;
 
+import Presentacion.Interfaces.Configuracion.*;
 import java.awt.BorderLayout;
 import java.awt.Container;
 
@@ -7,17 +8,17 @@ import java.awt.Container;
  *
  * @author sortizu
  */
-public class Clientes extends javax.swing.JPanel {
+public class Configuracion extends javax.swing.JPanel {
 
-    private PanelDeClientes panelDeClientes;
+    private PanelDeConfiguracion panelDeConfiguracion;
     Container parent;
     
-    public Clientes(Container parent) {
+    public Configuracion(Container parent) {
         initComponents();
         setOpaque(false);
-        panelDeClientes=new PanelDeClientes  (parent);
+        panelDeConfiguracion=new PanelDeConfiguracion  (parent);
         //panelDeReportes.setBounds(0, 0, 1360, 768);
-        add(panelDeClientes,BorderLayout.CENTER);
+        add(panelDeConfiguracion,BorderLayout.CENTER);
     }
 
     
