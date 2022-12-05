@@ -25,14 +25,14 @@ public class ControlProveedores {
         pdao.add(new Object[]{proveedor.getRazonSocial(),proveedor.getCorreo(),proveedor.getTelefono(),proveedor.getFechaRegistro(),proveedor.getIdProveedor()});
     }
     
-    public static void eliminarUsuarios(ArrayList<Usuario> usuarios){
+    public static void eliminarProveedores(ArrayList<Proveedor> proveedores){
         ProveedorDAO pdao=new ProveedorDAO();
-        for (Usuario usuario: usuarios) {
-            pdao.eliminar(usuario.getIdUsuario());
+        for (Proveedor proveedor: proveedores) {
+            pdao.eliminar(proveedor.getIdProveedor());
         }
     }
     
-    public static void modificarUsuario(Proveedor proveedor){
+    public static void modificarProveedor(Proveedor proveedor){
         ProveedorDAO pdao=new ProveedorDAO();
         Object[] datos={proveedor.getRazonSocial(),proveedor.getCorreo(),proveedor.getTelefono(),proveedor.getFechaRegistro(),proveedor.getIdProveedor()};
         pdao.actualizar(datos);

@@ -9,6 +9,9 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -96,7 +99,6 @@ public class PanelModulo extends JLayeredPane{
         private JPanel cabecera;
         private JLabel lbltituloModulo;
         private JLabel lblinformacionUsuarioFecha;
-        private JLabel lblHora;
         private JPanel cuerpo;
         private JPanel panelBotonesNavegacion;
         private BotonNavegacion btnSalir;
@@ -170,43 +172,30 @@ public class PanelModulo extends JLayeredPane{
             lbltituloModulo.setFont(UtilidadesFuentes.InterRegular.deriveFont((float)Math.floor(40.0*height/basePanelHeight)));
             lbltituloModulo.setForeground(Color.decode("#8C8C8C"));
             lbltituloModulo.setHorizontalAlignment(JLabel.CENTER);
-            gbc.insets=new Insets((int)(8.0/basePanelHeight*height), (int)(42.0/basePanelWidth*width), 0, 0);
+            gbc.insets=new Insets((int)(8.0/basePanelHeight*height), (int)(40/basePanelWidth*width), 0, 0);
+            gbc.anchor=GridBagConstraints.LINE_START;
             gbc.gridx=0;
             gbc.gridy=0;
             gbc.fill=GridBagConstraints.VERTICAL;
-            gbc.weightx=0;
+            gbc.weightx=1;
             gbc.weighty=1;
             cabecera.add(lbltituloModulo,gbc);
+            LocalDate fecha = LocalDate.now();
             
-            lblinformacionUsuarioFecha = new JLabel(UtilidadSesion.nombreUsuarioActual.split(" ")[0]+", 10 de octubre de 2022  |");
-            Dimension dimensionInformacion = new Dimension((int)(500.0/basePanelWidth*width),1);
+            lblinformacionUsuarioFecha = new JLabel(UtilidadSesion.nombreUsuarioActual.split(" ")[0]+", "+fecha.format(DateTimeFormatter.ofPattern("dd 'de' MMMM 'de' YYYY", new Locale("es", "ES"))));
+            Dimension dimensionInformacion = new Dimension((int)(600.0/basePanelWidth*width),1);
             lblinformacionUsuarioFecha.setPreferredSize(dimensionInformacion);
             lblinformacionUsuarioFecha.setMinimumSize(dimensionInformacion);
             lblinformacionUsuarioFecha.setFont(UtilidadesFuentes.InterLight.deriveFont((float)Math.floor(25*height/basePanelHeight)));
             lblinformacionUsuarioFecha.setForeground(Color.decode("#8C8C8C"));
             lblinformacionUsuarioFecha.setHorizontalAlignment(JLabel.RIGHT);
-            gbc.insets=new Insets((int)(8.0/basePanelHeight*height), (int)(703.0/basePanelWidth*width), 0, 0);
+            gbc.insets=new Insets((int)(8.0/basePanelHeight*height), (int)(710.0/basePanelWidth*width), 0, (int)(20.0/basePanelWidth*width));
             gbc.gridx=1;
             gbc.gridy=0;
             gbc.fill=GridBagConstraints.VERTICAL;
             gbc.weightx=0;
             gbc.weighty=1;
             cabecera.add(lblinformacionUsuarioFecha,gbc);
-            
-            lblHora = new JLabel("10:30 PM");
-            Dimension dimensionHora = new Dimension((int)(150.0/basePanelWidth*width),1);
-            lblHora.setPreferredSize(dimensionHora);
-            lblHora.setMinimumSize(dimensionHora);
-            lblHora.setFont(UtilidadesFuentes.InterLight.deriveFont((float)Math.floor(30*height/basePanelHeight)));
-            lblHora.setForeground(Color.decode("#8C8C8C"));
-            lblHora.setHorizontalAlignment(JLabel.CENTER);
-            gbc.insets=new Insets((int)(8.0/basePanelHeight*height),(int)(10.0/basePanelWidth*width),0,(int)(10.0/basePanelWidth*width));
-            gbc.gridx=2;
-            gbc.gridy=0;
-            gbc.fill=GridBagConstraints.VERTICAL;
-            gbc.weightx=0;
-            gbc.weighty=1;
-            cabecera.add(lblHora,gbc);
         }
         private void iniciarComponentesBotones(int width, int height){
             btnSalir=new BotonNavegacion(BotonNavegacion.SALIR, (int)(104.0/basePanelWidth*width), (int)(108.0/basePanelHeight*height), this);
@@ -239,14 +228,6 @@ public class PanelModulo extends JLayeredPane{
 
         public void setLblinformacionUsuarioFecha(JLabel lblinformacionUsuarioFecha) {
             this.lblinformacionUsuarioFecha = lblinformacionUsuarioFecha;
-        }
-
-        public JLabel getLblHora() {
-            return lblHora;
-        }
-
-        public void setLblHora(JLabel lblHora) {
-            this.lblHora = lblHora;
         }
 
         public JPanel getCuerpo() {

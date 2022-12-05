@@ -5,6 +5,7 @@
 package Presentacion.Interfaces.Proveedores;
 
 import Datos.Entidades.Proveedor;
+import Datos.Entidades.Usuario;
 import Negocio.ControlProveedores;
 import Presentacion.Interfaces.BotonRedondeadoMultiple;
 import Presentacion.Interfaces.Buscador;
@@ -29,10 +30,14 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -58,6 +63,8 @@ public class PanelDeProveedores extends JPanel implements PropertyChangeListener
         proveedores=new ArrayList<Proveedor>();
         iniciarComponentes();
         cargarListaDeProveedores();
+        tablaProveedores.revalidate();
+        tablaProveedores.repaint();
     }
     private void iniciarComponentes(){
         setOpaque(false);
@@ -74,9 +81,13 @@ public class PanelDeProveedores extends JPanel implements PropertyChangeListener
         MouseAdapter limpiarSeleccion = new MouseAdapter(){
             @Override
             public void mouseReleased(MouseEvent e) {
+                tablaProveedores.getTabla().clearSelection();
+                botonesAccionProveedores.desactivarBoton(0);
+                botonesAccionProveedores.desactivarBoton(1);
             }
         };
         addMouseListener(limpiarSeleccion);
+        tablaProveedores.getScrollPaneTabla().addMouseListener(limpiarSeleccion);
     }
 
     private void iniciarComponentesCuerpo(){
@@ -147,6 +158,13 @@ public class PanelDeProveedores extends JPanel implements PropertyChangeListener
         tablaProveedores.getTabla().getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             @Override
             public void valueChanged(ListSelectionEvent e) {
+                if(tablaProveedores.getTabla().getSelectedRows().length>0){
+                    botonesAccionProveedores.activarBoton(0);
+                    botonesAccionProveedores.activarBoton(1);
+                }else{
+                    botonesAccionProveedores.desactivarBoton(0);
+                    botonesAccionProveedores.desactivarBoton(1);
+                }
             }
         });
         tablaProveedores.setAltoFilaBase(75);
@@ -179,12 +197,17 @@ public class PanelDeProveedores extends JPanel implements PropertyChangeListener
             public void botonOpcionPresionado(int opcionPresionada) {
                 switch (opcionPresionada) {
                     case 0:
-                        EliminarProveedores eliminarProveedores = new EliminarProveedores(panelPrincipalProveedores,tablaProveedores.getTabla().getSelectedRows());
+                        int [] indicesSeleccion=tablaProveedores.getTabla().getSelectedRows();
+                        for(int i = 0;i<indicesSeleccion.length;i++){
+                            indicesSeleccion[i]=tablaProveedores.getTabla().convertRowIndexToModel(indicesSeleccion[i]);
+                        }
+                        EliminarProveedores eliminarProveedores = new EliminarProveedores(panelPrincipalProveedores,indicesSeleccion);
                         ((FramePrincipal) SwingUtilities.getWindowAncestor(panelPrincipalProveedores)).mostrarPanelEmergente(eliminarProveedores);
                         eliminarProveedores.requestFocusInWindow();
                         break;
                     case 1:
-                        ModificarProveedores modificarProveedores = new ModificarProveedores(panelPrincipalProveedores,tablaProveedores.getTabla().getSelectedRow());
+                        
+                        ModificarProveedores modificarProveedores = new ModificarProveedores(panelPrincipalProveedores,tablaProveedores.getTabla().convertRowIndexToModel(tablaProveedores.getTabla().getSelectedRow()));
                         ((FramePrincipal) SwingUtilities.getWindowAncestor(panelPrincipalProveedores)).mostrarPanelEmergente(modificarProveedores);
                         modificarProveedores.requestFocusInWindow();
                         break;
@@ -195,17 +218,13 @@ public class PanelDeProveedores extends JPanel implements PropertyChangeListener
                         agregarProveedores.requestFocusInWindow();
                         break;
                 }
-                
-                if(opcionPresionada==0){
-                   /* ExportarReporte exportarReporte = new ExportarReporte(panelModuloReportes);
-                    ((FramePrincipal) SwingUtilities.getWindowAncestor(panelPrincipalReportes)).mostrarPanelEmergente(exportarReporte);
-                exportarReporte.requestFocus();*/
-                }
             }        
         };
         botonesAccionProveedores.setColorOpcion(0, Color.decode("#CD5F5F"));
         botonesAccionProveedores.setColorOpcion(1, Color.decode("#5F7ECD"));
         botonesAccionProveedores.setColorOpcion(2, Color.decode("#6ECD5F"));
+        botonesAccionProveedores.desactivarBoton(0);
+        botonesAccionProveedores.desactivarBoton(1);
         gbc.insets=new Insets(10, 0, 20,0);
         gbc.gridx=0;
         gbc.gridy=3;
@@ -242,11 +261,32 @@ public class PanelDeProveedores extends JPanel implements PropertyChangeListener
         tablaProveedores.getModeloTabla().setValueAt(p.getTelefono(),fila ,2);
     }
     
-    private void BuscarDeFiltro(String textoBusqueda){
+    public void eliminarProveedorDeLaTabla(int indice){
+        tablaProveedores.getModeloTabla().removeRow(indice);
+    }
     
+    private void BuscarDeFiltro(String textoBusqueda){
+        TableRowSorter<DefaultTableModel> sorter =sorter = new TableRowSorter<DefaultTableModel>(tablaProveedores.getModeloTabla());
+        tablaProveedores.getTabla().setRowSorter(sorter);
+        sorter.setRowFilter(RowFilter.regexFilter("(?i)"+textoBusqueda));
     }
     
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        Selector selectorModificado=((Selector)evt.getSource());
+        String tipoSelector=selectorModificado.getNombreDeSelector();
+        switch (tipoSelector) {
+            case "SSeleccion":
+                    try {
+                        if((int)evt.getNewValue()==0){
+                            tablaProveedores.getTabla().setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+                        }else{
+                            tablaProveedores.getTabla().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                        }
+                    } catch (Exception e) {
+                        System.err.println(e);
+                    }
+                break;
+        }
     }
 }

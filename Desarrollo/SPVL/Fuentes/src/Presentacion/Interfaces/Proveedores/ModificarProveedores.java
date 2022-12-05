@@ -175,7 +175,7 @@ public class ModificarProveedores extends VentanaEmergente{
             proveedorModificado.setCorreo(txtCorreo.getText());
             proveedorModificado.setTelefono(telefono);
             panelPrincipalDeModuloDeProveedores.modificarProveedorDeTabla(fila, proveedorModificado);
-            ControlProveedores.modificarUsuario(proveedorModificado);
+            ControlProveedores.modificarProveedor(proveedorModificado);
             ((FramePrincipal)((JFrame) SwingUtilities.getWindowAncestor(this))).cerrarPanelesEmergentes();   
         }
     }

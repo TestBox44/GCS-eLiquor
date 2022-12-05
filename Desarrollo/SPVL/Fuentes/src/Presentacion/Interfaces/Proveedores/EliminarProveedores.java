@@ -4,6 +4,7 @@ import Presentacion.Interfaces.Inventario.*;
 import Datos.Entidades.Departamento;
 import Datos.Entidades.Proveedor;
 import Negocio.ControlInventario;
+import Negocio.ControlProveedores;
 import Presentacion.Interfaces.FramePrincipal;
 import Presentacion.Interfaces.ScrollBarCustom;
 import Presentacion.Interfaces.VentanaEmergente;
@@ -15,6 +16,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,6 +27,7 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.ss.formula.functions.T;
 
 /**
  *
@@ -124,11 +128,14 @@ public class EliminarProveedores extends VentanaEmergente{
     }
     
     @Override
-    public void btnAceptarPresionado(MouseEvent evt) {/*
+    public void btnAceptarPresionado(MouseEvent evt) {
         panelPrincipalDeModuloDeProveedores.proveedores.removeAll(proveedoresABorrar);
-        ControlInventario.eliminarDepartamentos(proveedoresABorrar);
-        panelPrincipalDeModuloDeProveedores.mostrarListaDepartamentosCargadaEnTabla();
-        ((FramePrincipal)((JFrame) SwingUtilities.getWindowAncestor(this))).cerrarPanelesEmergentes();*/
+        for (int i = filasSeleccionadas.length-1;i>=0;i--) {
+            panelPrincipalDeModuloDeProveedores.eliminarProveedorDeLaTabla(filasSeleccionadas[i]);
+        }
+        
+        ControlProveedores.eliminarProveedores(proveedoresABorrar);
+        ((FramePrincipal)((JFrame) SwingUtilities.getWindowAncestor(this))).cerrarPanelesEmergentes();
     }
 
     @Override

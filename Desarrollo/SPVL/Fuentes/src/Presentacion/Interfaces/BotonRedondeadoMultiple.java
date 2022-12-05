@@ -36,7 +36,9 @@ public class BotonRedondeadoMultiple extends PanelRedondeado{
                     if(indice<0){
                         throw new NullPointerException("Hubo un error buscando el boton en la lista");
                     }else{
-                        botonOpcionPresionado(indice);
+                        if(lblOpciones.get(indice).isEnabled()){
+                            botonOpcionPresionado(indice);
+                        }
                     }
                 } catch (Exception er) {System.err.println(er);}
             }
