@@ -4,6 +4,7 @@
  */
 package Presentacion.Interfaces;
 
+import Presentacion.Interfaces.Clientes.Clientes;
 import Presentacion.Utilidades.UtilidadSesion;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -71,10 +72,10 @@ public class FramePrincipal extends javax.swing.JFrame {
         //Cambiar a partir de aqui
         
         //Descomenta las tres lineas de abajo para entrar directamente al modulo de login
-        Login login = new Login();
+        /*Login login = new Login();
         ContenedorPaneles.add("login",login);
         layoutContenedorPaneles.show(ContenedorPaneles, "login");
-        
+        */
         
         //Descomenta las tres lineas de abajo para entrar directamente al modulo de usuarios
         /*Usuarios usuarios = new Usuarios();
@@ -105,12 +106,12 @@ public class FramePrincipal extends javax.swing.JFrame {
         layoutContenedorPaneles.show(ContenedorPaneles, "proveedores");*/
         
         //Descomenta las tres lineas de abajo para entrar directamente al modulo de cliente
-        /*Clientes clientes = new Clientes(ContenedorPaneles);
+        Clientes clientes = new Clientes(ContenedorPaneles);
         ContenedorPaneles.add("clientes",clientes);
-        layoutContenedorPaneles.show(ContenedorPaneles, "clientes");*/
+        layoutContenedorPaneles.show(ContenedorPaneles, "clientes");
         
         //Descomenta las tres lineas de abajo para entrar directamente a la configuracion
-        /*Configuracion configuracion = new Configuracion(ContenedorPaneles);
+       /* Configuracion configuracion = new Configuracion(ContenedorPaneles);
         ContenedorPaneles.add("configuracion",configuracion);
         layoutContenedorPaneles.show(ContenedorPaneles, "configuracion");*/
         }

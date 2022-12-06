@@ -4,9 +4,13 @@
  */
 package Presentacion.Interfaces.Configuracion;
 
+import Presentacion.Interfaces.BotonRedondeado;
+import Datos.Entidades.Configuracion;
+import Negocio.ControlConfiguracion;
 import Presentacion.Interfaces.Configuracion.*;
 import Presentacion.Interfaces.PanelModulo;
 import Presentacion.Interfaces.TextFieldRedondeado;
+import Presentacion.Utilidades.UtilidadSesion;
 import Presentacion.Utilidades.UtilidadesFuentes;
 import java.awt.Color;
 import java.awt.Container;
@@ -14,9 +18,12 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -38,12 +45,23 @@ public class PanelDeConfiguracion extends JPanel{
     private TextFieldRedondeado txtDistrito;
     private TextFieldRedondeado txtCiudad;
     private TextFieldRedondeado txtDireccion;
+    private TextFieldRedondeado txtCodigoPostal;
+    private BotonRedondeado btnGuardarCambios;
+    private JLabel lblDatosGuardados;
+    private Timer timerAlertaGuardado;
     
     public PanelDeConfiguracion(Container parent) {
         this.parent=parent;
         panelPrincipalConfiguracion=this;
         iniciarComponentes();
         cargarListaDeConfiguracion();
+        timerAlertaGuardado = new Timer(1500,new ActionListener(){
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        lblDatosGuardados.setForeground(new Color(0,0,0,0));
+                    }
+                });
+                timerAlertaGuardado.setRepeats(false);
     }
     private void iniciarComponentes(){
         setOpaque(false);
@@ -57,6 +75,17 @@ public class PanelDeConfiguracion extends JPanel{
         gbc.gridy=0;
         add(panelModuloConfiguracion,gbc);
         iniciarComponentesCuerpo();
+        //Cargando datos
+        txtRazonSocial.setText(UtilidadSesion.configuracionActual.getRazonSocial());
+        txtRUC.setText(UtilidadSesion.configuracionActual.getRUC());
+        txtNumTerminal.setText(""+UtilidadSesion.configuracionActual.getNumeroTerminal());
+        txtCodigoTienda.setText(UtilidadSesion.configuracionActual.getCodigoTienda());
+        txtTelefono.setText(""+UtilidadSesion.configuracionActual.getTelefono());
+        txtProvincia.setText(UtilidadSesion.configuracionActual.getProvincia());
+        txtDistrito.setText(UtilidadSesion.configuracionActual.getDistrito());
+        txtCiudad.setText(UtilidadSesion.configuracionActual.getCiudad());
+        txtDireccion.setText(UtilidadSesion.configuracionActual.getDireccion());
+        txtCodigoPostal.setText(""+UtilidadSesion.configuracionActual.getCodigoPostal());
     }
 
     private void iniciarComponentesCuerpo(){
@@ -73,9 +102,9 @@ public class PanelDeConfiguracion extends JPanel{
         Insets insetTxt = new Insets(0, 65, 25, 45);
         Insets insetLbl = new Insets(0, 95, 5, 45);
         
-        cuerpo.setBorder(new EmptyBorder(25,0,0,0));
+        cuerpo.setBorder(new EmptyBorder(20,0,0,0));
         
-        JLabel lblRazonSocial=new JLabel("Nombre");
+        JLabel lblRazonSocial=new JLabel("Razón Social");
         lblRazonSocial.setFont(UtilidadesFuentes.InterLight.deriveFont(25.0f));
         lblRazonSocial.setForeground(Color.decode("#8C8C8C"));
         lblRazonSocial.setHorizontalAlignment(JLabel.LEFT);
@@ -211,7 +240,7 @@ public class PanelDeConfiguracion extends JPanel{
         txtTelefono.setPreferredSize(nuevoDim1);
         txtTelefono.setMinimumSize(nuevoDim1);
         gbc.insets=insetTxt;
-        gbc.anchor=GridBagConstraints.FIRST_LINE_START;
+        //gbc.anchor=GridBagConstraints.FIRST_LINE_START;
         gbc.gridy++;
         gbc.fill=GridBagConstraints.NONE;
         gbc.weightx=1;
@@ -335,11 +364,89 @@ public class PanelDeConfiguracion extends JPanel{
         gbc.fill=GridBagConstraints.NONE;
         gbc.weightx=1;
         cuerpo.add(txtDistrito,gbc);
+        
+        JLabel lblCodigoPostal=new JLabel("Código Postal");
+        lblCodigoPostal.setFont(UtilidadesFuentes.InterLight.deriveFont(25.0f));
+        lblCodigoPostal.setForeground(Color.decode("#8C8C8C"));
+        lblCodigoPostal.setHorizontalAlignment(JLabel.LEFT);
+        gbc.anchor=GridBagConstraints.LINE_START;
+        gbc.insets=new Insets(0, 30, 5, 45);
+        gbc.gridy++;
+        gbc.gridwidth=1;
+        gbc.fill=GridBagConstraints.NONE;
+        gbc.weightx=1;
+        cuerpo.add(lblCodigoPostal,gbc);
+        
+        txtCodigoPostal=new TextFieldRedondeado(0);
+        txtCodigoPostal.setGrosorBorde(4);
+        txtCodigoPostal.setRadioDeBorde(40);
+        txtCodigoPostal.setColorBorde(Color.decode("#CACACA"));
+        txtCodigoPostal.setFont(UtilidadesFuentes.InterLight.deriveFont(22.0f));
+        txtCodigoPostal.setForeground(Color.decode("#8C8C8C"));
+        txtCodigoPostal.setHorizontalAlignment(JLabel.LEFT);
+        txtCodigoPostal.setBorder( BorderFactory.createEmptyBorder(2, 20, 0, 20) );
+        txtCodigoPostal.setPreferredSize(nuevoDim2);
+        txtCodigoPostal.setMinimumSize(nuevoDim2);
+        gbc.insets=new Insets(0, 0, 25, 45);
+        gbc.anchor=GridBagConstraints.LINE_START;
+        gbc.gridy++;
+        gbc.fill=GridBagConstraints.NONE;
+        gbc.weightx=1;
+        cuerpo.add(txtCodigoPostal,gbc);
     }
     
     private void iniciarComponentesCuerpoInferior(int width, int height){
+        Dimension dimBoton = new Dimension(230,50);
         GridBagConstraints gbc = new GridBagConstraints();
-       
+        btnGuardarCambios = new BotonRedondeado(10, 3, Color.decode("#8C8C8C"),"GUARDAR CAMBIOS",UtilidadesFuentes.InterRegular.deriveFont(20.0f)){
+            @Override
+            public void botonPresionado() {
+                Configuracion configuracionAGuardar = new Configuracion();
+                try{
+                    configuracionAGuardar.setNumeroTerminal(Integer.parseInt(txtNumTerminal.getText()));
+                    configuracionAGuardar.setTelefono(Integer.parseInt(txtTelefono.getText()));
+                    configuracionAGuardar.setCodigoPostal(Integer.parseInt(txtCodigoPostal.getText()));
+                }catch (Exception er) {System.err.println(er);}
+                configuracionAGuardar.setRazonSocial(txtRazonSocial.getText());
+                configuracionAGuardar.setRUC(txtRUC.getText());
+                
+                configuracionAGuardar.setCodigoTienda(txtCodigoTienda.getText());
+                
+                configuracionAGuardar.setProvincia(txtProvincia.getText());
+                configuracionAGuardar.setDistrito(txtDistrito.getText());
+                configuracionAGuardar.setCiudad(txtCiudad.getText());
+                configuracionAGuardar.setDireccion(txtDireccion.getText());
+                
+                UtilidadSesion.configuracionActual=configuracionAGuardar;
+                ControlConfiguracion.aplicarCambios(configuracionAGuardar);
+                lblDatosGuardados.setForeground(Color.decode("#8C8C8C"));
+                if(!timerAlertaGuardado.isRunning()){
+                    timerAlertaGuardado.start();
+                }
+            }
+        };
+        btnGuardarCambios.setPreferredSize(dimBoton);
+        btnGuardarCambios.setMinimumSize(dimBoton);
+        gbc.gridx=0;
+        gbc.gridy=10;
+        gbc.fill=GridBagConstraints.NONE;
+        gbc.weightx=1;
+        gbc.weighty=0;
+        gbc.gridwidth=3;
+        cuerpo.add(btnGuardarCambios,gbc);
+        
+        lblDatosGuardados = new JLabel("Datos Guardados");
+        lblDatosGuardados.setForeground(new Color(0,0,0,0));
+        lblDatosGuardados.setFont(UtilidadesFuentes.InterRegular.deriveFont(15.0f));
+        gbc.insets=new Insets(0, 0, 15, 0);
+        gbc.anchor=GridBagConstraints.PAGE_START;
+        gbc.gridx=0;
+        gbc.gridy=11;
+        gbc.fill=GridBagConstraints.NONE;
+        gbc.weightx=1;
+        gbc.weighty=1;
+        gbc.gridwidth=3;
+        cuerpo.add(lblDatosGuardados,gbc);
     }
 
     public void cargarListaDeConfiguracion(){

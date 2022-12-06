@@ -29,11 +29,17 @@ public class PanelModulo extends JLayeredPane{
     private Container parentContainer;
     public static final double basePanelHeight=1050;
     public static final double basePanelWidth=1920;
+    private String Tutorial="";
     
     public PanelModulo(Container parentContainer) {
         this.parentContainer = parentContainer;
         ajustarPanelAVentana();
         iniciarComponentes();
+    }
+    
+    public PanelModulo(Container parentContainer,String Tutorial){
+        this(parentContainer);
+        this.Tutorial=Tutorial;
     }
     
     private void iniciarComponentes(){
@@ -101,9 +107,8 @@ public class PanelModulo extends JLayeredPane{
         private JLabel lblinformacionUsuarioFecha;
         private JPanel cuerpo;
         private JPanel panelBotonesNavegacion;
-        private BotonNavegacion btnSalir;
-        private BotonNavegacion btnHome;
-        private BotonNavegacion btnConfig;
+        private BotonNavegacion btnVolver;
+        private BotonNavegacion btnAyuda;
         private Container parentContainer;
         
         public PanelContenedorComponentes(Container parentContainer) {
@@ -198,12 +203,15 @@ public class PanelModulo extends JLayeredPane{
             cabecera.add(lblinformacionUsuarioFecha,gbc);
         }
         private void iniciarComponentesBotones(int width, int height){
-            btnSalir=new BotonNavegacion(BotonNavegacion.SALIR, (int)(104.0/basePanelWidth*width), (int)(108.0/basePanelHeight*height), this);
-            panelBotonesNavegacion.add(btnSalir);
-            btnHome=new BotonNavegacion(BotonNavegacion.MENU, (int)(104.0/basePanelWidth*width), (int)(108.0/basePanelHeight*height), this);
-            panelBotonesNavegacion.add(btnHome);
-            btnConfig=new BotonNavegacion(BotonNavegacion.CONFIGURACION, (int)(104.0/basePanelWidth*width), (int)(108.0/basePanelHeight*height), this);
-            panelBotonesNavegacion.add(btnConfig);
+            btnVolver=new BotonNavegacion(BotonNavegacion.VOLVER, (int)(104.0/basePanelWidth*width), (int)(104.0/basePanelHeight*height), this);
+            panelBotonesNavegacion.add(btnVolver);
+            btnAyuda=new BotonNavegacion(BotonNavegacion.AYUDA, (int)(104.0/basePanelWidth*width), (int)(104.0/basePanelHeight*height), this){
+                @Override
+                protected void funcionAyuda(String imagenTutorial) {
+                    super.funcionAyuda(Tutorial);
+                }
+            };
+            panelBotonesNavegacion.add(btnAyuda);
         }
 
         public JPanel getCabecera() {
@@ -244,6 +252,22 @@ public class PanelModulo extends JLayeredPane{
 
         public void setPanelBotonesNavegacion(JPanel panelBotonesNavegacion) {
             this.panelBotonesNavegacion = panelBotonesNavegacion;
+        }
+
+        public BotonNavegacion getBtnVolver() {
+            return btnVolver;
+        }
+
+        public void setBtnVolver(BotonNavegacion btnVolver) {
+            this.btnVolver = btnVolver;
+        }
+
+        public BotonNavegacion getBtnAyuda() {
+            return btnAyuda;
+        }
+
+        public void setBtnAyuda(BotonNavegacion btnAyuda) {
+            this.btnAyuda = btnAyuda;
         }
         
         

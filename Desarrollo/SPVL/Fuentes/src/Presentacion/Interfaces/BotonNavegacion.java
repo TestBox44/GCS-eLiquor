@@ -1,9 +1,12 @@
 package Presentacion.Interfaces;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,7 +21,8 @@ class BotonNavegacion extends JPanel{
     public static final int SALIR=0;
     public static final int MENU=1;
     public static final int CONFIGURACION=2;
-    public static final int AYUDA=3;
+    public static final int VOLVER=3;
+    public static final int AYUDA=4;
     private PanelImagen imagenBoton;
     private Container parentContainer;
     private JPanel panelModulo;
@@ -46,6 +50,24 @@ class BotonNavegacion extends JPanel{
                     @Override
                     public void mousePressed(MouseEvent e) {
                         funcionConfig();
+                    }
+                });
+                break;
+            case 3:
+                direccionImagen="/Presentacion/Imagenes/BotonVolver.png";
+                addMouseListener(new java.awt.event.MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        funcionMenu();
+                    }
+                });
+                break;
+            case 4:
+                direccionImagen="/Presentacion/Imagenes/BotonAyudaPequeño.png";
+                addMouseListener(new java.awt.event.MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        funcionAyuda("");
                     }
                 });
                 break;
@@ -78,4 +100,28 @@ class BotonNavegacion extends JPanel{
         panelContenedorPrincipal.remove(panelModulo);
     }
     protected void funcionConfig(){}
+    
+    protected void funcionAyuda(String imagenTutorial){
+        if(!imagenTutorial.isEmpty()){
+            PanelImagen panelTutorial=new PanelImagen(imagenTutorial);
+            panelTutorial.setPreferredSize(new Dimension(panelTutorial.getImagen().getWidth(null),panelTutorial.getImagen().getHeight(null)));
+            panelTutorial.setOpaque(false);
+            panelTutorial.setLayout(null);
+            
+            PanelImagen panelNuevoBotonAyuda=new PanelImagen("/Presentacion/Imagenes/BotonAyudaPequeño.png");
+            Point p = new Point(this.getLocation());
+            SwingUtilities.convertPointToScreen(p, this);
+            panelNuevoBotonAyuda.setBounds(this.getX(),(int)p.getY(),this.getWidth(),this.getHeight());
+            panelNuevoBotonAyuda.setCursor(this.getCursor());
+            panelNuevoBotonAyuda.addMouseListener(new MouseAdapter(){
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    ((FramePrincipal) SwingUtilities.getWindowAncestor(e.getComponent())).cerrarPanelesEmergentes();
+                }
+            });
+            panelTutorial.add(panelNuevoBotonAyuda);
+            ((FramePrincipal) SwingUtilities.getWindowAncestor(this)).mostrarPanelEmergente(panelTutorial);
+            panelTutorial.requestFocusInWindow();
+        }
+    }
 }

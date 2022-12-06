@@ -4,10 +4,8 @@
  */
 package Presentacion.Interfaces.Clientes;
 
-import Datos.Entidades.Cliente;
 import Presentacion.Interfaces.Clientes.*;
 import Datos.Entidades.Cliente;
-import Datos.Entidades.Usuario;
 import Negocio.ControlClientes;
 import Presentacion.Interfaces.BotonRedondeadoMultiple;
 import Presentacion.Interfaces.Buscador;
@@ -15,7 +13,6 @@ import Presentacion.Interfaces.FramePrincipal;
 import Presentacion.Interfaces.PanelModulo;
 import Presentacion.Interfaces.Selector;
 import Presentacion.Interfaces.TablaDefault;
-import Presentacion.Interfaces.Usuarios.AgregarUsuario;
 import Presentacion.Utilidades.UtilidadesFuentes;
 import java.awt.Color;
 import java.awt.Container;
@@ -73,7 +70,7 @@ public class PanelDeClientes extends JPanel implements PropertyChangeListener{
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         
-        panelModuloClientes=new PanelModulo(parent);
+        panelModuloClientes=new PanelModulo(parent,"/Presentacion/Imagenes/Paneles/Boton Ayuda/TutorialClientes.png");
         panelModuloClientes.setTituloPanelModulo("C L I E N T E S", Color.decode("#B88A30"));
         gbc.insets = new Insets((int)(8.0/panelModuloClientes.basePanelHeight*panelModuloClientes.getPreferredSize().getHeight()), 0, 0, 0);
         gbc.gridx=0;
@@ -90,6 +87,7 @@ public class PanelDeClientes extends JPanel implements PropertyChangeListener{
         };
         addMouseListener(limpiarSeleccion);
         tablaClientes.getScrollPaneTabla().addMouseListener(limpiarSeleccion);
+        
     }
 
     private void iniciarComponentesCuerpo(){

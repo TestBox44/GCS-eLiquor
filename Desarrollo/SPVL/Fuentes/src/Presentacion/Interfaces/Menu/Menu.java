@@ -1,12 +1,20 @@
 package Presentacion.Interfaces.Menu;
 
+import Presentacion.Interfaces.FramePrincipal;
 import Presentacion.Interfaces.PanelImagen;
+import Presentacion.Utilidades.UtilidadSesion;
 import Presentacion.Utilidades.UtilidadesFuentes;
 import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -31,6 +39,16 @@ public class Menu extends javax.swing.JPanel {
         lblUsuario.setText("¡Bienvenido, "+nombreUsuario.split(" ")[0]+"!");
         LocalDate fecha = LocalDate.now();
         lblDia.setText(fecha.format(DateTimeFormatter.ofPattern("dd 'de' MMMM 'de' YYYY", new Locale("es", "ES"))));
+        
+        addComponentListener(new ComponentAdapter(){
+            @Override
+            public void componentShown(ComponentEvent e) {
+                lblRazonSocial.setText(UtilidadSesion.configuracionActual.getRazonSocial());
+                lnlNumTerminal.setText("Terminal: "+UtilidadSesion.configuracionActual.getNumeroTerminal());
+                lblCodigoTienda.setText("Código de Tienda: "+UtilidadSesion.configuracionActual.getCodigoTienda());
+            }
+        });
+        
     }
     
     /**
@@ -45,7 +63,7 @@ public class Menu extends javax.swing.JPanel {
 
         btnSalir = new javax.swing.JLabel();
         PanelSistema = new PanelImagen("/Presentacion/Imagenes/Paneles/Menu/PanelMenu.png");
-        lblNombreLicoreria = new javax.swing.JLabel();
+        lblRazonSocial = new javax.swing.JLabel();
         cabecera = new javax.swing.JSeparator();
         lblUsuario = new javax.swing.JLabel();
         lblDia = new javax.swing.JLabel();
@@ -92,10 +110,10 @@ public class Menu extends javax.swing.JPanel {
         PanelSistema.setPreferredSize(new java.awt.Dimension(1073, 768));
         PanelSistema.setLayout(new java.awt.GridBagLayout());
 
-        lblNombreLicoreria.setFont(UtilidadesFuentes.InterRegular.deriveFont(15.0f));
-        lblNombreLicoreria.setForeground(new java.awt.Color(140, 140, 140));
-        lblNombreLicoreria.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNombreLicoreria.setText("Licoreria \"Ruta 99\"");
+        lblRazonSocial.setFont(UtilidadesFuentes.InterRegular.deriveFont(15.0f));
+        lblRazonSocial.setForeground(new java.awt.Color(140, 140, 140));
+        lblRazonSocial.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblRazonSocial.setText(" ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -104,7 +122,7 @@ public class Menu extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
-        PanelSistema.add(lblNombreLicoreria, gridBagConstraints);
+        PanelSistema.add(lblRazonSocial, gridBagConstraints);
 
         cabecera.setForeground(new java.awt.Color(208, 208, 208));
         cabecera.setPreferredSize(new java.awt.Dimension(1025, 10));
@@ -350,6 +368,11 @@ public class Menu extends javax.swing.JPanel {
 
         btnAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/BotonAyudaModulo.png"))); // NOI18N
         btnAyuda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAyuda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnAyudaMouseReleased(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -422,6 +445,24 @@ public class Menu extends javax.swing.JPanel {
         layout.show(parent, "configuracion");
     }//GEN-LAST:event_btnConfiguracionMouseReleased
 
+    private void btnAyudaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAyudaMouseReleased
+        PanelImagen panelTutorial=new PanelImagen("/Presentacion/Imagenes/Paneles/Boton Ayuda/TutorialMenu.png");
+        panelTutorial.setPreferredSize(new Dimension(panelTutorial.getImagen().getWidth(null),panelTutorial.getImagen().getHeight(null)));
+        panelTutorial.setOpaque(false);
+        panelTutorial.setLayout(null);
+        JLabel lblBotonAyudaCerrar = new JLabel(btnAyuda.getIcon());
+        lblBotonAyudaCerrar.setBounds(btnAyuda.getX(),btnAyuda.getY(),btnAyuda.getWidth(),btnAyuda.getHeight());
+        lblBotonAyudaCerrar.setCursor(btnAyuda.getCursor());
+        lblBotonAyudaCerrar.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                ((FramePrincipal) SwingUtilities.getWindowAncestor(e.getComponent())).cerrarPanelesEmergentes();
+            }
+        });
+        panelTutorial.add(lblBotonAyudaCerrar);
+        ((FramePrincipal) SwingUtilities.getWindowAncestor(this)).mostrarPanelEmergente(panelTutorial);
+    }//GEN-LAST:event_btnAyudaMouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelDeBotonesDeModulos;
@@ -442,7 +483,7 @@ public class Menu extends javax.swing.JPanel {
     private javax.swing.JLabel lblDia;
     private javax.swing.JLabel lblMENU;
     private javax.swing.JLabel lblNombreDeSistema;
-    private javax.swing.JLabel lblNombreLicoreria;
+    private javax.swing.JLabel lblRazonSocial;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel lnlNumTerminal;
     private javax.swing.JLabel lvlversion;

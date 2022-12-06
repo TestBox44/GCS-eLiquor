@@ -16,6 +16,16 @@ public class UtilidadSesion {
         Configuracion tempConf=ControlConfiguracion.cargarConfiguracion();
         if(tempConf==null){
             configuracionActual=new Configuracion();
+            configuracionActual.setRazonSocial(" ");
+            configuracionActual.setRUC("");
+            configuracionActual.setNumeroTerminal(1);
+            configuracionActual.setCodigoTienda("00000");
+            configuracionActual.setTelefono(0);
+            configuracionActual.setProvincia("");
+            configuracionActual.setDistrito("");
+            configuracionActual.setCiudad("");
+            configuracionActual.setDireccion("");
+            ControlConfiguracion.agregarConfiguracion(configuracionActual);
         }else{
             configuracionActual=tempConf;
         }
