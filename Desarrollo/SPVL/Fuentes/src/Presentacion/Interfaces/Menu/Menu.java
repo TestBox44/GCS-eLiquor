@@ -335,6 +335,11 @@ public class Menu extends javax.swing.JPanel {
 
         btnConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/BotonConfigModulo.png"))); // NOI18N
         btnConfiguracion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnConfiguracion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnConfiguracionMouseReleased(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
@@ -408,6 +413,14 @@ public class Menu extends javax.swing.JPanel {
         parent.add("clientes",clientes);
         layout.show(parent, "clientes");
     }//GEN-LAST:event_btnModuloClientesMouseReleased
+
+    private void btnConfiguracionMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfiguracionMouseReleased
+        JPanel parent = (JPanel)getParent();
+        CardLayout layout = (CardLayout) parent.getLayout();
+        Presentacion.Interfaces.Configuracion.Configuracion configuracion = new Presentacion.Interfaces.Configuracion.Configuracion(parent);
+        parent.add("configuracion",configuracion);
+        layout.show(parent, "configuracion");
+    }//GEN-LAST:event_btnConfiguracionMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
