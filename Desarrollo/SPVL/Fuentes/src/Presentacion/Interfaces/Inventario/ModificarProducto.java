@@ -60,9 +60,10 @@ public class ModificarProducto extends VentanaEmergente implements PropertyChang
     private int[] indice;
     private Producto productoModificado;
     
-    public ModificarProducto(PanelDeInventario panelPrincipalDeModuloDeInventario, int [] indice){
+    public ModificarProducto(PanelDeInventario panelPrincipalDeModuloDeInventario, int[] indice, Producto productoModificado){
         super("/Presentacion/Imagenes/Paneles/Inventario/PanelAgregarProducto.png");
         this.panelPrincipalDeModuloDeInventario=panelPrincipalDeModuloDeInventario;
+        this.productoModificado=productoModificado;
         this.indice=indice;
         setTextoTitulo("MODIFICAR PRODUCTO");
         setColorTitulo(Color.decode("#5F7ECD"));
@@ -71,7 +72,7 @@ public class ModificarProducto extends VentanaEmergente implements PropertyChang
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets=new Insets(0, 0, 5, 0);
 
-        lblDPTO=new JLabel(panelPrincipalDeModuloDeInventario.lblDepartamentoActual.getText());
+        lblDPTO=new JLabel(panelPrincipalDeModuloDeInventario.getTablaInventario().getLblTitulo().getText());
         lblDPTO.setFont(UtilidadesFuentes.InterLight.deriveFont(25.0f));
         lblDPTO.setForeground(Color.decode("#8C8C8C"));
         lblDPTO.setHorizontalAlignment(JLabel.CENTER);
@@ -456,8 +457,7 @@ public class ModificarProducto extends VentanaEmergente implements PropertyChang
 
     });
         lblAlertaNombre.setVisible(false);
-        
-        productoModificado = panelPrincipalDeModuloDeInventario.productos.get(indice[0]*7+indice[1]);
+
         txtNombre.setText(productoModificado.getNombre());
         txtPrecio.setText(""+productoModificado.getPrecio());
         txtCosto.setText(""+productoModificado.getCosto());
@@ -520,10 +520,14 @@ public class ModificarProducto extends VentanaEmergente implements PropertyChang
                 productoModificado.setActivarDescuentos(selectorDescuentos.getOpcionSeleccionada()==0);
                 productoModificado.setIGV(selectorIGV.getOpcionSeleccionada()==0);
                 productoModificado.setISC(selectorISC.getOpcionSeleccionada()==0);
-                
-                panelPrincipalDeModuloDeInventario.modificarProductoEnTabla(indice, productoModificado);
                 ControlInventario.modificarProducto(productoModificado);
                 ((FramePrincipal)((JFrame) SwingUtilities.getWindowAncestor(this))).cerrarPanelesEmergentes();
+                if(panelPrincipalDeModuloDeInventario.departamentoActual!=null){
+                    panelPrincipalDeModuloDeInventario.cargarListaDeProductos(panelPrincipalDeModuloDeInventario.departamentoActual.getIdDepartamento());
+                }else{
+                    panelPrincipalDeModuloDeInventario.cargarListaDeProductos(-1);
+                }
+                panelPrincipalDeModuloDeInventario.reiniciarBusqueda();
         }
     }
 

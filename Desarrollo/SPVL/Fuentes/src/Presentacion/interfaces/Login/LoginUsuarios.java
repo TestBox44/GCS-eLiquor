@@ -22,6 +22,8 @@ import Presentacion.Interfaces.ScrollBarCustom;
 import Presentacion.Utilidades.UtilidadesFuentes;
 import java.awt.CardLayout;
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 
 /**
@@ -65,6 +67,14 @@ public class LoginUsuarios extends javax.swing.JPanel {
         ListaDeUsuarios.setSelectionBackground(Color.decode("#23A020"));
         ListaDeUsuarios.setSelectionForeground(Color.white);
         ListaDeUsuarios.setIntercellSpacing(new Dimension(0,0));
+        ListaDeUsuarios.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if(e.getClickCount()==2){
+                    btnSiguienteMousePressed(e);
+                }
+            }
+        });
         
         
         jScrollPane1.setBorder(BorderFactory.createEmptyBorder());
@@ -104,7 +114,7 @@ public class LoginUsuarios extends javax.swing.JPanel {
     }
     
     public void añadirUsuarioALista(String nombre){
-        JLabel imagenUsuario=new JLabel(new ImageIcon(getClass().getResource("/Presentacion/imagenes/iconoCuenta.png")));
+        JLabel imagenUsuario=new JLabel(new ImageIcon(getClass().getResource("/Presentacion/Imagenes/iconoCuenta.png")));
         modeloListaDeUsuarios.addRow(new Object[]{imagenUsuario,nombre});
         //Adaptando el tamaño de la barra de Scroll
         double newScrollBarHeight=Math.pow(jScrollPane1.getPreferredSize().getHeight(),2)/(
@@ -123,7 +133,7 @@ public class LoginUsuarios extends javax.swing.JPanel {
     private void initComponents() {
 
         eLiquor = new javax.swing.JLabel();
-        PanelListaDeUsuarios = new PanelImagen("/Presentacion/imagenes/Paneles/Login/PanelListaDeUsuarios.png");
+        PanelListaDeUsuarios = new PanelImagen("/Presentacion/Imagenes/Paneles/Login/PanelListaDeUsuarios.png");
         btnSiguiente = new javax.swing.JLabel();
         cabecera = new javax.swing.JSeparator();
         pieDeLista = new javax.swing.JSeparator();
@@ -138,9 +148,9 @@ public class LoginUsuarios extends javax.swing.JPanel {
         eLiquor.setFont(UtilidadesFuentes.InterBold.deriveFont(140.0f));
         eLiquor.setForeground(new java.awt.Color(255, 255, 255));
         eLiquor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eLiquor.setText("eLiquor");
+        eLiquor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Titulo.png"))); // NOI18N
         eLiquor.setPreferredSize(new java.awt.Dimension(569, 201));
-        add(eLiquor, new org.netbeans.lib.awtextra.AbsoluteConstraints(659, 283, -1, 160));
+        add(eLiquor, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 278, 790, 250));
 
         PanelListaDeUsuarios.setBackground(new java.awt.Color(255, 255, 255));
         PanelListaDeUsuarios.setPreferredSize(new java.awt.Dimension(435, 768));
@@ -215,14 +225,14 @@ public class LoginUsuarios extends javax.swing.JPanel {
 
         add(PanelListaDeUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 0, -1, -1));
 
-        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/imagenes/Boton Salir.png"))); // NOI18N
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/BotonSalirModulo.png"))); // NOI18N
         btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnSalirMousePressed(evt);
             }
         });
-        add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 689, -1, 80));
+        add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 674, -1, 90));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMousePressed

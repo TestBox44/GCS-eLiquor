@@ -14,17 +14,15 @@ public class Departamento {
     private int idDepartamento;
     private String nombre;
     private int cantidad;
-    private boolean mostrarEnCaja;
     private LocalDate fechaRegistro;
 
     public Departamento() {
     }
 
-    public Departamento(int idDepartamento, String nombre /* , int cantidad*/ , boolean mostrarEnCaja, LocalDate fechaRegistro) {
+    public Departamento(int idDepartamento, String nombre /* , int cantidad*/ , LocalDate fechaRegistro) {
         this.idDepartamento = idDepartamento;
         this.nombre = nombre;
        // this.cantidad = cantidad;
-        this.mostrarEnCaja = mostrarEnCaja;
         this.fechaRegistro = fechaRegistro;
     }
 
@@ -50,14 +48,6 @@ public class Departamento {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
-    }
-    
-    public boolean isMostrarEnCaja() {
-        return mostrarEnCaja;
-    }
-
-    public void setMostrarEnCaja(boolean mostrarEnCaja) {
-        this.mostrarEnCaja = mostrarEnCaja;
     }
 
     public LocalDate getFechaRegistro() {

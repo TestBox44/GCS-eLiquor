@@ -121,7 +121,7 @@ public class EliminarProducto extends VentanaEmergente{
                 el tiempo para hallar una solucion mejor.
                 */
                 try {
-                    Producto productoABorrar = panelPrincipalDeModuloDeInventario.productos.get(fila*7+columna);
+                    Producto productoABorrar = panelPrincipalDeModuloDeInventario.productos.get(fila*panelPrincipalDeModuloDeInventario.getTablaInventario().getColumnas()+columna);
                     productosABorrar.add(productoABorrar);
                     modeloListaDeProductosAEliminar.addRow(new Object[]{productoABorrar.getNombre()});
                 } catch (Exception e) {}
@@ -136,6 +136,7 @@ public class EliminarProducto extends VentanaEmergente{
         ControlInventario.eliminarProductos(productosABorrar);
         panelPrincipalDeModuloDeInventario.mostrarListaProductosCargadaEnTabla();
         ((FramePrincipal)((JFrame) SwingUtilities.getWindowAncestor(this))).cerrarPanelesEmergentes();
+        panelPrincipalDeModuloDeInventario.reiniciarBusqueda();
     }
 
     @Override

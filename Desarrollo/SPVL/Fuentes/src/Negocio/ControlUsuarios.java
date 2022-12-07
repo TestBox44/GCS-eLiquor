@@ -16,11 +16,12 @@ public class ControlUsuarios {
     public static ArrayList<Usuario> cargarListaDeUsuarios(){
         UsuarioDAO udao=new UsuarioDAO();
         ArrayList<Usuario> usuarios=new ArrayList<Usuario>();
-        for(Object u: udao.listar()){
-            Usuario nuevoUsuario=new Usuario(((Usuario)u).getIdUsuario(),
-            ((Usuario)u).getNombre(),0,((Usuario)u).isGestionarVentas(),((Usuario)u).isGestionarUsuarios()
-            ,((Usuario)u).isGestionarProveedores(),((Usuario)u).isGestionarClientes(), 
-            ((Usuario)u).isGestionarInventario(),((Usuario)u).isGenerarReportes());
+        for(Usuario u: (ArrayList<Usuario>)udao.listar()){
+            Usuario nuevoUsuario=new Usuario(u.getIdUsuario(),
+            u.getNombre(),0,u.isGestionarVentas(),u.isGestionarUsuarios(),u.isGestionarProveedores(),u.isGestionarClientes(),u.isGestionarInventario(),u.isGenerarReportes());
+            nuevoUsuario.setEstado(u.isEstado());
+            nuevoUsuario.setUltimoIngreso(u.getUltimoIngreso());
+            nuevoUsuario.setFechaRegistro(u.getFechaRegistro());
             usuarios.add(nuevoUsuario);
         }
         return usuarios;
@@ -29,24 +30,42 @@ public class ControlUsuarios {
     public static void agregarUsuario(Usuario usuario){
         UsuarioDAO udao=new UsuarioDAO();
         udao.add(new Object[]{
-            usuario.getNombre(),usuario.getPIN(),usuario.isGestionarVentas(),
-            usuario.isGestionarUsuarios(),usuario.isGestionarProveedores(),
-            usuario.isGestionarClientes(),usuario.isGestionarInventario(),
-            usuario.isGenerarReportes()});
+            usuario.getNombre(),
+            usuario.getPIN(),
+            usuario.isGestionarVentas(),
+            usuario.isGestionarUsuarios(),
+            usuario.isGestionarProveedores(),
+            usuario.isGestionarClientes(),
+            usuario.isGestionarInventario(),
+            usuario.isGenerarReportes(),
+            usuario.isEstado(),
+            usuario.getUltimoIngreso(),
+            usuario.getFechaRegistro()
+        });
     }
     
     public static void eliminarUsuarios(ArrayList<Usuario> usuarios){
         UsuarioDAO udao=new UsuarioDAO();
         for (Usuario usuario: usuarios) {
-            udao.eliminar(usuario.getIdUsuario());
+            udao.eliminacionLogica(usuario.getIdUsuario());
         }
     }
     
     public static void modificarUsuario(int indiceLista, Usuario usuario, String pinNuevo){
         UsuarioDAO udao=new UsuarioDAO();
-        Object[] datos={usuario.getNombre(),pinNuevo,usuario.isGestionarVentas(),usuario.isGestionarUsuarios(),
-        usuario.isGestionarProveedores(),usuario.isGestionarClientes(),usuario.isGestionarInventario(),
-        usuario.isGenerarReportes(),usuario.getIdUsuario()};
+        Object[] datos=
+        {usuario.getNombre(),
+            pinNuevo,
+            usuario.isGestionarVentas(),
+            usuario.isGestionarUsuarios(),
+            usuario.isGestionarProveedores(),
+            usuario.isGestionarClientes(),
+            usuario.isGestionarInventario(),
+            usuario.isGenerarReportes(),
+            usuario.isEstado(),
+            usuario.getUltimoIngreso(),
+            usuario.getIdUsuario()    
+        };
         if(pinNuevo.contains("*")){
             String pinViejo = Integer.toString(((Usuario)udao.listar().get(indiceLista)).getPIN());
             String pin="";

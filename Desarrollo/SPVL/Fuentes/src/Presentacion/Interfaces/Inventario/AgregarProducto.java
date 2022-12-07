@@ -70,7 +70,7 @@ public class AgregarProducto extends VentanaEmergente implements PropertyChangeL
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets=new Insets(0, 0, 5, 0);
 
-        lblDPTO=new JLabel(panelPrincipalDeModuloDeInventario.lblDepartamentoActual.getText());
+        lblDPTO=new JLabel(panelPrincipalDeModuloDeInventario.getTablaInventario().getLblTitulo().getText());
         lblDPTO.setFont(UtilidadesFuentes.InterLight.deriveFont(25.0f));
         lblDPTO.setForeground(Color.decode("#8C8C8C"));
         lblDPTO.setHorizontalAlignment(JLabel.CENTER);
@@ -469,7 +469,7 @@ public class AgregarProducto extends VentanaEmergente implements PropertyChangeL
                 lblAlertaNombre.setVisible(true);
         }else{
                 Producto nuevoProducto = new Producto();
-                Departamento departamentoSeleccionado = panelPrincipalDeModuloDeInventario.departamentoSeleccionado;
+                Departamento departamentoSeleccionado = panelPrincipalDeModuloDeInventario.departamentoActual;
                 nuevoProducto.setIdProducto(ControlInventario.obtenerUltimoIDProducto()+1);
                 nuevoProducto.setNombre(txtNombre.getText());
                 try {
@@ -512,12 +512,13 @@ public class AgregarProducto extends VentanaEmergente implements PropertyChangeL
                 nuevoProducto.setISC(selectorISC.getOpcionSeleccionada()==0);
                 nuevoProducto.setFechaRegistro(LocalDate.now());
                 panelPrincipalDeModuloDeInventario.productos.add(nuevoProducto);
-                panelPrincipalDeModuloDeInventario.añadirProductoATabla(nuevoProducto);
+                panelPrincipalDeModuloDeInventario.agregarProductoATabla(nuevoProducto);
                 ControlInventario.agregarProducto(nuevoProducto);
                 if(departamentoSeleccionado!=null){
                     ControlInventario.agregarProductoEnDepartamento(nuevoProducto.getIdProducto(),departamentoSeleccionado.getIdDepartamento() );
                 }
                 ((FramePrincipal)((JFrame) SwingUtilities.getWindowAncestor(this))).cerrarPanelesEmergentes();
+                panelPrincipalDeModuloDeInventario.reiniciarBusqueda();
         }
     }
 

@@ -1,6 +1,21 @@
 create database spvl;
 use spvl; 
 desc usuarios;
+
+create table sistema(
+	idSistema int AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	razonSocial varchar(45) NOT NULL,
+    numeroTerminal int NOT NULL,
+    RUC varchar(15) NOT NULL,
+    telefono int NOT NULL,
+    codigoTienda varchar(45) NOT NULL,
+    ciudad varchar(45) NOT NULL,
+    provincia varchar(45) NOT NULL,
+    distrito varchar(45) NOT NULL,
+    direccion varchar(45) NOT NULL,
+    codigoPostal int NOT NULL
+);
+
 create table usuarios( 
 	idUsuario int AUTO_INCREMENT PRIMARY KEY NOT NULL,
     nombre varchar(45) NOT NULL,
@@ -10,27 +25,36 @@ create table usuarios(
     gestionarProveedores bool NOT NULL,
     gestionarClientes bool NOT NULL,
     gestionarInventario bool NOT NULL,
-    generarReportes bool NOT NULL
+    generarReportes bool NOT NULL,
+	estado tinyint NOT NULL,
+    ultimoIngreso datetime,
+    fechaRegistro datetime NOT NULL,
+    estadoEliminacion tinyint NOT NULL
+);
+
+create table proveedor( 
+	idProveedor int AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    razonSocial varchar(45) NOT NULL,
+    telefono int NOT NULL,
+    correo varchar(45) NOT NULL,
+    fechaRegistro datetime NOT NULL,
+    estadoEliminacion tinyint NOT NULL
+);
+
+create table cliente(
+	idCliente int AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    nombre varchar(45) NOT NULL,
+    telefono int NOT NULL,
+    correo varchar(45) NOT NULL,
+    fechaRegistro datetime NOT NULL,
+    estadoEliminacion tinyint NOT NULL
 );
 
 create table departamento(
 	idDepartamento int AUTO_INCREMENT PRIMARY KEY NOT NULL,
     fechaRegistro datetime NOT NULL,
     nombre varchar(45) NOT NULL,
-    cantidad int NOT NULL,
-    mostrarEnCaja bool NOT NULL
-);
-
-drop table DepartamentoProducto;
-drop table producto;
-drop table departamento;
-
-create table DepartamentoProducto(
-	idDepartamentoProducto int AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    idDepartamento int NOT NULL,
-    idProducto int NOT NULL,
-    constraint fk_producto foreign key (idProducto) references producto (idProducto) on update cascade on delete cascade,
-    constraint fk_departamento foreign key (idDepartamento) references departamento (idDepartamento) on update cascade on delete cascade
+    cantidad int NOT NULL
 );
 
 create table producto(
@@ -44,15 +68,27 @@ create table producto(
     mostrarEnCaja tinyint NOT NULL,
     fechaRegistro datetime NOT NULL,
     IGV tinyint NOT NULL,
-    ISC tinyint NOT NULL
+    ISC tinyint NOT NULL,
+    estadoEliminacion tinyint NOT NULL
 );
 
-create table cliente(
-	idCliente int AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    nombre varchar(45) NOT NULL,
-    telefono int NOT NULL,
-    correo varchar(45) NOT NULL,
-    fechaRegistro datetime NOT NULL
+create table ProveedorProducto(
+	idProveedorProducto int AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    costo double NOT NULL,
+    cantidad int NOT NULL,
+    fechaEntrega datetime NOT NULL,
+    idProducto int,
+    idProveedor int,
+    constraint fk_producto foreign key (idProducto) references producto (idProducto) on update cascade on delete cascade,
+    constraint fk_proveedor foreign key (idProveedor) references proveedor (idProveedor) on update cascade on delete cascade
+);
+
+create table DepartamentoProducto(
+	idDepartamentoProducto int AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    idDepartamento int NOT NULL,
+    idProducto int NOT NULL,
+    constraint fk_productoDepartamento foreign key (idProducto) references producto (idProducto) on update cascade on delete cascade,
+    constraint fk_departamento foreign key (idDepartamento) references departamento (idDepartamento) on update cascade on delete cascade
 );
 
 create table venta(
@@ -74,6 +110,7 @@ create table ventaProducto(
 	idVentaProducto int AUTO_INCREMENT PRIMARY KEY NOT NULL,
     idVenta int NOT NULL,
     idProducto int NOT NULL,
+    cantidadProducto int NOT NULL,
     constraint fk_venta foreign key (idVenta) references venta (idVenta) on update cascade on delete cascade,
     constraint fk_productoVP foreign key (idProducto) references producto (idProducto) on update cascade on delete cascade
 );
@@ -98,12 +135,17 @@ insert into usuarios(nombre,PIN,gestionarVentas,gestionarUsuarios,gestionarProve
 ("alonso",2222,1,1,1,1,1,1);
 select * from departamentoProducto;
 select * from departamento;
+select * from proveedor;
+select * from cliente;
 select * from producto;
 select * from usuarios;
+select * from ventaproducto;
 select * from venta;
+select * from sistema;
 
 delete from producto where idProducto = 3;
 drop table departamentoProducto;
 drop table producto;
+drop table venta;
 drop table departamento;
-
+select * from usuarios where estadoEliminacion=0;

@@ -1,11 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package Presentacion.Interfaces.Usuarios;
 
 import java.awt.BorderLayout;
-import javax.swing.JPanel;
+import java.awt.Container;
 
 /**
  *
@@ -13,14 +9,14 @@ import javax.swing.JPanel;
  */
 public class Usuarios extends javax.swing.JPanel {
 
-    private JPanel panelDeUsuarios;
+    private PanelDeUsuarios panelDeUsuarios;
+    Container parent;
     
-    public Usuarios() {
+    public Usuarios(Container parent) {
         initComponents();
         setOpaque(false);
-        //panelDeUsuarios.setPreferredSize(new Dimension(1360,768));
-        panelDeUsuarios=new PanelDeUsuarios();
-        panelDeUsuarios.setBounds(0, 0, 1360, 768);
+        panelDeUsuarios=new PanelDeUsuarios  (parent);
+        //panelDeReportes.setBounds(0, 0, 1360, 768);
         add(panelDeUsuarios,BorderLayout.CENTER);
     }
 

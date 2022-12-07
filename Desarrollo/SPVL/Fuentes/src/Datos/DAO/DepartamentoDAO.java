@@ -22,7 +22,7 @@ public class DepartamentoDAO implements CRUD{
         int r = 0;
         int id=setLastId()+1;
         String sql = 
-            "insert into departamento(fechaRegistro, nombre, cantidad, mostrarEnCaja, idDepartamento) values(?,?,?,?,?)";
+            "insert into departamento(fechaRegistro, nombre, cantidad, idDepartamento) values(?,?,?,?)";
         try{
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
@@ -30,8 +30,7 @@ public class DepartamentoDAO implements CRUD{
             ps.setObject(1, o[0]);
             ps.setObject(2, o[1]);
             ps.setObject(3, o[2]);
-            ps.setObject(4, o[3]);
-            ps.setObject(5, id);
+            ps.setObject(4, id);
             r=ps.executeUpdate();
         }catch(SQLException e){
              System.out.println(e.toString());
@@ -54,8 +53,6 @@ public class DepartamentoDAO implements CRUD{
                 d.setFechaRegistro(rs.getDate(2).toLocalDate());
                 d.setNombre(rs.getString(3));
                 d.setCantidad(rs.getInt(4));
-                d.setMostrarEnCaja(rs.getBoolean(5));
-
         
                 lista.add(d);
             }
@@ -81,7 +78,7 @@ public class DepartamentoDAO implements CRUD{
     @Override
     public int actualizar(Object[] o) {
         int r = 0;
-        String sql = "update departamento set fechaRegistro=?, nombre=?, cantidad=?, mostrarEnCaja=?"
+        String sql = "update departamento set fechaRegistro=?, nombre=?, cantidad=?"
                 + " where idDepartamento=?";
         try{
            con = cn.Conectar();
@@ -90,7 +87,6 @@ public class DepartamentoDAO implements CRUD{
            ps.setObject(2, o[1]);
            ps.setObject(3, o[2]);
            ps.setObject(4, o[3]);
-           ps.setObject(5, o[4]);
            
            r = ps.executeUpdate();
        }catch(SQLException e){

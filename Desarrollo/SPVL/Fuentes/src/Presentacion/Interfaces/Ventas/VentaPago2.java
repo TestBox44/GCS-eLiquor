@@ -124,12 +124,22 @@ public class VentaPago2 extends VentanaEmergente{
         ventaARegistrar.setCambio(ventaActual.getCambio());
         ventaARegistrar.setFechaRegistro(LocalDate.now());
         ventaARegistrar.setIdUsuario(UtilidadSesion.idUsuarioActual);
+        ventaARegistrar.setTotalCosto(ventaARegistrar.getTotalCosto());
+        ventaARegistrar.setVentaBruta(ventaARegistrar.getVentaBruta());
+        ventaARegistrar.setTotalImpuestos(ventaARegistrar.getTotalImpuestos());
+        ventaARegistrar.setTotalDescuento(ventaARegistrar.getTotalDescuento());
         ControlVentas.registrarVenta(ventaARegistrar);
         ((FramePrincipal)((JFrame) SwingUtilities.getWindowAncestor(this))).cerrarPanelesEmergentes();
         panelPrincipalDeModuloDeVentas.ventaActual=new Venta();
-        panelPrincipalDeModuloDeVentas.modeloDeListaDeVenta.setRowCount(0);
+        panelPrincipalDeModuloDeVentas.getTablaListaDeVenta().getModeloTabla().setRowCount(0);
         panelPrincipalDeModuloDeVentas.actualizarDatosVenta();
-        panelPrincipalDeModuloDeVentas.cargarListaDeDepartamentos();
+        if(panelPrincipalDeModuloDeVentas.departamentoSeleccionado!=null){
+            panelPrincipalDeModuloDeVentas.cargarListaDeProductos(panelPrincipalDeModuloDeVentas.departamentoSeleccionado.getIdDepartamento());
+        }else{
+            panelPrincipalDeModuloDeVentas.getSelectorMostrar().solicitarSeleccion(0);
+        }
+        
+        panelPrincipalDeModuloDeVentas.actualizarPanelItemRecientes();
         
     }
     

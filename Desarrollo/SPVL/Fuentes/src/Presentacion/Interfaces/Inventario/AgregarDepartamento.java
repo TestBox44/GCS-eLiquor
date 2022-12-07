@@ -31,7 +31,6 @@ import javax.swing.text.PlainDocument;
 public class AgregarDepartamento extends VentanaEmergente{
     
     private TextFieldRedondeado txtNombre;
-    private Selector selectorMostrarEnCaja;
     private JLabel lblAlertaNombre;
     private PanelDeInventario panelPrincipalDeModuloDeInventario;
     
@@ -81,28 +80,7 @@ public class AgregarDepartamento extends VentanaEmergente{
         gbc.weightx=1;
         cuerpo.add(lblAlertaNombre,gbc);
         gbc.insets=new Insets(0, 0, 5, 0);
-        
-        JLabel lblMostrarEnCaja=new JLabel("Mostrar en Caja");
-        lblMostrarEnCaja.setFont(UtilidadesFuentes.InterLight.deriveFont(25.0f));
-        lblMostrarEnCaja.setForeground(Color.decode("#8C8C8C"));
-        lblMostrarEnCaja.setHorizontalAlignment(JLabel.CENTER);
-        gbc.gridx=0;
-        gbc.gridy=3;
-        gbc.fill=GridBagConstraints.HORIZONTAL;
-        gbc.weightx=1.0;
-        cuerpo.add(lblMostrarEnCaja,gbc);
-        
-        selectorMostrarEnCaja=new Selector(new String[]{"SI","NO"},50,37);
-        selectorMostrarEnCaja.setFuenteDeOpcion(UtilidadesFuentes.InterRegular.deriveFont(15.0f));
-        selectorMostrarEnCaja.setColorDeFuente(Color.decode("#8C8C8C"));
-        selectorMostrarEnCaja.solicitarSeleccion(0);
-        selectorMostrarEnCaja.addColorDeOpcion(Color.decode("#72AD57"));
-        selectorMostrarEnCaja.addColorDeOpcion(Color.decode("#AD5757"));
-        gbc.gridx=0;
-        gbc.gridy=4;
-        gbc.fill=GridBagConstraints.NONE;
-        gbc.weightx=0;
-        cuerpo.add(selectorMostrarEnCaja,gbc);
+      
         
         PlainDocument documentNombre = (PlainDocument) txtNombre.getDocument();
         documentNombre.setDocumentFilter(new DocumentFilter() {
@@ -120,11 +98,12 @@ public class AgregarDepartamento extends VentanaEmergente{
         if(txtNombre.getText().isBlank()){
                 lblAlertaNombre.setVisible(true);
         }else{
-                Departamento nuevoDepartamento = new Departamento(ControlInventario.obtenerUltimoIDDepartamento()+1,txtNombre.getText(),selectorMostrarEnCaja.getOpcionSeleccionada()==0,LocalDate.now());
+                Departamento nuevoDepartamento = new Departamento(ControlInventario.obtenerUltimoIDDepartamento()+1,txtNombre.getText(),LocalDate.now());
                 panelPrincipalDeModuloDeInventario.departamentos.add(nuevoDepartamento);
-                panelPrincipalDeModuloDeInventario.añadirDepartamentoATabla(nuevoDepartamento);
+                panelPrincipalDeModuloDeInventario.agregarDepartamentoATabla(nuevoDepartamento);
                 ControlInventario.agregarDepartamento(nuevoDepartamento);
                 ((FramePrincipal)((JFrame) SwingUtilities.getWindowAncestor(this))).cerrarPanelesEmergentes();
+                panelPrincipalDeModuloDeInventario.reiniciarBusqueda();
         }
     }
 

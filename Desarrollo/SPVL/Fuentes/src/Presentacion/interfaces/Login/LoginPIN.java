@@ -13,6 +13,8 @@ import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.HierarchyEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.text.AttributeSet;
@@ -49,23 +51,30 @@ public class LoginPIN extends javax.swing.JPanel {
             public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
                 lblAlerta.setVisible(false);
                 String string;
-                
+                System.out.println(text);
                 if(text.matches("[0-9]+")){
-                    if(!text.isEmpty())
-                    string = fb.getDocument().getText(0, fb.getDocument().getLength()) + text.substring(text.length()-1);
-                    else
+                    
+                    if(!text.isEmpty()){
+                        string = fb.getDocument().getText(0, fb.getDocument().getLength()) + text.substring(text.length()-1);
+                    }    
+                    else{
                         string = fb.getDocument().getText(0, fb.getDocument().getLength()) + text;
-                    if (string.length() <= 4) {
+                    }
+                    
+                    if (fb.getDocument().getLength() < 4) {
                        super.replace(fb, offset, length, text, attrs);
                     }
+
                 }else{
                     if(text.isEmpty()){
                         super.replace(fb, offset, length, text, attrs);
                     }
                 }
             }
+
+            
+            
         });
-        
         lblAlerta.setVisible(false);
     }
     
@@ -327,21 +336,15 @@ public class LoginPIN extends javax.swing.JPanel {
 
         add(PanelPIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 0, -1, -1));
 
-        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/imagenes/Boton Salir.png"))); // NOI18N
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/BotonSalirModulo.png"))); // NOI18N
         btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnSalirMousePressed(evt);
             }
         });
-        add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 689, -1, 80));
+        add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 674, -1, 90));
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnSalirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMousePressed
-        /*Utilizando utilidades de swing para obtener la ventana principal (FramePrincipal)
-        y cerrar todo el programa*/
-        ((JFrame) SwingUtilities.getWindowAncestor(this)).dispose();
-    }//GEN-LAST:event_btnSalirMousePressed
 
     private void btnAtrasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMousePressed
         JPanel parent = (JPanel)getParent();
@@ -411,22 +414,27 @@ public class LoginPIN extends javax.swing.JPanel {
     private void btnValidarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnValidarMousePressed
         verificarPassword();
     }//GEN-LAST:event_btnValidarMousePressed
+
+    private void btnSalirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMousePressed
+        /*Utilizando utilidades de swing para obtener la ventana principal (FramePrincipal)
+        y cerrar todo el programa*/
+        ((JFrame) SwingUtilities.getWindowAncestor(this)).dispose();
+    }//GEN-LAST:event_btnSalirMousePressed
     
     private void verificarPassword(){
         try{
-            int ps = Integer.parseInt(String.valueOf(txtpassword.getPassword()));
+            int ps = Integer.parseInt(String.valueOf(txtpassword.getPassword()).trim());
             if(ControlLogin.verificarPassword(indiceSeleccion, ps)){
                 UtilidadSesion.idUsuarioActual=idUsuarioSeleccionado;
                 UtilidadSesion.nombreUsuarioActual=nombreDeUsuarioSeleccionado.getText();
-                JPanel parent = (JPanel)getParent().getParent();
-                CardLayout layout = (CardLayout) parent.getLayout();
+                JPanel parent = (JPanel)getParent();
+                CardLayout layout = (CardLayout) parent.getParent().getLayout();
                 //Instanciando el panel contenedor del menu y los otros modulos
-                Presentacion.Interfaces.Menu.PanelModulos panelModulos=new Presentacion.Interfaces.Menu.PanelModulos();
                 Presentacion.Interfaces.Menu.Menu menu=
                         new Presentacion.Interfaces.Menu.Menu(nombreDeUsuarioSeleccionado.getText(),ControlMenu.cargarPermisosDeUsuario(indiceSeleccion));
-                panelModulos.add("menu",menu);
-                parent.add("panelModulos",panelModulos);
-                layout.show(parent, "panelModulos");
+                parent.getParent().add("menu",menu);
+                layout.show(parent.getParent(), "menu");
+                ((CardLayout)parent.getLayout()).show(parent, "loginUsuarios");
             }else{
                 throw new Exception("La contraseña no coincide");
             }

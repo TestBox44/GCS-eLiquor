@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Presentacion.Interfaces.Ventas;
 
 import Datos.Entidades.Departamento;
@@ -5,22 +9,19 @@ import Datos.Entidades.DetalleVenta;
 import Datos.Entidades.Producto;
 import Datos.Entidades.Venta;
 import Negocio.ControlInventario;
+import Presentacion.Interfaces.BotonRedondeado;
 import Presentacion.Interfaces.Buscador;
 import Presentacion.Interfaces.FramePrincipal;
 import Presentacion.Interfaces.Item;
-import Presentacion.Interfaces.PanelImagen;
+import Presentacion.Interfaces.PanelModulo;
 import Presentacion.Interfaces.PanelRedondeado;
-import Presentacion.Interfaces.RenderDeCabecera;
-import Presentacion.Interfaces.ScrollBarCustom;
 import Presentacion.Interfaces.Selector;
+import Presentacion.Interfaces.TablaDefault;
+import Presentacion.Interfaces.TablaItem;
 import Presentacion.Interfaces.TextFieldRedondeado;
-import Presentacion.Utilidades.UtilidadSesion;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 import Presentacion.Utilidades.UtilidadesFuentes;
-import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Component;
+import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -31,25 +32,20 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
-import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.text.AttributeSet;
@@ -61,19 +57,33 @@ import javax.swing.text.PlainDocument;
  *
  * @author sortizu
  */
-public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeListener{
+public class PanelDeVentas extends JPanel implements PropertyChangeListener{
+    private PanelModulo panelModuloVentas;
     public Venta ventaActual=new Venta();
     public ArrayList<Departamento> departamentos;
     public ArrayList<Producto> productos;
     public Departamento departamentoSeleccionado;
-    //Elementos del panel de busqueda
-    //Tabla de Items
-    private int[] cursor = new int[]{0,0};
-    private JScrollPane scrollPaneDeListaDeItems;
-    private JTable TablaListaDeItems;
-    public DefaultTableModel modeloDeListaDeItems;
-    private ScrollBarCustom scrollBarListaItems;
-    public JLabel lblDepartamentoActual;
+    private PanelDeVentas panelPrincipalVentas;
+    private Container parent;
+    private JPanel cuerpo;
+    
+
+    private Buscador buscadorUsuario;
+    
+    private TablaDefault TablaListaDeVenta;
+    private TablaItem TablaListaDeItems;
+    //Botones de Lista de Venta
+    JLabel btnSumaVenta;
+    JLabel btnRestaVenta;
+    JLabel btnEliminacionVenta;
+    JLabel btnEdicionVenta;
+    //Datos de lista de venta
+    JLabel lblItem;
+    JLabel lblSubtotal;
+    JLabel lblDescuentos;
+    JLabel lblImpuestos;
+    JLabel lblTotal;
+    
     //Selectores de Tabla
     private Selector selectorMostrar;
     private Selector selectorSMultiple;
@@ -84,9 +94,9 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
     //Barra de busqueda de tabla
     private Buscador buscadorItem;
     //Botones de funcion de Venta
-    PanelRedondeado btnPago;
-    PanelRedondeado btnClientes;
-    PanelRedondeado btnCancelar;
+    BotonRedondeado btnPago;
+    BotonRedondeado btnClientes;
+    BotonRedondeado btnCancelar;
     //Elementos del KeyPad
     Selector QtPc;
     TextFieldRedondeado montoTeclado;
@@ -105,199 +115,61 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
     JLabel btnTecladoBorrar;
     JLabel btnTecladoEquis;
     JLabel btnTecladoAceptar;
-    //ScrollBarCustom scrollCustom;
-    
-    //Elementos del panel de Lista de venta
-    //Tabla de lista de venta
-    private JTable TablaListaDeVenta;
-    public DefaultTableModel modeloDeListaDeVenta;
-    private JScrollPane scrollPaneDeListaVenta;
-    private ScrollBarCustom scrollBarListaVenta;
-    DefaultTableCellRenderer nuevoCellRenderer = new DefaultTableCellRenderer(){
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-
-            if(value instanceof Item){
-                Item item=(Item)value;
-                return item;
-            }
-            
-            return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column); 
-        }
-    };
-    //Botones de Lista de Venta
-    JLabel btnSumaVenta;
-    JLabel btnRestaVenta;
-    JLabel btnEliminacionVenta;
-    JLabel btnEdicionVenta;
-    //Datos de lista de venta
-    JLabel lblItem;
-    JLabel lblSubtotal;
-    JLabel lblDescuentos;
-    JLabel lblImpuestos;
-    JLabel lblTotal;
-    /*
-    
-        */
     
     
-    public PanelDeVentas() {
-        initComponents();
-        IniciarComponentes();
+    public PanelDeVentas(Container parent) {
+        this.parent=parent;
+        panelPrincipalVentas=this;
+        iniciarComponentes();
+        TablaListaDeVenta.getTabla().revalidate();
+        TablaListaDeVenta.getTabla().repaint();
+        //TablaListaDeItems.getTabla().revalidate();
+        //TablaListaDeItems.getTabla().repaint();
+    }
+    private void iniciarComponentes(){
         setOpaque(false);
-        LocalDate fecha = LocalDate.now();
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
         
-        lblDia.setText(UtilidadSesion.nombreUsuarioActual.split(" ")[0]+", "+
-                fecha.format(DateTimeFormatter.ofPattern("dd 'de' MMMM 'de' YYYY", new Locale("es", "ES"))));
+        panelModuloVentas=new PanelModulo(parent,"/Presentacion/Imagenes/Paneles/Boton Ayuda/TutorialVentas.png");
+        panelModuloVentas.setTituloPanelModulo("V E N T A S", Color.decode("#72AD57"));
+        gbc.insets = new Insets((int)(8.0/panelModuloVentas.basePanelHeight*panelModuloVentas.getPreferredSize().getHeight()), 0, 0, 0);
+        gbc.gridx=0;
+        gbc.gridy=0;
+        add(panelModuloVentas,gbc);
+        iniciarComponentesCuerpo();
+        MouseAdapter limpiarSeleccion = new MouseAdapter(){
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                limpiarSeleccionTablas();
+            }
+        };
+        addMouseListener(limpiarSeleccion);
+        TablaListaDeItems.getScrollPaneTabla().addMouseListener(limpiarSeleccion);
+        TablaListaDeVenta.getScrollPaneTabla().addMouseListener(limpiarSeleccion);
         cargarListaDeDepartamentos();
-        
     }
 
+    private void iniciarComponentesCuerpo(){
+        cuerpo = panelModuloVentas.getPanelContenedorComponentes().getCuerpo();
+        int width = (int)panelModuloVentas.getPreferredSize().getWidth();
+        int height = (int)panelModuloVentas.getPreferredSize().getHeight();
+        
+        iniciarComponentesCuerpoIzquierdo(width, height);
+        iniciarComponentesCuerpoDerecho(width, height);
+    }
     
-    
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        btnSalir = new javax.swing.JLabel();
-        btnConfiguracion = new javax.swing.JLabel();
-        contenedorPrincipal = new PanelImagen("/Presentacion/Imagenes/Paneles/PanelModulos.png");
-        TituloDeModulo = new javax.swing.JLabel();
-        lblDia = new javax.swing.JLabel();
-        lblHora = new javax.swing.JLabel();
-        btnHome = new javax.swing.JLabel();
-
-        setPreferredSize(new java.awt.Dimension(1360, 768));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/imagenes/Boton Salir.png"))); // NOI18N
-        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnSalirMousePressed(evt);
-            }
-        });
-        add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 689, -1, 80));
-
-        btnConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Config.png"))); // NOI18N
-        btnConfiguracion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        add(btnConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(1265, 688, -1, 80));
-
-        contenedorPrincipal.setBackground(new java.awt.Color(255, 255, 255));
-        contenedorPrincipal.setToolTipText("");
-        contenedorPrincipal.setPreferredSize(new java.awt.Dimension(1360, 690));
-        contenedorPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        TituloDeModulo.setFont(UtilidadesFuentes.InterExtraLight.deriveFont(35.0f));
-        TituloDeModulo.setForeground(new java.awt.Color(114, 173, 87));
-        TituloDeModulo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        TituloDeModulo.setText("REGISTRO DE VENTAS");
-        contenedorPrincipal.add(TituloDeModulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 17, -1, -1));
-
-        lblDia.setFont(UtilidadesFuentes.InterLight.deriveFont(20.0f));
-        lblDia.setForeground(new java.awt.Color(140, 140, 140));
-        lblDia.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblDia.setText("Usuario, 10 de octubre de 2022");
-        lblDia.setMaximumSize(new java.awt.Dimension(350, 24));
-        lblDia.setMinimumSize(new java.awt.Dimension(350, 24));
-        lblDia.setPreferredSize(new java.awt.Dimension(350, 24));
-        contenedorPrincipal.add(lblDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(831, 26, -1, -1));
-
-        lblHora.setFont(UtilidadesFuentes.InterExtraLight.deriveFont(30.0f));
-        lblHora.setForeground(new java.awt.Color(140, 140, 140));
-        lblHora.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHora.setText("11:30 AM");
-        lblHora.setMaximumSize(new java.awt.Dimension(200, 16));
-        lblHora.setPreferredSize(new java.awt.Dimension(130, 36));
-        contenedorPrincipal.add(lblHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(1208, 20, -1, -1));
-
-        add(contenedorPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/Boton Home.png"))); // NOI18N
-        btnHome.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnHome.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnHomeMousePressed(evt);
-            }
-        });
-        add(btnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(644, 689, -1, 80));
-    }// </editor-fold>//GEN-END:initComponents
-
-    private void IniciarComponentes(){
-        PanelDeVentas referenciaPanelVentasPrincipal=this;
-        JPanel contenedorVentas=new JPanel();
-        contenedorVentas.setPreferredSize(new Dimension(1360,582));
-        contenedorVentas.setOpaque(false);
-        contenedorVentas.setLayout(new GridBagLayout());
+    private void iniciarComponentesCuerpoIzquierdo(int width, int height){
         GridBagConstraints gbc = new GridBagConstraints();
-        contenedorPrincipal.add(contenedorVentas,new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 73, -1, -1));
         //Agregando panel de Lista de Venta
         JPanel PanelListaDeVenta = new JPanel();
         PanelListaDeVenta.setOpaque(false);
         PanelListaDeVenta.setLayout(new GridBagLayout());
         PanelListaDeVenta.setPreferredSize(new Dimension(0, 0));
         //Creando tabla de lista de venta
-        scrollPaneDeListaVenta = new javax.swing.JScrollPane();
-        TablaListaDeVenta = new javax.swing.JTable(){
-            @Override
-            public boolean isCellEditable(int row, int column) {                
-                return false;               
-            };
-        };
-        TablaListaDeVenta.setAutoscrolls(true);
-        TablaListaDeVenta.setCellSelectionEnabled(false);
-        TablaListaDeVenta.setRowSelectionAllowed(true);
-        TablaListaDeVenta.setFocusable(false);
-        TablaListaDeVenta.setGridColor(new java.awt.Color(0, 0, 0));
-        TablaListaDeVenta.setRowHeight(45);
-        TablaListaDeVenta.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        TablaListaDeVenta.setShowGrid(false);
-        scrollPaneDeListaVenta.setViewportView(TablaListaDeVenta);
-        
-        //Formato de Tabla de Lista de Venta
-        modeloDeListaDeVenta=(DefaultTableModel)TablaListaDeVenta.getModel();
-        TablaListaDeVenta.getTableHeader().setDefaultRenderer(new RenderDeCabecera(TablaListaDeVenta.getTableHeader().getDefaultRenderer()));
-        TablaListaDeVenta.getTableHeader().setBackground(Color.WHITE);
-        TablaListaDeVenta.getTableHeader().setReorderingAllowed(false);
-        TablaListaDeVenta.getTableHeader().setFont(UtilidadesFuentes.InterLight.deriveFont(20.0f));
-        TablaListaDeVenta.getTableHeader().setForeground(Color.decode("#8C8C8C"));
-        
-        TablaListaDeVenta.setFont(UtilidadesFuentes.InterExtraLight.deriveFont(20.0f));
-        TablaListaDeVenta.setForeground(Color.decode("#8C8C8C"));
-        TablaListaDeVenta.setSelectionBackground(Color.decode("#23A020"));
-        TablaListaDeVenta.setSelectionForeground(Color.white);
-        TablaListaDeVenta.setIntercellSpacing(new Dimension(0,0));
-        
-        scrollPaneDeListaVenta.setBorder(BorderFactory.createEmptyBorder());
-        scrollPaneDeListaVenta.setMinimumSize(new Dimension(0,0));
-        scrollPaneDeListaVenta.setPreferredSize(new Dimension(0,0));
-        scrollPaneDeListaVenta.getViewport().setBackground(Color.WHITE);
-        scrollPaneDeListaVenta.setOpaque(false);
-        
-        scrollBarListaVenta=new ScrollBarCustom();
-        scrollBarListaVenta.setUnitIncrement(16);
-        scrollPaneDeListaVenta.setVerticalScrollBar(scrollBarListaVenta);
-        
-        //Añadiendo columna a lista de venta
-        modeloDeListaDeVenta.addColumn("Item");
-        modeloDeListaDeVenta.addColumn("Qt");
-        modeloDeListaDeVenta.addColumn("P/U");
-        modeloDeListaDeVenta.addColumn("Total");
-        
-        TablaListaDeVenta.getColumnModel().getColumn(0).setResizable(false);
-     TablaListaDeVenta.getColumnModel().getColumn(0).setPreferredWidth(600);
-        TablaListaDeVenta.getColumnModel().getColumn(1).setResizable(false);
-        TablaListaDeVenta.getColumnModel().getColumn(1).setPreferredWidth(175);
-        TablaListaDeVenta.getColumnModel().getColumn(2).setResizable(false);
-        TablaListaDeVenta.getColumnModel().getColumn(2).setPreferredWidth(175);
-        TablaListaDeVenta.getColumnModel().getColumn(3).setResizable(false);
-        TablaListaDeVenta.getColumnModel().getColumn(3).setPreferredWidth(175);
-        
+        TablaListaDeVenta=new TablaDefault(new String[]{"Item","Qt","P/U","Total"}, new int[]{600,175,175,175}, panelModuloVentas);
+        TablaListaDeVenta.setAltoFilaBase(75);
+        TablaListaDeVenta.setPreferredSize(new Dimension(0,370));
         //Añadiendo botones de edicion para lista de venta
          JSeparator hsep1 = new JSeparator(javax.swing.SwingConstants.HORIZONTAL);
         hsep1.setPreferredSize(new Dimension(0,2));
@@ -313,7 +185,7 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         btnSumaVenta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 ArrayList<DetalleVenta> detallesVenta=ventaActual.getDetallesVenta();
-                int[] indicesFilaDetalleVenta=TablaListaDeVenta.getSelectedRows();
+                int[] indicesFilaDetalleVenta=TablaListaDeVenta.getTabla().getSelectedRows();
                 for(int indice=indicesFilaDetalleVenta.length-1;indice>=0;indice--){
                     DetalleVenta nuevoDetalleVenta = detallesVenta.get(indicesFilaDetalleVenta[indice]);
                     nuevoDetalleVenta.setCantidad(nuevoDetalleVenta.getCantidad()+1);
@@ -336,7 +208,7 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         btnRestaVenta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                  ArrayList<DetalleVenta> detallesVenta=ventaActual.getDetallesVenta();
-                int[] indicesFilaDetalleVenta=TablaListaDeVenta.getSelectedRows();
+                int[] indicesFilaDetalleVenta=TablaListaDeVenta.getTabla().getSelectedRows();
                 for(int indice=indicesFilaDetalleVenta.length-1;indice>=0;indice--){
                     DetalleVenta nuevoDetalleVenta = detallesVenta.get(indicesFilaDetalleVenta[indice]);
                     if(nuevoDetalleVenta.getCantidad()>0){
@@ -361,7 +233,7 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         btnEliminacionVenta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 ArrayList<DetalleVenta> detallesVenta=ventaActual.getDetallesVenta();
-                int[] indicesFilaDetalleVenta=TablaListaDeVenta.getSelectedRows();
+                int[] indicesFilaDetalleVenta=TablaListaDeVenta.getTabla().getSelectedRows();
                 for(int indice=indicesFilaDetalleVenta.length-1;indice>=0;indice--){
                     detallesVenta.remove(indicesFilaDetalleVenta[indice]);
                     eliminarDetalleVentaEnTabla(indicesFilaDetalleVenta[indice]);
@@ -385,10 +257,10 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         btnEdicionVenta.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnEdicionVenta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                int filaSeleccionada = TablaListaDeVenta.getSelectedRow();
+                int filaSeleccionada = TablaListaDeVenta.getTabla().getSelectedRow();
                 if(filaSeleccionada>=0){
-                    EditarItem editarItem = new EditarItem(filaSeleccionada,referenciaPanelVentasPrincipal);
-                    ((FramePrincipal) SwingUtilities.getWindowAncestor(referenciaPanelVentasPrincipal)).mostrarPanelEmergente(editarItem);
+                    EditarItem editarItem = new EditarItem(filaSeleccionada,panelPrincipalVentas);
+                    ((FramePrincipal) SwingUtilities.getWindowAncestor(panelPrincipalVentas)).mostrarPanelEmergente(editarItem);
                     editarItem.requestFocus();
                 }
             }
@@ -431,10 +303,10 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         //Agregando componentes al panel
         gbc.gridx=0;
         gbc.gridy=0;
-        gbc.fill=GridBagConstraints.BOTH;
+        gbc.fill=GridBagConstraints.HORIZONTAL;
         gbc.weightx=1.0;
-        gbc.weighty=0.64;
-        PanelListaDeVenta.add(scrollPaneDeListaVenta,gbc);
+        gbc.weighty=0;
+        PanelListaDeVenta.add(TablaListaDeVenta,gbc);
         
         gbc.gridx=0;
         gbc.gridy=1;
@@ -445,7 +317,7 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         //Panel de botones de Lista de venta
         JPanel panelBtnListaVenta = new JPanel();
         panelBtnListaVenta.setOpaque(false);
-        panelBtnListaVenta.setPreferredSize(new Dimension(0,0));
+        panelBtnListaVenta.setPreferredSize(new Dimension(0,40));
         panelBtnListaVenta.setLayout(new GridBagLayout());
         
         
@@ -522,9 +394,9 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         
         gbc.gridx=0;
         gbc.gridy=2;
-        gbc.fill=GridBagConstraints.BOTH;
+        gbc.fill=GridBagConstraints.HORIZONTAL;
         gbc.weightx=1.0;
-        gbc.weighty=0.06;
+        gbc.weighty=0;
         PanelListaDeVenta.add(panelBtnListaVenta,gbc);
         
         
@@ -581,9 +453,23 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         gbc.gridy=4;
         gbc.fill=GridBagConstraints.BOTH;
         gbc.weightx=1.0;
-        gbc.weighty=0.3;
+        gbc.weighty=1;
         gbc.gridheight=1;
         PanelListaDeVenta.add(panelDatos,gbc);
+
+        //Agregando paneles de Lista de Venta y Busqueda de venta
+        gbc.insets=new Insets(25, 37, 25, 10);
+        gbc.gridx=0;
+        gbc.gridy=0;
+        gbc.fill=GridBagConstraints.BOTH;
+        gbc.weightx=0.43;
+        gbc.weighty=1.0;
+        cuerpo.add(PanelListaDeVenta,gbc);
+        
+    }
+    
+    private void iniciarComponentesCuerpoDerecho(int width, int height){
+        GridBagConstraints gbc = new GridBagConstraints();
         
         //Agregando panel de busqueda de venta
         JPanel PanelBusquedaVenta = new JPanel();
@@ -606,12 +492,13 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         //Agregando el panel de Tabla de Items
         PanelRedondeado panelTablaItems=new PanelRedondeado(20,3,new Color(0,0,0,0),Color.decode("#8C8C8C"));
         panelTablaItems.setOpaque(false);
-        panelTablaItems.setPreferredSize(new Dimension(0, 0));
+        panelTablaItems.setPreferredSize(new Dimension(560, 0));
+        panelTablaItems.setMinimumSize(new Dimension(560, 0));
         panelTablaItems.setLayout(new GridBagLayout());
         gbc.gridx=0;
         gbc.gridy=0;
-        gbc.fill=GridBagConstraints.BOTH;
-        gbc.weightx=0.80;
+        gbc.fill=GridBagConstraints.VERTICAL;
+        gbc.weightx=0;
         gbc.weighty=1;
         gbc.gridheight=2;
         mostradorDeItems.add(panelTablaItems,gbc);
@@ -620,6 +507,7 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         buscadorItem=new Buscador();
         buscadorItem.getTxtABuscar().setColumns(0);
         buscadorItem.getTxtABuscar().setFont(UtilidadesFuentes.InterRegular.deriveFont(20.0f));
+        buscadorItem.setMinimumSize(new Dimension(410,37));
         buscadorItem.getTxtABuscar().setForeground(Color.decode("#8C8C8C"));
         
         buscadorItem.getTxtABuscar().addKeyListener(new java.awt.event.KeyAdapter() {
@@ -632,159 +520,69 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         gbc.insets=new Insets(10, 10, 7, 10);
         gbc.gridx=0;
         gbc.gridy=0;
-        gbc.fill=GridBagConstraints.HORIZONTAL;
-        gbc.weightx=0.8;
+        gbc.fill=GridBagConstraints.NONE;
+        gbc.weightx=0;
         gbc.weighty=0;
         gbc.gridheight=1;
         panelTablaItems.add(buscadorItem,gbc);
-        
-        lblDepartamentoActual=new JLabel("DPTO: TODOS");
-        lblDepartamentoActual.setFont(UtilidadesFuentes.InterLight.deriveFont(20.0f));
-        lblDepartamentoActual.setForeground(Color.decode("#8C8C8C"));
-        lblDepartamentoActual.setHorizontalAlignment(JLabel.CENTER);
-        lblDepartamentoActual.setPreferredSize(new Dimension(0,30));
-        lblDepartamentoActual.setVisible(false);
-        gbc.insets=new Insets(-7, 0, 0, 0);
-        gbc.gridx=0;
-        gbc.gridy=1;
-        gbc.fill=GridBagConstraints.HORIZONTAL;
-        gbc.weightx=0;
-        panelTablaItems.add(lblDepartamentoActual,gbc);
-        
-        //agregando ScrollPane para Tabla de Lista de Items
-        scrollPaneDeListaDeItems = new javax.swing.JScrollPane();
-        scrollPaneDeListaDeItems.setBorder(BorderFactory.createEmptyBorder());
-        scrollPaneDeListaDeItems.setPreferredSize(new Dimension(0,0));
-        scrollPaneDeListaDeItems.setOpaque(false);
-        scrollPaneDeListaDeItems.getViewport().setOpaque(false);
-        gbc.insets=new Insets(0, 10, 10, 10);
-        gbc.gridx=0;
-        gbc.gridy=2;
-        gbc.fill=GridBagConstraints.BOTH;
-        gbc.weightx=0.8;
-        gbc.weighty=0.8;
-        panelTablaItems.add(scrollPaneDeListaDeItems,gbc);
-        /*Agregando un ScrollBar Personalizado al ScrollPane
-        de la lista de items
-        */
-        scrollBarListaItems=new ScrollBarCustom();
-        scrollBarListaItems.setUnitIncrement(16);
-        scrollPaneDeListaDeItems.setVerticalScrollBar(scrollBarListaItems);
         //agregando Tabla de Lista de Items
-        TablaListaDeItems = new javax.swing.JTable(0,4){
-            @Override
-            public boolean isCellEditable(int row, int column) {                
-                return false;               
-            };
+        TablaListaDeItems=new TablaItem(4, 5, 5, panelModuloVentas);
+        TablaListaDeItems.setMinimumSize(new Dimension(410,0));
+         ListSelectionListener listenerTabla = new ListSelectionListener(){
+        public void valueChanged(ListSelectionEvent event) {
+                int[] columnas = TablaListaDeItems.getTabla().getSelectedColumns();
+                int[] filas  = TablaListaDeItems.getTabla().getSelectedRows();
+                for(int i=0; i< TablaListaDeItems.getTabla().getColumnCount();i++){
+                    for(int j=0; j< TablaListaDeItems.getTabla().getRowCount();j++){
+                        Item item = (Item)TablaListaDeItems.getTabla().getValueAt(j, i);
+                        if(item!=null){
+                            item.DeseleccionarItem();
+                            TablaListaDeItems.getTabla().setValueAt(item, j, i);
+                        }
+                    }
+                }
+                for(int columna: columnas){
+                    for(int fila: filas){
+                        Item item = (Item)TablaListaDeItems.getTabla().getValueAt(fila, columna);
+                        if(item!=null){
+                            if(!item.getSeleccionado()){
+                                item.seleccionarItem();
+                                TablaListaDeItems.getTabla().setValueAt(item, fila, columna);
+                            }
+                        }
+                    }
+                }
+        }
         };
-        TablaListaDeItems.setAutoscrolls(false);
-        TablaListaDeItems.setCellSelectionEnabled(true);
-        TablaListaDeItems.setFocusable(false);
-        TablaListaDeItems.setGridColor(new java.awt.Color(0, 0, 0));
-        TablaListaDeItems.setRowHeight(115);
-        TablaListaDeItems.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        TablaListaDeItems.setShowGrid(false);
-        //Formato de Tabla de lista De Items
-        modeloDeListaDeItems=(DefaultTableModel)TablaListaDeItems.getModel();
-        TablaListaDeItems.setDefaultRenderer(Object.class, nuevoCellRenderer);
-        
-        TablaListaDeItems.setSelectionBackground(Color.WHITE);
-        TablaListaDeItems.setSelectionForeground(Color.WHITE);
-        TablaListaDeItems.setIntercellSpacing(new Dimension(10,10));
-        TablaListaDeItems.getTableHeader().setUI(null);
-        scrollPaneDeListaDeItems.setViewportView(TablaListaDeItems);
-        //Seleccion de tabla
-        //Seleccion generalde items
-        TablaListaDeItems.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-        public void valueChanged(ListSelectionEvent event) {
-                int[] columnas = TablaListaDeItems.getSelectedColumns();
-                int[] filas  = TablaListaDeItems.getSelectedRows();
-                for(int i=0; i< TablaListaDeItems.getColumnCount();i++){
-                    for(int j=0; j< TablaListaDeItems.getRowCount();j++){
-                        Item item = (Item)TablaListaDeItems.getValueAt(j, i);
-                        if(item!=null){
-                            item.DeseleccionarItem();
-                            TablaListaDeItems.setValueAt(item, j, i);
-                        }
-                    }
-                }
-                for(int columna: columnas){
-                    for(int fila: filas){
-                        Item item = (Item)TablaListaDeItems.getValueAt(fila, columna);
-                        if(item!=null){
-                            if(!item.getSeleccionado()){
-                                item.seleccionarItem();
-                                TablaListaDeItems.setValueAt(item, fila, columna);
-                            }
-                        }
-                    }
-                }
-        }
-        });
-        
-        TablaListaDeItems.getColumnModel().getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-        public void valueChanged(ListSelectionEvent event) {
-                int[] columnas = TablaListaDeItems.getSelectedColumns();
-                int[] filas  = TablaListaDeItems.getSelectedRows();
-                for(int i=0; i< TablaListaDeItems.getColumnCount();i++){
-                    for(int j=0; j< TablaListaDeItems.getRowCount();j++){
-                        Item item = (Item)TablaListaDeItems.getValueAt(j, i);
-                        if(item!=null){
-                            item.DeseleccionarItem();
-                            TablaListaDeItems.setValueAt(item, j, i);
-                        }
-                    }
-                }
-                for(int columna: columnas){
-                    for(int fila: filas){
-                        Item item = (Item)TablaListaDeItems.getValueAt(fila, columna);
-                        if(item!=null){
-                            if(!item.getSeleccionado()){
-                                item.seleccionarItem();
-                                TablaListaDeItems.setValueAt(item, fila, columna);
-                            }
-                        }
-                    }
-                }
-        }
-        });
-        //Seleccion de departamento (doble click)
-        TablaListaDeItems.addMouseListener(new MouseAdapter(){
+        TablaListaDeItems.getTabla().getSelectionModel().addListSelectionListener(listenerTabla);
+        TablaListaDeItems.getTabla().getColumnModel().getSelectionModel().addListSelectionListener(listenerTabla);
+        TablaListaDeItems.getTabla().addMouseListener(new MouseAdapter(){
             @Override
             public void mouseReleased(MouseEvent e) {
                 if(e.getClickCount()==2){
-                    int fila=TablaListaDeItems.getSelectedRow();
-                    int columna=TablaListaDeItems.getSelectedColumn();
                     if(selectorMostrar.getOpcionSeleccionada()==0){
-                        try {
-                            departamentoSeleccionado = departamentos.get(fila*4+columna);
-                        lblDepartamentoActual.setText("DPTO: "+departamentoSeleccionado.getNombre());
-                        selectorMostrar.solicitarSeleccion(1);
-                        } catch (Exception er) {}
+                        int fila=TablaListaDeItems.getTabla().getSelectedRow();
+                        int columna=TablaListaDeItems.getTabla().getSelectedColumn();
+                        if(selectorMostrar.getOpcionSeleccionada()==0){
+                            try {
+                                obtenerSeleccionDepartamento();
+                            } catch (Exception er) {}
+                        }
                     }else{
-                        try {
-                            Producto producto = productos.get(fila*4+columna);
-                            if(!estaProductoEnLista(producto)){
-                                DetalleVenta nuevoDetalleVenta = new DetalleVenta(producto,0,producto.getPrecio(),0);
-                                ventaActual.getDetallesVenta().add(nuevoDetalleVenta);
-                                añadirDetalleVentaATabla(nuevoDetalleVenta);
-                                if(productosRecientes.size()==3){
-                                    productosRecientes.remove(2);
-                                    itemReciente.remove(2);
-                                }
-                                productosRecientes.add(0,producto);
-                                añadirItemReciente(producto);
-                            }
-                        } catch (Exception er) {}
-                    } 
-                    TablaListaDeItems.clearSelection();
-                    TablaListaDeVenta.clearSelection();
-                    deseleccionarItemRecientes();
+                        agregarProductoDeTabla();
+                    }
                 }
             }
-            
-        
         });
+        TablaListaDeItems.mostrarCabecera("DEPARTAMENTOS");
+        TablaListaDeItems.getLblTitulo().setFont(TablaListaDeItems.getLblTitulo().getFont().deriveFont(20.0f));
+        gbc.insets=new Insets(0, 10, 10, 10);
+        gbc.gridx=0;
+        gbc.gridy=1;
+        gbc.fill=GridBagConstraints.VERTICAL;
+        gbc.weightx=0;
+        gbc.weighty=0;
+        panelTablaItems.add(TablaListaDeItems,gbc);
         //Agregando selectores al panel mostrador de items
         JSeparator separador = new JSeparator(javax.swing.SwingConstants.VERTICAL);
         separador.setPreferredSize(new Dimension(panelTablaItems.getGrosorDeBorde(),0));
@@ -793,7 +591,7 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         gbc.gridx=1;
         gbc.gridy=0;
         gbc.fill=GridBagConstraints.VERTICAL;
-        gbc.gridheight=3;
+        gbc.gridheight=2;
         gbc.weightx=0;
         gbc.weighty=1;
         panelTablaItems.add(separador,gbc);
@@ -805,9 +603,9 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         
         gbc.gridx=2;
         gbc.gridy=0;
-        gbc.fill=GridBagConstraints.BOTH;
+        gbc.fill=GridBagConstraints.HORIZONTAL;
         gbc.gridheight=3;
-        gbc.weightx=0.2;
+        gbc.weightx=1;
         gbc.weighty=1;
         panelTablaItems.add(panelSelectoresTabla,gbc);
         
@@ -824,6 +622,7 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         panelSelectoresTabla.add(lblSelectorMostrar,gbc);
         
         selectorMostrar=new Selector(new String[]{"Dpto","Prod"},50,37);
+        selectorMostrar.setMinimumSize(new Dimension(100,37));
         selectorMostrar.setFuenteDeOpcion(UtilidadesFuentes.InterRegular.deriveFont(13.0f));
         selectorMostrar.setColorDeFuente(Color.decode("#8C8C8C"));
         selectorMostrar.solicitarSeleccion(0);
@@ -853,6 +652,7 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         panelSelectoresTabla.add(lblSelectorSMultiple,gbc);
         
         selectorSMultiple=new Selector(new String[]{"SI","NO"},50,37);
+        selectorSMultiple.setMinimumSize(new Dimension(100,37));
         selectorSMultiple.setFuenteDeOpcion(UtilidadesFuentes.InterRegular.deriveFont(13.0f));
         selectorSMultiple.setColorDeFuente(Color.decode("#8C8C8C"));
         selectorSMultiple.solicitarSeleccion(0);
@@ -873,28 +673,26 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         //Agregando el panel de Items recientes
         panelItemsRecientes=new JPanel();
         panelItemsRecientes.setOpaque(false);
-        panelItemsRecientes.setPreferredSize(new Dimension(0, 0));
         panelItemsRecientes.setLayout(new GridBagLayout());
         gbc.insets=new Insets(0, 0, 0, 0);
-        gbc.gridx=1;
+        gbc.gridx=2;
         gbc.gridy=1;
         gbc.fill=GridBagConstraints.BOTH;
-        gbc.weightx=0.2;
-        gbc.weighty=0.925;
+        gbc.weightx=1;
+        gbc.weighty=1;
         mostradorDeItems.add(panelItemsRecientes,gbc);
         //Componentes de panelItemsRecientes
         JLabel lblRecientes=new JLabel("RECIENTES");
         lblRecientes.setFont(UtilidadesFuentes.InterLight.deriveFont(20.0f));
-        lblRecientes.setPreferredSize(new Dimension(0, 0));
         lblRecientes.setForeground(Color.decode("#8C8C8C"));
         lblRecientes.setHorizontalAlignment(JLabel.CENTER);
-        gbc.anchor=GridBagConstraints.PAGE_START;
-        gbc.gridx=1;
+        gbc.anchor=GridBagConstraints.CENTER;
+        gbc.gridx=2;
         gbc.gridy=0;
-        gbc.fill=GridBagConstraints.BOTH;
+        gbc.fill=GridBagConstraints.NONE;
         gbc.gridheight=1;
-        gbc.weightx=0.2;
-        gbc.weighty=0.075;
+        gbc.weightx=1;
+        gbc.weighty=0;
         mostradorDeItems.add(lblRecientes,gbc);
         
         itemReciente=new ArrayList<Item>();
@@ -926,136 +724,45 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         funcionesVenta.add(PanelBotonesVenta,gbc);
         //Componentes del panel de botones de venta
         //Boton Cliente
-        btnClientes=new PanelRedondeado(20, 3, new Color(0,0,0,0), Color.decode("#D9AA4F"));
-        btnClientes.setOpaque(false);
-        btnClientes.setLayout(new GridBagLayout());
-        btnClientes.setPreferredSize(new Dimension(0,0));
-        btnClientes.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        //Creando texto del boton Cliente
-        JLabel lblClienteBTN=new JLabel("CLIENTES",JLabel.CENTER);
-        lblClienteBTN.setFont(UtilidadesFuentes.InterRegular.deriveFont(20.0f));
-        lblClienteBTN.setForeground(btnClientes.getColorBorde());
-        //Añadiendo Texto al boton Cliente
-        gbc.insets=new Insets(0, 0, 0, 0);
-        gbc.gridx=0;
-        gbc.gridy=0;
-        gbc.fill=GridBagConstraints.BOTH;
-        gbc.weightx=1;
-        gbc.weighty=1;
-        btnClientes.add(lblClienteBTN,gbc);
-        //Dando funcionalidad al botonCancelar
-        btnClientes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnClientes.setColorFondo(btnClientes.getColorBorde());
-                lblClienteBTN.setForeground(Color.WHITE);
-            }
-
+        btnClientes=new BotonRedondeado(10, 3, Color.decode("#D9AA4F"),"CLIENTES",UtilidadesFuentes.InterRegular.deriveFont(17.0f)){
             @Override
-            public void mouseExited(MouseEvent e) {
-                btnClientes.setColorFondo(new Color(0,0,0,0));
-                lblClienteBTN.setForeground(btnClientes.getColorBorde());
+            public void botonPresionado() {
+                DefinirCliente definirCliente = new DefinirCliente(panelPrincipalVentas);
+                ((FramePrincipal) SwingUtilities.getWindowAncestor(panelPrincipalVentas)).mostrarPanelEmergente(definirCliente);
+                definirCliente.requestFocus();
             }
-            
-        });
-        //Agregando boton Clientes a la pantalla
+        };
         gbc.insets=new Insets(0, 0, 10, 10);
         gbc.gridx=0;
         gbc.gridy=0;
         gbc.fill=GridBagConstraints.BOTH;
-        gbc.weightx=1;
+        gbc.weightx=0.5;
         gbc.weighty=1;
         PanelBotonesVenta.add(btnClientes,gbc);
-        
-        
-        //Boton cancelar
-        btnCancelar=new PanelRedondeado(20, 3, new Color(0,0,0,0), Color.decode("#EB7979"));
-        btnCancelar.setOpaque(false);
-        btnCancelar.setLayout(new GridBagLayout());        
-        btnCancelar.setPreferredSize(new Dimension(0,0));
-        btnCancelar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        //Creando texto del boton Cancelar
-        JLabel lblCancelarBTN=new JLabel("CANCELAR",JLabel.CENTER);
-        lblCancelarBTN.setFont(UtilidadesFuentes.InterRegular.deriveFont(20.0f));
-        lblCancelarBTN.setForeground(btnCancelar.getColorBorde());
-        //Añadiendo Texto al boton Cancelar
-        gbc.insets=new Insets(0, 0, 0, 0);
-        gbc.gridx=0;
-        gbc.gridy=0;
-        gbc.fill=GridBagConstraints.BOTH;
-        gbc.weightx=1;
-        gbc.weighty=1;
-        btnCancelar.add(lblCancelarBTN,gbc);
-        //Dando funcionalidad al botonCancelar
-        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+        //Boton Cancelar
+        btnCancelar=new BotonRedondeado(10, 3, Color.decode("#EB7979"),"CANCELAR",UtilidadesFuentes.InterRegular.deriveFont(17.0f)){
             @Override
-            public void mouseReleased(MouseEvent e) {
-                modeloDeListaDeVenta.setRowCount(0);
+            public void botonPresionado() {
+                TablaListaDeVenta.getModeloTabla().setRowCount(0);
                 ventaActual.getDetallesVenta().clear();
                 actualizarDatosVenta();
             }
-            
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCancelar.setColorFondo(btnCancelar.getColorBorde());
-                lblCancelarBTN.setForeground(Color.WHITE);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                btnCancelar.setColorFondo(new Color(0,0,0,0));
-                lblCancelarBTN.setForeground(btnCancelar.getColorBorde());
-            }
-            
-        });
-        //Agregando boton Cancelar a la pantalla
+        };
         gbc.insets=new Insets(0, 0, 0, 10);
         gbc.gridx=0;
         gbc.gridy=1;
         gbc.fill=GridBagConstraints.BOTH;
-        gbc.weightx=1;
+        gbc.weightx=0.5;
         gbc.weighty=1;
         PanelBotonesVenta.add(btnCancelar,gbc);
-        
-        //Boton Pago
-        btnPago=new PanelRedondeado(20, 3, new Color(0,0,0,0), Color.decode("#8CC560"));
-        btnPago.setLayout(new GridBagLayout());
-        btnPago.setOpaque(false);
-        btnPago.setPreferredSize(new Dimension(0,0));
-        btnPago.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        //Creando texto del boton Pago
-        JLabel lblPagoBTN=new JLabel("PAGO",JLabel.CENTER);
-        lblPagoBTN.setFont(UtilidadesFuentes.InterRegular.deriveFont(25.0f));
-        lblPagoBTN.setForeground(btnPago.getColorBorde());
-        //Añadiendo Texto al boton Cliente
-        gbc.insets=new Insets(0, 0, 0, 0);
-        gbc.gridx=0;
-        gbc.gridy=0;
-        gbc.fill=GridBagConstraints.BOTH;
-        gbc.weightx=1;
-        gbc.weighty=1;
-        btnPago.add(lblPagoBTN,gbc);
-        gbc.insets=new Insets(0, 0, 0, 0);
-        //Dando funcionalidad al boton Pago
-        btnPago.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnPago=new BotonRedondeado(10, 3, Color.decode("#8CC560"),"PAGO",UtilidadesFuentes.InterRegular.deriveFont(17.0f)){
             @Override
-            public void mouseReleased(MouseEvent e) {
-                VentaPago1 ventaPago1 = new VentaPago1(referenciaPanelVentasPrincipal,ventaActual);
-                ((FramePrincipal) SwingUtilities.getWindowAncestor(referenciaPanelVentasPrincipal)).mostrarPanelEmergente(ventaPago1);
+            public void botonPresionado() {
+                VentaPago1 ventaPago1 = new VentaPago1(panelPrincipalVentas,ventaActual);
+                ((FramePrincipal) SwingUtilities.getWindowAncestor(panelPrincipalVentas)).mostrarPanelEmergente(ventaPago1);
                 ventaPago1.requestFocus();
             }
-            
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnPago.setColorFondo(btnPago.getColorBorde());
-                lblPagoBTN.setForeground(Color.WHITE);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                btnPago.setColorFondo(new Color(0,0,0,0));
-                lblPagoBTN.setForeground(btnPago.getColorBorde());
-            }
-            
-        });
-        //Agregando boton Pago a la pantalla
+        };
         gbc.gridx=1;
         gbc.gridy=0;
         gbc.fill=GridBagConstraints.BOTH;
@@ -1063,7 +770,6 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         gbc.weightx=1;
         gbc.weighty=1;
         PanelBotonesVenta.add(btnPago,gbc);
-        
         //Agregando el panel de teclado
         JPanel PanelTeclado = new JPanel();
         PanelTeclado.setPreferredSize(new Dimension(0, 0));
@@ -1122,7 +828,7 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
-        montoTeclado.setText("0.00");
+        montoTeclado.setText("");
         montoTeclado.setCaretPosition(montoTeclado.getText().length());
         gbc.insets=new Insets(0, 0, 0, 0);
         gbc.gridx=1;
@@ -1224,53 +930,8 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
                         montoTeclado.setText("");
                         break;
                     case "✓": //Aceptar
-                        //Revisando los productos eleegidos
-                        int [] columnasSeleccionadas = TablaListaDeItems.getSelectedColumns();
-                        int [] filasSeleccionadas = TablaListaDeItems.getSelectedRows();
-                        ArrayList<Producto> productosAAgregar=new ArrayList<Producto>();
-                        //Revisando por productos de la tabla
-                        if(selectorMostrar.getOpcionSeleccionada()==1){
-                            for(int columna: columnasSeleccionadas){
-                            for(int fila: filasSeleccionadas){
-                                try {
-                                    Producto productoAAgregar = productos.get(TablaListaDeItems.convertRowIndexToModel(fila)*4+columna);
-                                    productosAAgregar.add(productoAAgregar);
-                                } catch (Exception er) {}}
-                            }
-                        }
-                        //Revisando por items recientes
-                        for(int i = 0; i<itemReciente.size();i++){
-                            if(itemReciente.get(i).getSeleccionado()){
-                                Producto productoAAgregar = productosRecientes.get(i);
-                                productosAAgregar.add(productoAAgregar);
-                            }
-                        }
-                        //Agregando items elegidos a la lista
-                        for(Producto producto: productosAAgregar){
-                            if(!estaProductoEnLista(producto)){
-                                int cantidad=0;
-                                double precio = producto.getPrecio();
-                                if(QtPc.getOpcionSeleccionada()==0){
-                                    try {
-                                        cantidad = (int)Double.parseDouble(montoTeclado.getText());
-                                    } catch (Exception er) {
-                                        cantidad=0;
-                                    }
-                                }else{
-                                    try {
-                                        precio = Double.parseDouble(montoTeclado.getText());
-                                    } catch (Exception er) {
-                                        precio=0;
-                                    }
-                                }
-                                DetalleVenta nuevoDetalleVenta = new DetalleVenta(producto,cantidad,precio,0);
-                                ventaActual.getDetallesVenta().add(nuevoDetalleVenta);
-                                añadirDetalleVentaATabla(nuevoDetalleVenta);
-                            }
-                        }
-                        TablaListaDeItems.clearSelection();
-                        TablaListaDeVenta.clearSelection();
-                        deseleccionarItemRecientes();
+                        //Revisando los productos elegidos
+                        agregarProductoDeTabla();
                         break;
                 }
             }
@@ -1480,71 +1141,14 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         gbc.weightx=0.2;
         gbc.weighty=1;
         PanelBotonesTeclado.add(btnTecladoAceptar,gbc);
-        
-        //Agregando paneles de Lista de Venta y Busqueda de venta
-        gbc.insets=new Insets(0, 37, 0, 10);
-        gbc.gridx=0;
-        gbc.gridy=0;
-        gbc.fill=GridBagConstraints.BOTH;
-        gbc.weightx=0.43;
-        gbc.weighty=1.0;
-        contenedorVentas.add(PanelListaDeVenta,gbc);
-        gbc.insets=new Insets(0, 10, 0, 37);
+        //Agregando panel de Busqueda de venta
+        gbc.insets=new Insets(25, 10, 25, 37);
         gbc.gridx=1;
         gbc.gridy=0;
         gbc.fill=GridBagConstraints.BOTH;
         gbc.weightx=0.57;
         gbc.weighty=1.0;
-        contenedorVentas.add(PanelBusquedaVenta,gbc);
-        contenedorPrincipal.addMouseListener(new MouseAdapter(){
-            @Override
-            public void mousePressed(MouseEvent e) {
-                TablaListaDeItems.clearSelection();
-                TablaListaDeVenta.clearSelection();
-            }
-            
-        });
-        
-    }
-
-    private void btnSalirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMousePressed
-        /*Utilizando utilidades de swing para obtener la ventana principal (FramePrincipal)
-        y cerrar todo el programa*/
-        ((JFrame) SwingUtilities.getWindowAncestor(this)).dispose();
-    }//GEN-LAST:event_btnSalirMousePressed
-
-    private void btnHomeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMousePressed
-        JPanel parent = (JPanel)(getParent().getParent());
-        CardLayout layout = (CardLayout) parent.getLayout();
-        layout.show(parent, "menu");
-        parent.remove(getParent());
-    }//GEN-LAST:event_btnHomeMousePressed
-    
-    
-    public void BuscarDeFiltro(String textoBusqueda){
-        RowFilter<Object,Object> filtro = new RowFilter<Object, Object>(){
-            private Matcher matcher=Pattern.compile("(?i)"+textoBusqueda).matcher("");
-            @Override
-            public boolean include(RowFilter.Entry<? extends Object, ? extends Object> entry) {
-                for(int i=entry.getValueCount()-1;i>=0;i--){
-                    Object obj = entry.getValue(i);
-                    if(obj instanceof Item){
-                        Item item = (Item)obj;
-                        String nombre=item.getNombre().getText();
-                        matcher.reset(nombre);
-                        if(matcher.find()){
-                            return true;
-                        }
-                    }
-                }
-                return false;
-            }
-            
-        };
-        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(modeloDeListaDeItems);
-        TablaListaDeItems.setRowSorter(sorter);
-        //sorter.setRowFilter(RowFilter.regexFilter("(?i)"+textoBusqueda));
-        sorter.setRowFilter(filtro);
+        cuerpo.add(PanelBusquedaVenta,gbc);
     }
     
     
@@ -1553,64 +1157,51 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         mostrarListaDepartamentosCargadaEnTabla();
     }
     
+    public void cargarListaDeProductos(int idDepartamento){
+        productos=ControlInventario.cargarProductosCaja(idDepartamento);
+        mostrarListaProductosCargadaEnTabla();
+    }
+    
     public void mostrarListaDepartamentosCargadaEnTabla(){
-        limpiarTablaItems();
-        cursor[0]=0;
-        cursor[1]=0;
+        TablaListaDeItems.limpiarTabla();
+        TablaListaDeItems.getCursorTabla()[0]=0;
+        TablaListaDeItems.getCursorTabla()[1]=0;
         for(Departamento departamento: departamentos){
-            añadirDepartamentoATabla(departamento);
+            agregarDepartamentoATabla(departamento);
         }
     }
     
     public void mostrarListaProductosCargadaEnTabla(){
-        limpiarTablaItems();
-        cursor[0]=0;
-        cursor[1]=0;
+        TablaListaDeItems.limpiarTabla();
+        TablaListaDeItems.getCursorTabla()[0]=0;
+        TablaListaDeItems.getCursorTabla()[1]=0;
         for(Producto producto: productos){
-            añadirProductoATabla(producto);
+            agregarProductoATabla(producto);
         }
     }
     
-    public void añadirDepartamentoATabla(Departamento departamento){
-        if(cursor[0]==4){
-            modeloDeListaDeItems.addRow(new Object[4]);
-            cursor[0]=0;
-            cursor[1]++;
-        }else if(modeloDeListaDeItems.getRowCount()==0){
-            modeloDeListaDeItems.addRow(new Object[4]);
-        }
+    public void agregarDepartamentoATabla(Departamento departamento){
         Item item = new Item(departamento.getNombre(), (departamento.getCantidad()+" ITEMS"));
-        item.getNombre().setFont(UtilidadesFuentes.InterLight.deriveFont(15.0f));
-        item.getSubtitulo().setFont(UtilidadesFuentes.InterLight.deriveFont(15.0f));
-        modeloDeListaDeItems.setValueAt(item, cursor[1], cursor[0]++);
-        //actualizarScroll();
+        item.getNombre().setFont(item.getNombre().getFont().deriveFont(14f));
+        item.getSubtitulo().setFont(item.getSubtitulo().getFont().deriveFont(14f));
+       TablaListaDeItems.agregarItem(item);
     }
     
-    public void añadirProductoATabla(Producto producto){
-        if(cursor[0]==4){
-            modeloDeListaDeItems.addRow(new Object[4]);
-            cursor[0]=0;
-            cursor[1]++;
-        }else if(modeloDeListaDeItems.getRowCount()==0){
-            modeloDeListaDeItems.addRow(new Object[4]);
-        }
+    public void agregarProductoATabla(Producto producto){
         Item item = new Item(producto.getNombre(),"STOCK: "+producto.getStock());
-        item.getNombre().setFont(UtilidadesFuentes.InterLight.deriveFont(15.0f));
-        item.getSubtitulo().setFont(UtilidadesFuentes.InterLight.deriveFont(15.0f));
-        modeloDeListaDeItems.setValueAt(item, cursor[1], cursor[0]++);
-        //actualizarScroll();
+        item.getNombre().setFont(item.getNombre().getFont().deriveFont(14f));
+        item.getSubtitulo().setFont(item.getSubtitulo().getFont().deriveFont(14f));
+        TablaListaDeItems.agregarItem(item);
     }
     
-    public void limpiarTablaItems(){
-        modeloDeListaDeItems.setRowCount(0);
-    }
     
     public void modificarProductoEnTabla(int[] indice, Producto producto){
-        Item item = (Item)TablaListaDeItems.getValueAt(indice[0], indice[1]);
+        indice[0]=TablaListaDeItems.getTabla().convertRowIndexToView(indice[0]);
+        indice[1]=TablaListaDeItems.getTabla().convertColumnIndexToView(indice[1]);
+        Item item = (Item)TablaListaDeItems.getTabla().getValueAt(indice[0], indice[1]);
         item.getNombre().setText(producto.getNombre());
         item.getSubtitulo().setText("STOCK: "+producto.getStock());
-        modeloDeListaDeItems.setValueAt(item, indice[0], indice[1]);
-        //actualizarScroll();
+        TablaListaDeItems.modificarItem(indice,item);
     }
     
     public void añadirItemReciente(Producto producto){
@@ -1622,14 +1213,12 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         nuevoItemReciente.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseReleased(MouseEvent e) {
-                TablaListaDeItems.clearSelection();
-                TablaListaDeVenta.clearSelection();
+                limpiarSeleccionTablas();
                 deseleccionarItemRecientes();
                 if(e.getClickCount()==1){
                     ((Item)e.getSource()).seleccionarItem();
                 }else if(e.getClickCount()==2){
-                    TablaListaDeItems.clearSelection();
-                    TablaListaDeVenta.clearSelection();
+                    limpiarSeleccionTablas();
                     Producto producto = productosRecientes.get(itemReciente.indexOf(((Item)e.getSource())));
                     if(!estaProductoEnLista(producto)){
                         DetalleVenta nuevoDetalleVenta = new DetalleVenta(producto,0,producto.getPrecio(),0);
@@ -1645,7 +1234,7 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         actualizarPanelItemRecientes();
     }
     
-    private void actualizarPanelItemRecientes(){
+    public void actualizarPanelItemRecientes(){
         panelItemsRecientes.removeAll();
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor=GridBagConstraints.CENTER;
@@ -1676,35 +1265,24 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         actualizarPanelItemRecientes();
     }
     
-    public boolean estaProductoEnLista(Producto producto){
-        for(DetalleVenta detalleVenta:ventaActual.getDetallesVenta()){
-            if(detalleVenta.getProducto().getIdProducto()==producto.getIdProducto()){
-                return true;
-            }
-        }
-        return false;
-    }
-    
     public void añadirDetalleVentaATabla(DetalleVenta nuevoDetalleVenta){
-        modeloDeListaDeVenta.addRow(new Object[]{nuevoDetalleVenta.getProducto().getNombre(),nuevoDetalleVenta.getCantidad(),nuevoDetalleVenta.getPrecio(),nuevoDetalleVenta.getSubTotal()});
+        TablaListaDeVenta.getModeloTabla().addRow(new Object[]{nuevoDetalleVenta.getProducto().getNombre(),nuevoDetalleVenta.getCantidad(),nuevoDetalleVenta.getPrecio(),nuevoDetalleVenta.getSubTotal()});
         actualizarDatosVenta();
-        actualizarScrollListaVenta();
     }
     
     public void modificarDetalleVentaATabla(int fila, DetalleVenta nuevoDetalleVenta){
-        modeloDeListaDeVenta.setValueAt(nuevoDetalleVenta.getProducto().getNombre(), fila, 0);
-        modeloDeListaDeVenta.setValueAt(nuevoDetalleVenta.getCantidad(), fila, 1);
-        modeloDeListaDeVenta.setValueAt(nuevoDetalleVenta.getPrecio(), fila, 2);
-        modeloDeListaDeVenta.setValueAt(nuevoDetalleVenta.getSubTotal(), fila, 3);
+        TablaListaDeVenta.getModeloTabla().setValueAt(nuevoDetalleVenta.getProducto().getNombre(), fila, 0);
+        TablaListaDeVenta.getModeloTabla().setValueAt(nuevoDetalleVenta.getCantidad(), fila, 1);
+        TablaListaDeVenta.getModeloTabla().setValueAt(nuevoDetalleVenta.getPrecio(), fila, 2);
+        TablaListaDeVenta.getModeloTabla().setValueAt(nuevoDetalleVenta.getSubTotal(), fila, 3);
         actualizarDatosVenta();
-        actualizarScrollListaVenta();
-    }
-    public void eliminarDetalleVentaEnTabla(int fila){
-        modeloDeListaDeVenta.removeRow(fila);
-        actualizarDatosVenta();
-        actualizarScrollListaVenta();
     }
     
+    public void eliminarDetalleVentaEnTabla(int fila){
+        TablaListaDeVenta.getModeloTabla().removeRow(fila);
+        actualizarDatosVenta();
+    }
+   
     public void actualizarDatosVenta(){
         ArrayList<DetalleVenta> detalleVentas = ventaActual.getDetallesVenta();
         double totalSubtotal=0;
@@ -1723,33 +1301,159 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
         lblImpuestos.setText(String.format("<html><body style='text-align: center;'>IMPUESTOS<br>S/. %.2f</body></html>",totalImpuestos));
         lblTotal.setText(String.format("<html><body style='text-align: center;'>TOTAL<br>S/. %.2f</body></html>",Total));
     }
-    /*
     
-    public void actualizarScroll(){
-        //Adaptando el tamaño de la barra de Scroll
-        double newScrollBarHeight=Math.pow(scrollPaneDeListaDeItems.getPreferredSize().getHeight(),2)/(
-                TablaListaDeItems.getRowHeight()*TablaListaDeItems.getRowCount());
-        
-        scrollCustom.setThumbSize((int)newScrollBarHeight);
+    private void BuscarDeFiltro(String textoBusqueda){
+        RowFilter<Object,Object> filtro = new RowFilter<Object, Object>(){
+            private Matcher matcher=Pattern.compile("(?i)"+textoBusqueda).matcher("");
+            @Override
+            public boolean include(RowFilter.Entry<? extends Object, ? extends Object> entry) {
+                for(int i=entry.getValueCount()-1;i>=0;i--){
+                    Object obj = entry.getValue(i);
+                    if(obj instanceof Item){
+                        Item item = (Item)obj;
+                        String nombre=item.getNombre().getText();
+                        matcher.reset(nombre);
+                        if(matcher.find()){
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+            
+        };
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(TablaListaDeItems.getModeloTabla());
+        TablaListaDeItems.getTabla().setRowSorter(sorter);
+        sorter.setRowFilter(filtro);
     }
-    */
-    public void actualizarScrollListaVenta(){
-        //Adaptando el tamaño de la barra de Scroll
-        double newScrollBarHeight=Math.pow(scrollPaneDeListaVenta.getHeight(),2)/(
-                TablaListaDeVenta.getRowHeight()*TablaListaDeVenta.getRowCount());
-        
-        scrollBarListaVenta.setThumbSize((int)newScrollBarHeight);
+    
+    private void limpiarSeleccionTablas(){
+        TablaListaDeItems.getTabla().clearSelection();
+        TablaListaDeVenta.getTabla().clearSelection();
     }
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel TituloDeModulo;
-    private javax.swing.JLabel btnConfiguracion;
-    private javax.swing.JLabel btnHome;
-    private javax.swing.JLabel btnSalir;
-    private javax.swing.JPanel contenedorPrincipal;
-    private javax.swing.JLabel lblDia;
-    private javax.swing.JLabel lblHora;
-    // End of variables declaration//GEN-END:variables
+    
+    public boolean estaProductoEnLista(Producto producto){
+        for(DetalleVenta detalleVenta:ventaActual.getDetallesVenta()){
+            if(detalleVenta.getProducto().getIdProducto()==producto.getIdProducto()){
+                return true;
+            }
+        }
+        return false;
+    }
 
+    public void reiniciarBusqueda(){
+        buscadorItem.getTxtABuscar().setText("");
+        TablaListaDeItems.getTabla().setRowSorter(null);
+    }
+    
+    private void obtenerSeleccionDepartamento(){
+        departamentoSeleccionado = departamentos.get(TablaListaDeItems.getTabla().convertRowIndexToModel(TablaListaDeItems.getTabla().getSelectedRow())*TablaListaDeItems.getColumnas()+TablaListaDeItems.getTabla().convertColumnIndexToModel(TablaListaDeItems.getTabla().getSelectedColumn()));
+        TablaListaDeItems.mostrarCabecera("PRODUCTOS DE \""+departamentoSeleccionado.getNombre()+"\"");
+        selectorMostrar.solicitarSeleccion(1);
+    }
+    
+    private void agregarProductoDeTabla(){
+        int [] indicesSeleccionFila=TablaListaDeItems.getTabla().getSelectedRows();
+                        int [] indicesSeleccionColumna=TablaListaDeItems.getTabla().getSelectedColumns();
+                        for(int i = 0;i<indicesSeleccionFila.length;i++){
+                            indicesSeleccionFila[i]=TablaListaDeItems.getTabla().convertRowIndexToModel(indicesSeleccionFila[i]);
+                        }
+                        for(int i = 0;i<indicesSeleccionColumna.length;i++){
+                            indicesSeleccionColumna[i]=TablaListaDeItems.getTabla().convertColumnIndexToModel(indicesSeleccionColumna[i]);
+                        }
+                        ArrayList<Producto> productosAAgregar=new ArrayList<Producto>();
+                        //Revisando por productos de la tabla
+                        if(selectorMostrar.getOpcionSeleccionada()==1){
+                            for(int columna: indicesSeleccionColumna){
+                            for(int fila: indicesSeleccionFila){
+                                try {
+                                    Producto productoAAgregar = productos.get(fila*TablaListaDeItems.getColumnas()+columna);
+                                    productosAAgregar.add(productoAAgregar);
+                                } catch (Exception er) {}}
+                            }
+                        }
+                        //Revisando por items recientes
+                        for(int i = 0; i<itemReciente.size();i++){
+                            if(itemReciente.get(i).getSeleccionado()){
+                                Producto productoAAgregar = productosRecientes.get(i);
+                                productosAAgregar.add(productoAAgregar);
+                            }
+                        }
+                        //Agregando items elegidos a la lista
+                        for(Producto producto: productosAAgregar){
+                            if(!estaProductoEnLista(producto)){
+                                int cantidad=0;
+                                double precio = producto.getPrecio();
+                                if(QtPc.getOpcionSeleccionada()==0){
+                                    try {
+                                        cantidad = (int)Double.parseDouble(montoTeclado.getText());
+                                    } catch (Exception er) {
+                                        cantidad=0;
+                                    }
+                                }else{
+                                    try {
+                                        precio = Double.parseDouble(montoTeclado.getText());
+                                    } catch (Exception er) {
+                                        precio=0;
+                                    }
+                                }
+                                DetalleVenta nuevoDetalleVenta = new DetalleVenta(producto,cantidad,precio,0);
+                                ventaActual.getDetallesVenta().add(nuevoDetalleVenta);
+                                añadirDetalleVentaATabla(nuevoDetalleVenta);
+                                if(productosRecientes.size()==3){
+                                    productosRecientes.remove(2);
+                                    itemReciente.remove(2);
+                                }
+                                productosRecientes.add(0,producto);
+                                añadirItemReciente(producto);
+                            }
+                        }
+                        limpiarSeleccionTablas();
+                        deseleccionarItemRecientes();
+    }
+
+    public TablaDefault getTablaListaDeVenta() {
+        return TablaListaDeVenta;
+    }
+
+    public void setTablaListaDeVenta(TablaDefault TablaListaDeVenta) {
+        this.TablaListaDeVenta = TablaListaDeVenta;
+    }
+
+    public TablaItem getTablaListaDeItems() {
+        return TablaListaDeItems;
+    }
+
+    public void setTablaListaDeItems(TablaItem TablaListaDeItems) {
+        this.TablaListaDeItems = TablaListaDeItems;
+    }
+
+    public Selector getSelectorMostrar() {
+        return selectorMostrar;
+    }
+
+    public void setSelectorMostrar(Selector selectorMostrar) {
+        this.selectorMostrar = selectorMostrar;
+    }
+
+    public Selector getSelectorSMultiple() {
+        return selectorSMultiple;
+    }
+
+    public void setSelectorSMultiple(Selector selectorSMultiple) {
+        this.selectorSMultiple = selectorSMultiple;
+    }
+
+    public Selector getQtPc() {
+        return QtPc;
+    }
+
+    public void setQtPc(Selector QtPc) {
+        this.QtPc = QtPc;
+    }
+    
+    
+    
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         Selector selectorModificado=((Selector)evt.getSource());
@@ -1759,18 +1463,13 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
                 if((int)evt.getNewValue()==1){
                     int idDepartamento=-1;
                     if(departamentoSeleccionado==null){
-                        lblDepartamentoActual.setText("DPTO: TODOS");    
+                            TablaListaDeItems.mostrarCabecera("TODOS LOS PRODUCTOS");
                     }else{
                         idDepartamento = departamentoSeleccionado.getIdDepartamento();
                     }
-                    lblDepartamentoActual.setVisible(true);
-                    //separadorLblDpto.setVisible(true);                    
-                    productos=ControlInventario.cargarProductos(idDepartamento);
-                    mostrarListaProductosCargadaEnTabla();
-                    
+                    cargarListaDeProductos(idDepartamento);
                 }else{
-                    lblDepartamentoActual.setVisible(false);
-                    //separadorLblDpto.setVisible(false);
+                    TablaListaDeItems.mostrarCabecera("DEPARTAMENTOS");
                     departamentoSeleccionado=null;
                     productos=null;
                     cargarListaDeDepartamentos();
@@ -1781,14 +1480,15 @@ public class PanelDeVentas extends javax.swing.JPanel implements PropertyChangeL
             case "SMultiple":
                 try {
                         if((int)evt.getNewValue()==0){
-                            TablaListaDeItems.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+                            TablaListaDeItems.getTabla().setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
                         }else{
-                            TablaListaDeItems.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                            TablaListaDeItems.getTabla().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                         }
                     } catch (Exception e) {
                         System.err.println(e);
                     }
                 break;
         }
+        reiniciarBusqueda();
     }
 }

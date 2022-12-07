@@ -1,13 +1,11 @@
 
 package Datos.DAO;
 
-import Datos.Entidades.Departamento_Producto;
 import Datos.Entidades.Producto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +24,7 @@ public class ProductoDAO implements CRUD{
         int r = 0;
         int id=setLastId()+1;
         String sql = 
-            "insert into producto(nombre, precio, costo, stock, precioVariable, activarDescuentos, "
-                +"mostrarEnCaja, fechaRegistro, IGV, ISC, idProducto) values(?,?,?,?,?,?,?,?,?,?,?)";
+            "insert into producto(nombre, precio, costo, stock, precioVariable, activarDescuentos, mostrarEnCaja, fechaRegistro, IGV, ISC,estadoEliminacion,idProducto) values(?,?,?,?,?,?,?,?,?,?,?,?)";
         try{
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
@@ -41,7 +38,8 @@ public class ProductoDAO implements CRUD{
             ps.setObject(8, o[7]);
             ps.setObject(9, o[8]);
             ps.setObject(10, o[9]);
-            ps.setObject(11, id);
+            ps.setObject(11, 0);
+            ps.setObject(12, id);
             r=ps.executeUpdate();
             
         }catch(SQLException e){
@@ -53,7 +51,7 @@ public class ProductoDAO implements CRUD{
     @Override
     public List listar() {
         List<Producto> lista = new ArrayList<Producto>();
-        String sql = "select * from producto";
+        String sql = "select * from producto where estadoEliminacion=0";
         try{
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
@@ -124,6 +122,19 @@ public class ProductoDAO implements CRUD{
            con = cn.Conectar();
            ps = con.prepareStatement(sql);
            ps.setInt(1,id);
+           ps.executeUpdate();
+       }catch(SQLException e){
+            System.out.println(e.toString());
+        }
+    }
+    
+    public void eliminacionLogica(int id){
+        String sql = "update producto set estadoEliminacion=? where IdProducto=?";
+        try{
+           con = cn.Conectar();
+           ps = con.prepareStatement(sql);
+           ps.setInt(1, 1);
+           ps.setInt(2, id);
            ps.executeUpdate();
        }catch(SQLException e){
             System.out.println(e.toString());

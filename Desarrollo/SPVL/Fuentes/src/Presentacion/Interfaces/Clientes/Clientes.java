@@ -1,8 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package Presentacion.Interfaces.Clientes;
+
+import java.awt.BorderLayout;
+import java.awt.Container;
 
 /**
  *
@@ -10,15 +9,19 @@ package Presentacion.Interfaces.Clientes;
  */
 public class Clientes extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Clientes
-     */
-    public Clientes() {
+    private PanelDeClientes panelDeClientes;
+    Container parent;
+    
+    public Clientes(Container parent) {
         initComponents();
         setOpaque(false);
-        contenedorFuncionesClientes.setOpaque(false);
+        panelDeClientes=new PanelDeClientes  (parent);
+        //panelDeReportes.setBounds(0, 0, 1360, 768);
+        add(panelDeClientes,BorderLayout.CENTER);
     }
 
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,17 +31,11 @@ public class Clientes extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        contenedorFuncionesClientes = new javax.swing.JLayeredPane();
-
         setPreferredSize(new java.awt.Dimension(1360, 768));
         setLayout(new java.awt.BorderLayout());
-
-        contenedorFuncionesClientes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        add(contenedorFuncionesClientes, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLayeredPane contenedorFuncionesClientes;
     // End of variables declaration//GEN-END:variables
 }

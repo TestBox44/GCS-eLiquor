@@ -136,6 +136,7 @@ public class EliminarDepartamento extends VentanaEmergente{
         ControlInventario.eliminarDepartamentos(departamentosABorrar);
         panelPrincipalDeModuloDeInventario.mostrarListaDepartamentosCargadaEnTabla();
         ((FramePrincipal)((JFrame) SwingUtilities.getWindowAncestor(this))).cerrarPanelesEmergentes();
+        panelPrincipalDeModuloDeInventario.reiniciarBusqueda();
     }
 
     @Override

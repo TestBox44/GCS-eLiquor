@@ -1,5 +1,7 @@
 package Datos.Entidades;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author sortizu
@@ -14,7 +16,10 @@ public class Usuario {
     private boolean gestionarClientes;
     private boolean gestionarInventario;
     private boolean generarReportes;
-
+    private boolean estado;
+    private LocalDate ultimoIngreso;
+    private LocalDate fechaRegistro;
+    
     public Usuario() {
     }
 
@@ -103,6 +108,30 @@ public class Usuario {
 
     public void setGenerarReportes(boolean generarReportes) {
         this.generarReportes = generarReportes;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    public LocalDate getUltimoIngreso() {
+        return ultimoIngreso;
+    }
+
+    public void setUltimoIngreso(LocalDate ultimoIngreso) {
+        this.ultimoIngreso = ultimoIngreso;
+    }
+
+    public LocalDate getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(LocalDate fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
     
 }

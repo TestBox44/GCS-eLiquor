@@ -1,7 +1,7 @@
 package Presentacion.Interfaces.Inventario;
 
 import java.awt.BorderLayout;
-import javax.swing.JPanel;
+import java.awt.Container;
 
 /**
  *
@@ -9,14 +9,14 @@ import javax.swing.JPanel;
  */
 public class Inventario extends javax.swing.JPanel {
 
-    private JPanel panelDeInventario;
+    private PanelDeInventario panelDeInventario;
+    Container parent;
     
-    public Inventario() {
+    public Inventario(Container parent) {
         initComponents();
         setOpaque(false);
-        //panelDeUsuarios.setPreferredSize(new Dimension(1360,768));
-        panelDeInventario=new PanelDeInventario();
-        panelDeInventario.setBounds(0, 0, 1360, 768);
+        panelDeInventario=new PanelDeInventario(parent);
+        //panelDeReportes.setBounds(0, 0, 1360, 768);
         add(panelDeInventario,BorderLayout.CENTER);
     }
 
