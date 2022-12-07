@@ -43,11 +43,11 @@ public class ControlInventario {
         
         DepartamentoProductoDAO dpdao = new DepartamentoProductoDAO();
         ProductoDAO pdao = new ProductoDAO();
-        ArrayList<Producto> productos=new ArrayList<Producto>();
+        ArrayList<Producto> productosCargados=new ArrayList<Producto>();
         
         if(idDepartamento == -1){
          
-            productos=(ArrayList)pdao.listar();    
+            productosCargados=(ArrayList)pdao.listar();    
         }
         if(idDepartamento >= 0){
             
@@ -55,12 +55,46 @@ public class ControlInventario {
             for(Object dp: dpdao.obtenerIdDeProducto(idDepartamento)){
                 Integer id = (Integer)dp;
                 
-                Producto p = pdao.obtenerProductoPorSuID(id.intValue());  
-                productos.add(p);
+                Producto p = pdao.obtenerProductoPorSuID(id.intValue()); 
+                productosCargados.add(p);
             }
         }
+       
+        
+        return productosCargados;
 
-        return productos;
+    }
+    
+    public static ArrayList<Producto> cargarProductosCaja(int idDepartamento){
+
+        
+        DepartamentoProductoDAO dpdao = new DepartamentoProductoDAO();
+        ProductoDAO pdao = new ProductoDAO();
+        ArrayList<Producto> productosCargados=new ArrayList<Producto>();
+        ArrayList<Producto> productosProcesados=new ArrayList<Producto>();
+        
+        if(idDepartamento == -1){
+         
+            productosCargados=(ArrayList)pdao.listar();    
+        }
+        if(idDepartamento >= 0){
+            
+            
+            for(Object dp: dpdao.obtenerIdDeProducto(idDepartamento)){
+                Integer id = (Integer)dp;
+                
+                Producto p = pdao.obtenerProductoPorSuID(id.intValue()); 
+                productosCargados.add(p);
+            }
+        }
+        
+        for(Producto p: productosCargados){
+            if(p.isMostrarEnCaja()){
+                    productosProcesados.add(p);
+                }
+        }
+        
+        return productosProcesados;
 
     }
     

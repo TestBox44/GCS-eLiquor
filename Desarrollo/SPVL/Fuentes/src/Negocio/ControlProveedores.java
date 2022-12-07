@@ -1,6 +1,8 @@
 package Negocio;
 
+import Datos.DAO.EntregaDAO;
 import Datos.DAO.ProveedorDAO;
+import Datos.Entidades.Entrega;
 import Datos.Entidades.Proveedor;
 import Datos.Entidades.Usuario;
 import java.util.ArrayList;
@@ -13,11 +15,26 @@ public class ControlProveedores {
     public static ArrayList<Proveedor> cargarListaDeProveedores(){
         ProveedorDAO pdao=new ProveedorDAO();
         ArrayList<Proveedor> proveedores=new ArrayList<Proveedor>();
-        for(Object p: pdao.listar()){
-            Proveedor nuevoProveedor=new Proveedor(((Proveedor)p).getIdProveedor(),((Proveedor)p).getRazonSocial(),((Proveedor)p).getCorreo(),((Proveedor)p).getTelefono(),((Proveedor)p).getFechaRegistro());
+        for(Proveedor p: (ArrayList<Proveedor>)pdao.listar()){
+            Proveedor nuevoProveedor=new Proveedor(p.getIdProveedor(),p.getRazonSocial(),p.getCorreo(),p.getTelefono(),p.getFechaRegistro());
             proveedores.add(nuevoProveedor);
         }
         return proveedores;
+    }
+    
+    public static Entrega cargarUltimaEntregaProveedor(int idProveedor){
+        EntregaDAO edao = new EntregaDAO();
+        ArrayList<Entrega> entregas = (ArrayList<Entrega>)edao.listarXProveedor(idProveedor);
+        Entrega ultimaEntrega = null;
+        if(entregas.size()>0){
+            ultimaEntrega=entregas.get(0);
+            for(int i = 1; i<entregas.size();i++){
+                if(ultimaEntrega.getFechaEntrega().compareTo(entregas.get(i).getFechaEntrega())<0){
+                    ultimaEntrega=entregas.get(i);
+                }
+            }
+        }
+        return ultimaEntrega;
     }
     
     public static void agregarProveedor(Proveedor proveedor){

@@ -4,6 +4,7 @@
  */
 package Presentacion.Interfaces.Proveedores;
 
+import Datos.Entidades.Entrega;
 import Datos.Entidades.Proveedor;
 import Datos.Entidades.Usuario;
 import Negocio.ControlProveedores;
@@ -243,13 +244,14 @@ public class PanelDeProveedores extends JPanel implements PropertyChangeListener
     }
     
     public void agregarProveedorATabla(Proveedor p){
+        Entrega ultimaEntrega = ControlProveedores.cargarUltimaEntregaProveedor(p.getIdProveedor());
         Object[] datos=
         {
             p.getRazonSocial(),
             p.getCorreo(),
             p.getTelefono(),
-            "",
-            "",
+            ultimaEntrega!=null?ultimaEntrega.getFechaEntrega().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")):"",
+            ultimaEntrega!=null?ultimaEntrega.getCantidad():0,
             p.getFechaRegistro().format(DateTimeFormatter.ofPattern("dd/MM/YYYY"))
         };
         tablaProveedores.getModeloTabla().addRow(datos);

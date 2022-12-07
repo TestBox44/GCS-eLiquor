@@ -57,6 +57,28 @@ public class EntregaDAO implements CRUD{
          }
         return lista;
     }
+    
+    public List listarXProveedor(int idProveedor) {
+        List<Entrega> lista = new ArrayList<>();
+        String sql = "select * from ProveedorProducto where idProveedor=?";
+        try{
+            con = cn.Conectar();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, idProveedor);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Entrega u = new Entrega();
+                u.setIdEntrega(rs.getInt(1));
+                u.setCosto(rs.getDouble(2));
+                u.setCantidad(rs.getInt(3));
+                u.setFechaEntrega(rs.getDate(4).toLocalDate());
+                lista.add(u);
+            }
+        }catch(SQLException e){
+             System.out.println(e.toString());
+         }
+        return lista;
+    }
 
     @Override
     public void eliminar(int id) {

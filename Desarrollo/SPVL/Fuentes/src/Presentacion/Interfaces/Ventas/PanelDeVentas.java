@@ -1158,7 +1158,7 @@ public class PanelDeVentas extends JPanel implements PropertyChangeListener{
     }
     
     public void cargarListaDeProductos(int idDepartamento){
-        productos=ControlInventario.cargarProductos(idDepartamento);
+        productos=ControlInventario.cargarProductosCaja(idDepartamento);
         mostrarListaProductosCargadaEnTabla();
     }
     

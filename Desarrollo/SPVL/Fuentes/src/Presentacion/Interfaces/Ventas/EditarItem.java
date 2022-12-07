@@ -499,6 +499,13 @@ public class EditarItem extends VentanaEmergente implements PropertyChangeListen
             lblISCMonto.setText("Monto: S/. 0.00");
         }
         actualizarDatosItem();
+        
+        if(!detalleVentaAModificar.getProducto().isActivarDescuentos()){
+            txtDescuento.setEnabled(false);
+        }
+        if(!detalleVentaAModificar.getProducto().isPrecioVariable()){
+            txtPrecio.setEnabled(false);
+        }
     }
     
     private void actualizarDatosItem(){
