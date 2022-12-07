@@ -270,6 +270,10 @@ public class PanelModulo extends JLayeredPane{
             this.btnAyuda = btnAyuda;
         }
         
+        public void desactivarBtnAyuda(){
+            btnAyuda.setVisible(false);
+            btnAyuda.setEnabled(false);
+        }
         
         
         public Container getParentContainer() {

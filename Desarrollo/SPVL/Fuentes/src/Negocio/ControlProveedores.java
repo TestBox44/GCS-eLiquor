@@ -28,7 +28,7 @@ public class ControlProveedores {
     public static void eliminarProveedores(ArrayList<Proveedor> proveedores){
         ProveedorDAO pdao=new ProveedorDAO();
         for (Proveedor proveedor: proveedores) {
-            pdao.eliminar(proveedor.getIdProveedor());
+            pdao.eliminacionLogica(proveedor.getIdProveedor());
         }
     }
     

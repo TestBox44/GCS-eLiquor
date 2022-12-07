@@ -22,6 +22,8 @@ import Presentacion.Interfaces.ScrollBarCustom;
 import Presentacion.Utilidades.UtilidadesFuentes;
 import java.awt.CardLayout;
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 
 /**
@@ -65,6 +67,14 @@ public class LoginUsuarios extends javax.swing.JPanel {
         ListaDeUsuarios.setSelectionBackground(Color.decode("#23A020"));
         ListaDeUsuarios.setSelectionForeground(Color.white);
         ListaDeUsuarios.setIntercellSpacing(new Dimension(0,0));
+        ListaDeUsuarios.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if(e.getClickCount()==2){
+                    btnSiguienteMousePressed(e);
+                }
+            }
+        });
         
         
         jScrollPane1.setBorder(BorderFactory.createEmptyBorder());

@@ -13,7 +13,7 @@ import Presentacion.Interfaces.FramePrincipal;
 import Presentacion.Interfaces.PanelModulo;
 import Presentacion.Interfaces.Selector;
 import Presentacion.Interfaces.TablaDefault;
-import Presentacion.Interfaces.Usuarios.AgregarUsuario;
+import Presentacion.Interfaces.Usuarios.AgregarUsuarios;
 import Presentacion.Utilidades.UtilidadesFuentes;
 import java.awt.Color;
 import java.awt.Container;
@@ -71,7 +71,7 @@ public class PanelDeProveedores extends JPanel implements PropertyChangeListener
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         
-        panelModuloProveedores=new PanelModulo(parent);
+        panelModuloProveedores=new PanelModulo(parent,"/Presentacion/Imagenes/Paneles/Boton Ayuda/TutorialProveedores.png");
         panelModuloProveedores.setTituloPanelModulo("P R O V E E D O R E S", Color.decode("#8D2E7E"));
         gbc.insets = new Insets((int)(8.0/panelModuloProveedores.basePanelHeight*panelModuloProveedores.getPreferredSize().getHeight()), 0, 0, 0);
         gbc.gridx=0;

@@ -1,7 +1,9 @@
 package Presentacion.Interfaces.Menu;
 
 import Presentacion.Interfaces.FramePrincipal;
+import Presentacion.Interfaces.Inventario.ModificarDepartamento;
 import Presentacion.Interfaces.PanelImagen;
+import Presentacion.Interfaces.VentanaSalir;
 import Presentacion.Utilidades.UtilidadSesion;
 import Presentacion.Utilidades.UtilidadesFuentes;
 import java.awt.CardLayout;
@@ -386,13 +388,15 @@ public class Menu extends javax.swing.JPanel {
     private void btnSalirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMousePressed
         /*Utilizando utilidades de swing para obtener la ventana principal (FramePrincipal)
         y cerrar todo el programa*/
-        ((JFrame) SwingUtilities.getWindowAncestor(this)).dispose();
+         VentanaSalir ventanaSalir = new VentanaSalir(this);
+         ((FramePrincipal) SwingUtilities.getWindowAncestor(this)).mostrarPanelEmergente(ventanaSalir);
+         ventanaSalir.requestFocusInWindow();
     }//GEN-LAST:event_btnSalirMousePressed
 
     private void btnModuloUsuariosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloUsuariosMouseReleased
         JPanel parent = (JPanel)getParent();
         CardLayout layout = (CardLayout) parent.getLayout();
-        Presentacion.Interfaces.Usuarios.Usuarios usuarios = new Presentacion.Interfaces.Usuarios.Usuarios();
+        Presentacion.Interfaces.Usuarios.Usuarios usuarios = new Presentacion.Interfaces.Usuarios.Usuarios(parent);
         parent.add("usuarios",usuarios);
         layout.show(parent, "usuarios");
     }//GEN-LAST:event_btnModuloUsuariosMouseReleased
@@ -400,7 +404,7 @@ public class Menu extends javax.swing.JPanel {
     private void btnModuloVentasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloVentasMouseReleased
         JPanel parent = (JPanel)getParent();
         CardLayout layout = (CardLayout) parent.getLayout();
-        Presentacion.Interfaces.Ventas.Ventas ventas = new Presentacion.Interfaces.Ventas.Ventas();
+        Presentacion.Interfaces.Ventas.Ventas ventas = new Presentacion.Interfaces.Ventas.Ventas(parent);
         parent.add("ventas",ventas);
         layout.show(parent, "ventas");
     }//GEN-LAST:event_btnModuloVentasMouseReleased
@@ -408,7 +412,7 @@ public class Menu extends javax.swing.JPanel {
     private void btnModuloInventarioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloInventarioMouseReleased
         JPanel parent = (JPanel)getParent();
         CardLayout layout = (CardLayout) parent.getLayout();
-        Presentacion.Interfaces.Inventario.Inventario inventario = new Presentacion.Interfaces.Inventario.Inventario();
+        Presentacion.Interfaces.Inventario.Inventario inventario = new Presentacion.Interfaces.Inventario.Inventario(parent);
         parent.add("inventario",inventario);
         layout.show(parent, "inventario");
     }//GEN-LAST:event_btnModuloInventarioMouseReleased

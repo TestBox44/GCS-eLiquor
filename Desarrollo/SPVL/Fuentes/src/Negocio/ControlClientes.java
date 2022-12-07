@@ -27,7 +27,7 @@ public class ControlClientes {
     public static void eliminarClientes(ArrayList<Cliente> Clientes){
         ClienteDAO cdao=new ClienteDAO();
         for (Cliente Cliente: Clientes) {
-            cdao.eliminar(Cliente.getIdCliente());
+            cdao.eliminacionLogica(Cliente.getIdCliente());
         }
     }
     

@@ -25,7 +25,11 @@ create table usuarios(
     gestionarProveedores bool NOT NULL,
     gestionarClientes bool NOT NULL,
     gestionarInventario bool NOT NULL,
-    generarReportes bool NOT NULL
+    generarReportes bool NOT NULL,
+	estado tinyint NOT NULL,
+    ultimoIngreso datetime,
+    fechaRegistro datetime NOT NULL,
+    estadoEliminacion tinyint NOT NULL
 );
 
 create table proveedor( 
@@ -33,7 +37,8 @@ create table proveedor(
     razonSocial varchar(45) NOT NULL,
     telefono int NOT NULL,
     correo varchar(45) NOT NULL,
-    fechaRegistro datetime NOT NULL
+    fechaRegistro datetime NOT NULL,
+    estadoEliminacion tinyint NOT NULL
 );
 
 create table cliente(
@@ -41,27 +46,15 @@ create table cliente(
     nombre varchar(45) NOT NULL,
     telefono int NOT NULL,
     correo varchar(45) NOT NULL,
-    fechaRegistro datetime NOT NULL
+    fechaRegistro datetime NOT NULL,
+    estadoEliminacion tinyint NOT NULL
 );
 
 create table departamento(
 	idDepartamento int AUTO_INCREMENT PRIMARY KEY NOT NULL,
     fechaRegistro datetime NOT NULL,
     nombre varchar(45) NOT NULL,
-    cantidad int NOT NULL,
-    mostrarEnCaja bool NOT NULL
-);
-
-drop table DepartamentoProducto;
-drop table producto;
-drop table departamento;
-
-create table DepartamentoProducto(
-	idDepartamentoProducto int AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    idDepartamento int NOT NULL,
-    idProducto int NOT NULL,
-    constraint fk_producto foreign key (idProducto) references producto (idProducto) on update cascade on delete cascade,
-    constraint fk_departamento foreign key (idDepartamento) references departamento (idDepartamento) on update cascade on delete cascade
+    cantidad int NOT NULL
 );
 
 create table producto(
@@ -75,7 +68,27 @@ create table producto(
     mostrarEnCaja tinyint NOT NULL,
     fechaRegistro datetime NOT NULL,
     IGV tinyint NOT NULL,
-    ISC tinyint NOT NULL
+    ISC tinyint NOT NULL,
+    estadoEliminacion tinyint NOT NULL
+);
+
+create table ProveedorProducto(
+	idProveedorProducto int AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    costo double NOT NULL,
+    cantidad int NOT NULL,
+    fechaEntrega datetime NOT NULL,
+    idProducto int,
+    idProveedor int,
+    constraint fk_producto foreign key (idProducto) references producto (idProducto) on update cascade on delete cascade,
+    constraint fk_proveedor foreign key (idProveedor) references proveedor (idProveedor) on update cascade on delete cascade
+);
+
+create table DepartamentoProducto(
+	idDepartamentoProducto int AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    idDepartamento int NOT NULL,
+    idProducto int NOT NULL,
+    constraint fk_productoDepartamento foreign key (idProducto) references producto (idProducto) on update cascade on delete cascade,
+    constraint fk_departamento foreign key (idDepartamento) references departamento (idDepartamento) on update cascade on delete cascade
 );
 
 create table venta(
@@ -128,10 +141,11 @@ select * from producto;
 select * from usuarios;
 select * from ventaproducto;
 select * from venta;
+select * from sistema;
 
 delete from producto where idProducto = 3;
 drop table departamentoProducto;
 drop table producto;
 drop table venta;
 drop table departamento;
-
+select * from usuarios where estadoEliminacion=0;

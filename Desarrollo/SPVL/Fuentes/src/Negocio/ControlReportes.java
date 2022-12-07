@@ -4,6 +4,7 @@
  */
 package Negocio;
 
+import Datos.DAO.ClienteDAO;
 import Datos.DAO.ProductoDAO;
 import Datos.DAO.UsuarioDAO;
 import Datos.DAO.VentaDAO;
@@ -47,19 +48,19 @@ public class ControlReportes {
     }
     
     public static int obtenerTotalClientesRegistrados(){
-        //ClienteDAO cdao = new ClienteDAO();
-        //ArrayList<Cliente> clientesRegistrados = (ArrayList<Cliente>)cdao.listar();
-        return 0;
+        ClienteDAO cdao = new ClienteDAO();
+        ArrayList<Cliente> clientesRegistrados = (ArrayList<Cliente>)cdao.listar();
+        return clientesRegistrados.size();
     }
     
     public static Cliente cargarCliente(int idCliente){
-        /*ClienteDAO cdao = new ClienteDAO();
+        ClienteDAO cdao = new ClienteDAO();
         ArrayList<Cliente> clientesRegistrados = (ArrayList<Cliente>)cdao.listar();
         for(Cliente c:clientesRegistrados){
             if(c.getIdCliente()==idCliente){
                 return c;
             }
-        }*/
+        }
         return null;
     }
     

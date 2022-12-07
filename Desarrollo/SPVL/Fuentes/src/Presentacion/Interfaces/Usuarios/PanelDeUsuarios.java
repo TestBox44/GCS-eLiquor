@@ -1,35 +1,39 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Presentacion.Interfaces.Usuarios;
 
+import Presentacion.Interfaces.Usuarios.*;
+import Presentacion.Interfaces.Usuarios.*;
 import Datos.Entidades.Usuario;
 import Negocio.ControlUsuarios;
+import Presentacion.Interfaces.BotonRedondeadoMultiple;
 import Presentacion.Interfaces.Buscador;
 import Presentacion.Interfaces.FramePrincipal;
-import Presentacion.Interfaces.PanelImagen;
 import Presentacion.Interfaces.PanelModulo;
-import Presentacion.Interfaces.RenderDeCabecera;
-import Presentacion.Interfaces.ScrollBarCustom;
 import Presentacion.Interfaces.Selector;
-import Presentacion.Utilidades.UtilidadSesion;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+import Presentacion.Interfaces.TablaDefault;
 import Presentacion.Utilidades.UtilidadesFuentes;
-import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Locale;
-import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
+import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -39,375 +43,231 @@ import javax.swing.table.TableRowSorter;
  *
  * @author sortizu
  */
-public class PanelDeUsuarios extends javax.swing.JPanel implements PropertyChangeListener{
+public class PanelDeUsuarios extends JPanel implements PropertyChangeListener{
+    private PanelModulo panelModuloUsuarios;
+    public ArrayList<Usuario> usuarios;
+    private PanelDeUsuarios panelPrincipalUsuarios;
+    private Container parent;
+    private JPanel cuerpo;
+    
+    private Selector selectorMultiple;
+    private Buscador buscadorUsuario;
+    
+    private TablaDefault tablaUsuarios;
 
-    ArrayList<Usuario> usuarios;
-    private DefaultTableModel modeloDeListaDeUsuarios;
-    PanelModulo panelModuloUsuario;
+    private BotonRedondeadoMultiple botonesAccionUsuarios;
     
-    
-    
-    ScrollBarCustom scrollCustom;
-    
-    public PanelDeUsuarios() {
-        initComponents();
-        setOpaque(false);
-        LocalDate fecha = LocalDate.now();
-        
-        lblDia.setText(UtilidadSesion.nombreUsuarioActual.split(" ")[0]+", "+
-                fecha.format(DateTimeFormatter.ofPattern("dd 'de' MMMM 'de' YYYY", new Locale("es", "ES"))));
-        
-        
-        
-        ((Selector)selectorSeleccion).setFuenteDeOpcion(UtilidadesFuentes.InterRegular.deriveFont(15.0f));
-        ((Selector)selectorSeleccion).setColorDeFuente(Color.decode("#8C8C8C"));
-        ((Selector)selectorSeleccion).addPropertyChangeListener(this);
-        ((Selector)selectorSeleccion).solicitarSeleccion(0);
-        ((Selector)selectorSeleccion).addColorDeOpcion(Color.decode("#72AD57"));
-        ((Selector)selectorSeleccion).addColorDeOpcion(Color.decode("#AD5757"));
-        ((Selector)selectorSeleccion).setNombreDeSelector("SSeleccion");
-        
-        ((Buscador)buscador).getTxtABuscar().setFont(UtilidadesFuentes.InterRegular.deriveFont(20.0f));
-        ((Buscador)buscador).getTxtABuscar().setForeground(Color.decode("#8C8C8C"));
-        ((Buscador)buscador).setPreferredSize(new Dimension(375,37));
-        ((Buscador)buscador).getTxtABuscar().addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                BuscarDeFiltro(((Buscador)buscador).getTxtABuscar().getText());
-            }
-        });
-        
-        //Formato de Tabla
-         modeloDeListaDeUsuarios=(DefaultTableModel)TablaListaDeUsuarios.getModel();
-        //((DefaultTableCellRenderer)TablaListaDeUsuarios.getDefaultRenderer(String.class)).setHorizontalAlignment(JLabel.CENTER);
-        TablaListaDeUsuarios.getTableHeader().setDefaultRenderer(new RenderDeCabecera(TablaListaDeUsuarios.getTableHeader().getDefaultRenderer()));
-        
-        TablaListaDeUsuarios.getTableHeader().setBackground(Color.WHITE);
-        TablaListaDeUsuarios.getTableHeader().setReorderingAllowed(false);
-        TablaListaDeUsuarios.getTableHeader().setFont(UtilidadesFuentes.InterLight.deriveFont(20.0f));
-        TablaListaDeUsuarios.getTableHeader().setForeground(Color.decode("#8C8C8C"));
-        
-        
-        TablaListaDeUsuarios.setFont(UtilidadesFuentes.InterExtraLight.deriveFont(25.0f));
-        TablaListaDeUsuarios.setForeground(Color.decode("#8C8C8C"));
-        TablaListaDeUsuarios.setSelectionBackground(Color.decode("#23A020"));
-        TablaListaDeUsuarios.setSelectionForeground(Color.white);
-        TablaListaDeUsuarios.setIntercellSpacing(new Dimension(0,0));
-        
-        TablaListaDeUsuarios.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-        public void valueChanged(ListSelectionEvent event) {
-                btnEliminar.setEnabled(true);
-                btnModificar.setEnabled(true);
-        }
-        });
-        
-        
-        jScrollPane1.setBorder(BorderFactory.createEmptyBorder());
-        jScrollPane1.getViewport().setBackground(Color.WHITE);
-        jScrollPane1.setOpaque(false);
-        
-        scrollCustom=new ScrollBarCustom();
-        scrollCustom.setUnitIncrement(16);
-        jScrollPane1.setVerticalScrollBar(scrollCustom);
-        
+    public PanelDeUsuarios(Container parent) {
+        this.parent=parent;
+        panelPrincipalUsuarios=this;
+        usuarios=new ArrayList<Usuario>();
+        iniciarComponentes();
         cargarListaDeUsuarios();
-        btnEliminar.setEnabled(false);
-        btnModificar.setEnabled(false);
+        tablaUsuarios.revalidate();
+        tablaUsuarios.repaint();
+    }
+    private void iniciarComponentes(){
+        setOpaque(false);
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        
+        panelModuloUsuarios=new PanelModulo(parent,"/Presentacion/Imagenes/Paneles/Boton Ayuda/TutorialUsuarios.png");
+        panelModuloUsuarios.setTituloPanelModulo("U S U A R I O S", Color.decode("#9D4040"));
+        gbc.insets = new Insets((int)(8.0/panelModuloUsuarios.basePanelHeight*panelModuloUsuarios.getPreferredSize().getHeight()), 0, 0, 0);
+        gbc.gridx=0;
+        gbc.gridy=0;
+        add(panelModuloUsuarios,gbc);
+        iniciarComponentesCuerpo();
+        MouseAdapter limpiarSeleccion = new MouseAdapter(){
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                tablaUsuarios.getTabla().clearSelection();
+                botonesAccionUsuarios.desactivarBoton(0);
+                botonesAccionUsuarios.desactivarBoton(1);
+            }
+        };
+        addMouseListener(limpiarSeleccion);
+        tablaUsuarios.getScrollPaneTabla().addMouseListener(limpiarSeleccion);
+        
     }
 
+    private void iniciarComponentesCuerpo(){
+        cuerpo = panelModuloUsuarios.getPanelContenedorComponentes().getCuerpo();
+        int width = (int)panelModuloUsuarios.getPreferredSize().getWidth();
+        int height = (int)panelModuloUsuarios.getPreferredSize().getHeight();
+        
+        iniciarComponentesCuerpoSuperior(width, height);
+        iniciarComponentesCuerpoMedio(width, height);
+        iniciarComponentesCuerpoInferior(width, height);
+    }
     
+    private void iniciarComponentesCuerpoSuperior(int width, int height){
+        GridBagConstraints gbc = new GridBagConstraints();
+        
+        JLabel selMul = new JLabel("SELECCIÓN MÚLTIPLE:");
+        selMul.setFont(UtilidadesFuentes.InterLight.deriveFont(20.0f));
+        selMul.setForeground(Color.decode("#8C8C8C"));
+        gbc.insets=new Insets(25,0,0,5);
+        gbc.anchor=GridBagConstraints.LINE_END;
+        gbc.gridx=0;
+        gbc.gridy=0;
+        gbc.fill=GridBagConstraints.NONE;
+        gbc.weightx=1;
+        gbc.weighty=0;
+        cuerpo.add(selMul,gbc);
+        
+        selectorMultiple=new Selector(new String[]{"SI","NO"},50,37);
+        selectorMultiple.setFuenteDeOpcion(UtilidadesFuentes.InterRegular.deriveFont(15.0f));
+        selectorMultiple.setColorDeFuente(Color.decode("#8C8C8C"));
+        selectorMultiple.addPropertyChangeListener(this);
+        selectorMultiple.solicitarSeleccion(0);
+        selectorMultiple.addColorDeOpcion(Color.decode("#72AD57"));
+        selectorMultiple.addColorDeOpcion(Color.decode("#AD5757"));
+        selectorMultiple.setNombreDeSelector("SSeleccion");
+        gbc.insets=new Insets(25,0,0,0);
+        gbc.anchor=GridBagConstraints.CENTER;
+        gbc.gridx=1;
+        gbc.gridy=0;
+        gbc.fill=GridBagConstraints.NONE;
+        gbc.weightx=0;
+        gbc.weighty=0;
+        cuerpo.add(selectorMultiple,gbc);
+        
+        buscadorUsuario=new Buscador();
+        buscadorUsuario.setPreferredSize(new Dimension(375,37));
+        buscadorUsuario.getTxtABuscar().setFont(UtilidadesFuentes.InterRegular.deriveFont(20.0f));
+        buscadorUsuario.getTxtABuscar().setForeground(Color.decode("#8C8C8C"));
+        buscadorUsuario.setPreferredSize(new Dimension(375,37));
+        buscadorUsuario.getTxtABuscar().addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                BuscarDeFiltro(buscadorUsuario.getTxtABuscar().getText());
+            }
+        });
+        gbc.insets=new Insets(25,50,0,60);
+        gbc.gridx=2;
+        gbc.gridy=0;
+        gbc.fill=GridBagConstraints.NONE;
+        gbc.weightx=0;
+        gbc.weighty=0;
+        cuerpo.add(buscadorUsuario,gbc);
+    }
     
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
-
-        contenedorPrincipal = new PanelImagen("/Presentacion/Imagenes/Paneles/PanelModulos.png");
-        TituloDeModulo = new javax.swing.JLabel();
-        lblDia = new javax.swing.JLabel();
-        lblHora = new javax.swing.JLabel();
-        lblSeleccion = new javax.swing.JLabel();
-        selectorSeleccion = new Selector(new String[]{"SI","NO"},50,37);
-        PanelBotonesCRUD = new PanelImagen("/Presentacion/Imagenes/BotonesCRUD3.png");
-        btnEliminar = new javax.swing.JLabel();
-        btnModificar = new javax.swing.JLabel();
-        btnAgregar = new javax.swing.JLabel();
-        buscador = new Buscador();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        TablaListaDeUsuarios = new javax.swing.JTable();
-        btnSalir = new javax.swing.JLabel();
-        btnHome = new javax.swing.JLabel();
-        btnConfiguracion = new javax.swing.JLabel();
-
-        setPreferredSize(new java.awt.Dimension(1360, 768));
-        setLayout(new java.awt.GridBagLayout());
-
-        contenedorPrincipal.setBackground(new java.awt.Color(255, 255, 255));
-        contenedorPrincipal.setToolTipText("");
-        contenedorPrincipal.setPreferredSize(new java.awt.Dimension(1360, 690));
-        contenedorPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        TituloDeModulo.setFont(UtilidadesFuentes.InterExtraLight.deriveFont(35.0f));
-        TituloDeModulo.setForeground(new java.awt.Color(157, 64, 64));
-        TituloDeModulo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        TituloDeModulo.setText("USUARIOS");
-        contenedorPrincipal.add(TituloDeModulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 17, -1, -1));
-
-        lblDia.setFont(UtilidadesFuentes.InterLight.deriveFont(20.0f));
-        lblDia.setForeground(new java.awt.Color(140, 140, 140));
-        lblDia.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblDia.setText("Usuario, 10 de octubre de 2022");
-        lblDia.setMaximumSize(new java.awt.Dimension(350, 24));
-        lblDia.setMinimumSize(new java.awt.Dimension(350, 24));
-        lblDia.setPreferredSize(new java.awt.Dimension(350, 24));
-        contenedorPrincipal.add(lblDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(831, 26, -1, -1));
-
-        lblHora.setFont(UtilidadesFuentes.InterExtraLight.deriveFont(30.0f));
-        lblHora.setForeground(new java.awt.Color(140, 140, 140));
-        lblHora.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHora.setText("11:30 AM");
-        lblHora.setMaximumSize(new java.awt.Dimension(200, 16));
-        lblHora.setPreferredSize(new java.awt.Dimension(130, 36));
-        contenedorPrincipal.add(lblHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(1208, 20, -1, -1));
-
-        lblSeleccion.setFont(UtilidadesFuentes.InterLight.deriveFont(20.0f));
-        lblSeleccion.setForeground(new java.awt.Color(140, 140, 140));
-        lblSeleccion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblSeleccion.setText("SELECCIÓN MÚLTIPLE:");
-        lblSeleccion.setPreferredSize(new java.awt.Dimension(225, 24));
-        contenedorPrincipal.add(lblSeleccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(546, 89, -1, -1));
-        contenedorPrincipal.add(selectorSeleccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(775, 82, -1, -1));
-
-        PanelBotonesCRUD.setPreferredSize(new java.awt.Dimension(390, 65));
-        PanelBotonesCRUD.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
-
-        btnEliminar.setFont(UtilidadesFuentes.InterRegular.deriveFont(20.0f));
-        btnEliminar.setForeground(new java.awt.Color(205, 95, 95));
-        btnEliminar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnEliminar.setText("ELIMINAR");
-        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnEliminar.setPreferredSize(new java.awt.Dimension(130, 65));
-        btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnEliminarMouseReleased(evt);
+    private void iniciarComponentesCuerpoMedio(int width, int height){
+        GridBagConstraints gbc = new GridBagConstraints();
+        
+        tablaUsuarios=new TablaDefault(new String[]{"Nombre","Estado","Último Ingreso","Fecha de registro"}, new int[]{200,100,100,100}, panelModuloUsuarios);
+        tablaUsuarios.getTabla().getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if(tablaUsuarios.getTabla().getSelectedRows().length>0){
+                    botonesAccionUsuarios.activarBoton(0);
+                    botonesAccionUsuarios.activarBoton(1);
+                }else{
+                    botonesAccionUsuarios.desactivarBoton(0);
+                    botonesAccionUsuarios.desactivarBoton(1);
+                }
             }
         });
-        PanelBotonesCRUD.add(btnEliminar);
+        tablaUsuarios.setAltoFilaBase(75);
+        gbc.insets=new Insets(20,60,0,60);
+        gbc.gridx=0;
+        gbc.gridy=1;
+        gbc.fill=GridBagConstraints.BOTH;
+        gbc.weightx=1;
+        gbc.weighty=1;
+        gbc.gridwidth=3;
+        cuerpo.add(tablaUsuarios,gbc);
+        
+        JSeparator separadorTabla=new JSeparator(JSeparator.HORIZONTAL);
+        separadorTabla.setForeground(Color.decode("#D0D0D0"));
+        separadorTabla.setOpaque(false);
+        separadorTabla.setBorder(new LineBorder(Color.decode("#D0D0D0"),1));
+        gbc.insets=new Insets(5, 60, 0,60);
+        gbc.gridx=0;
+        gbc.gridy=2;
+        gbc.fill=GridBagConstraints.HORIZONTAL;
+        gbc.weightx=0;
+        gbc.weighty=0;
+        cuerpo.add(separadorTabla,gbc);
+    }
+    
+    private void iniciarComponentesCuerpoInferior(int width, int height){
+        GridBagConstraints gbc = new GridBagConstraints();
+        botonesAccionUsuarios=new BotonRedondeadoMultiple(new String[]{"ELIMINAR","MODIFICAR","AGREGAR"},new Dimension(130,55)){
+            @Override
+            public void botonOpcionPresionado(int opcionPresionada) {
+                switch (opcionPresionada) {
+                    case 0:
+                        int [] indicesSeleccion=tablaUsuarios.getTabla().getSelectedRows();
+                        for(int i = 0;i<indicesSeleccion.length;i++){
+                            indicesSeleccion[i]=tablaUsuarios.getTabla().convertRowIndexToModel(indicesSeleccion[i]);
+                        }
+                        EliminarUsuarios eliminarUsuarios = new EliminarUsuarios(panelPrincipalUsuarios,indicesSeleccion);
+                        ((FramePrincipal) SwingUtilities.getWindowAncestor(panelPrincipalUsuarios)).mostrarPanelEmergente(eliminarUsuarios);
+                        eliminarUsuarios.requestFocusInWindow();
+                        break;
+                    case 1:
+                        ModificarUsuarios modificarUsuarios = new ModificarUsuarios(panelPrincipalUsuarios,tablaUsuarios.getTabla().convertRowIndexToModel(tablaUsuarios.getTabla().getSelectedRow()));
+                        ((FramePrincipal) SwingUtilities.getWindowAncestor(panelPrincipalUsuarios)).mostrarPanelEmergente(modificarUsuarios);
+                        modificarUsuarios.requestFocusInWindow();
+                        break;
+                    case 2:
+                    default:
+                        AgregarUsuarios agregarUsuarios = new AgregarUsuarios(panelPrincipalUsuarios);
+                        ((FramePrincipal) SwingUtilities.getWindowAncestor(panelPrincipalUsuarios)).mostrarPanelEmergente(agregarUsuarios);
+                        agregarUsuarios.requestFocusInWindow();
+                        break;
+                }
+            }        
+        };
+        botonesAccionUsuarios.setColorOpcion(0, Color.decode("#CD5F5F"));
+        botonesAccionUsuarios.setColorOpcion(1, Color.decode("#5F7ECD"));
+        botonesAccionUsuarios.setColorOpcion(2, Color.decode("#6ECD5F"));
+        botonesAccionUsuarios.desactivarBoton(0);
+        botonesAccionUsuarios.desactivarBoton(1);
+        gbc.insets=new Insets(10, 0, 20,0);
+        gbc.gridx=0;
+        gbc.gridy=3;
+        gbc.fill=GridBagConstraints.NONE;
+        gbc.weightx=1;
+        gbc.weighty=0;
+        gbc.gridwidth=3;
+        cuerpo.add(botonesAccionUsuarios,gbc);
+    }
 
-        btnModificar.setFont(UtilidadesFuentes.InterRegular.deriveFont(20.0f));
-        btnModificar.setForeground(new java.awt.Color(95, 126, 205));
-        btnModificar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnModificar.setText("MODIFICAR");
-        btnModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnModificar.setPreferredSize(new java.awt.Dimension(130, 65));
-        btnModificar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnModificarMouseReleased(evt);
-            }
-        });
-        PanelBotonesCRUD.add(btnModificar);
-
-        btnAgregar.setFont(UtilidadesFuentes.InterRegular.deriveFont(20.0f));
-        btnAgregar.setForeground(new java.awt.Color(110, 205, 95));
-        btnAgregar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnAgregar.setText("AGREGAR");
-        btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAgregar.setPreferredSize(new java.awt.Dimension(130, 65));
-        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnAgregarMouseReleased(evt);
-            }
-        });
-        PanelBotonesCRUD.add(btnAgregar);
-
-        contenedorPrincipal.add(PanelBotonesCRUD, new org.netbeans.lib.awtextra.AbsoluteConstraints(485, 602, -1, -1));
-        contenedorPrincipal.add(buscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(957, 82, -1, -1));
-
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(1200, 460));
-
-        TablaListaDeUsuarios.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        TablaListaDeUsuarios.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "Nombre", "Permisos"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        TablaListaDeUsuarios.setAutoscrolls(false);
-        TablaListaDeUsuarios.setFocusable(false);
-        TablaListaDeUsuarios.setGridColor(new java.awt.Color(0, 0, 0));
-        TablaListaDeUsuarios.setRowHeight(50);
-        TablaListaDeUsuarios.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        TablaListaDeUsuarios.setShowGrid(false);
-        jScrollPane1.setViewportView(TablaListaDeUsuarios);
-        if (TablaListaDeUsuarios.getColumnModel().getColumnCount() > 0) {
-            TablaListaDeUsuarios.getColumnModel().getColumn(0).setResizable(false);
-            TablaListaDeUsuarios.getColumnModel().getColumn(0).setPreferredWidth(200);
-            TablaListaDeUsuarios.getColumnModel().getColumn(1).setResizable(false);
-            TablaListaDeUsuarios.getColumnModel().getColumn(1).setPreferredWidth(800);
-            TablaListaDeUsuarios.getColumnModel().getColumn(2).setResizable(false);
-            TablaListaDeUsuarios.getColumnModel().getColumn(2).setPreferredWidth(200);
+    public void cargarListaDeUsuarios(){
+        usuarios=ControlUsuarios.cargarListaDeUsuarios();
+        for(Usuario p: usuarios){
+            agregarUsuarioATabla(p);
         }
-
-        contenedorPrincipal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, -1, 460));
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        add(contenedorPrincipal, gridBagConstraints);
-
-        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/BotonSalirModulo.png"))); // NOI18N
-        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnSalirMousePressed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 15, 0, 0);
-        add(btnSalir, gridBagConstraints);
-
-        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/BotonHomeModulo.png"))); // NOI18N
-        btnHome.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnHome.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnHomeMousePressed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        add(btnHome, gridBagConstraints);
-
-        btnConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/BotonConfigModulo.png"))); // NOI18N
-        btnConfiguracion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 15);
-        add(btnConfiguracion, gridBagConstraints);
-    }// </editor-fold>//GEN-END:initComponents
-
-    private void btnSalirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMousePressed
-        /*Utilizando utilidades de swing para obtener la ventana principal (FramePrincipal)
-        y cerrar todo el programa*/
-        ((JFrame) SwingUtilities.getWindowAncestor(this)).dispose();
-    }//GEN-LAST:event_btnSalirMousePressed
-
-    private void btnHomeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMousePressed
-        JPanel parent = (JPanel)(getParent().getParent());
-        CardLayout layout = (CardLayout) parent.getLayout();
-        layout.show(parent, "menu");
-        parent.remove(getParent());
-    }//GEN-LAST:event_btnHomeMousePressed
-
-    private void btnAgregarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseReleased
-        AgregarUsuario agregarUsuario = new AgregarUsuario(this);
-        ((FramePrincipal) SwingUtilities.getWindowAncestor(this)).mostrarPanelEmergente(agregarUsuario);
-    }//GEN-LAST:event_btnAgregarMouseReleased
-
-    private void btnModificarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseReleased
-        ModificarUsuario modificarUsuario = new ModificarUsuario(this,TablaListaDeUsuarios.getSelectedRow());
-        ((FramePrincipal) SwingUtilities.getWindowAncestor(this)).mostrarPanelEmergente(modificarUsuario);
-    }//GEN-LAST:event_btnModificarMouseReleased
-
-    private void btnEliminarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseReleased
-        if(btnEliminar.isEnabled()){
-            EliminarUsuario eliminarUsuario = new EliminarUsuario(this,TablaListaDeUsuarios.getSelectedRows());
-            ((FramePrincipal) SwingUtilities.getWindowAncestor(this)).mostrarPanelEmergente(eliminarUsuario);
-        }
-    }//GEN-LAST:event_btnEliminarMouseReleased
-    public void BuscarDeFiltro(String textoBusqueda){
-        TableRowSorter<DefaultTableModel> sorter =sorter = new TableRowSorter<DefaultTableModel>(modeloDeListaDeUsuarios);
-        TablaListaDeUsuarios.setRowSorter(sorter);
+    }
+    
+    public void agregarUsuarioATabla(Usuario p){
+        Object[] datos=
+        {
+            p.getNombre(),
+            p.isEstado()?"Activo":"Inactivo",
+            p.getUltimoIngreso()!=null?p.getUltimoIngreso().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")):"",
+            p.getFechaRegistro().format(DateTimeFormatter.ofPattern("dd/MM/YYYY"))
+        };
+        tablaUsuarios.getModeloTabla().addRow(datos);
+    }
+    
+    public void modificarUsuarioDeTabla(int fila, Usuario p){
+        tablaUsuarios.getModeloTabla().setValueAt(p.getNombre(),fila ,0);
+        tablaUsuarios.getModeloTabla().setValueAt(p.isEstado()?"Activo":"Inactivo",fila ,1);
+    }
+    
+    public void eliminarUsuarioDeLaTabla(int indice){
+        tablaUsuarios.getModeloTabla().removeRow(indice);
+    }
+    
+    private void BuscarDeFiltro(String textoBusqueda){
+        TableRowSorter<DefaultTableModel> sorter =sorter = new TableRowSorter<DefaultTableModel>(tablaUsuarios.getModeloTabla());
+        tablaUsuarios.getTabla().setRowSorter(sorter);
         sorter.setRowFilter(RowFilter.regexFilter("(?i)"+textoBusqueda));
     }
     
-    public void cargarListaDeUsuarios(){
-        usuarios=ControlUsuarios.cargarListaDeUsuarios();
-        for(Usuario usuario: usuarios){
-            añadirUsuarioATabla(usuario);
-        }
-    }
-    
-    public void añadirUsuarioATabla(Usuario usuario){
-        int npermisos=0;
-        boolean [] permisos = {usuario.isGestionarVentas(),usuario.isGestionarUsuarios(),usuario.isGestionarProveedores()
-        ,usuario.isGestionarClientes(),usuario.isGestionarInventario(),usuario.isGenerarReportes()};
-        for(boolean permiso: permisos){
-            if (permiso)
-                npermisos+=1;
-        }
-        modeloDeListaDeUsuarios.addRow(new Object[]{usuario.getIdUsuario(),usuario.getNombre(),npermisos+"/"+permisos.length});
-        //Adaptando el tamaño de la barra de Scroll
-        double newScrollBarHeight=Math.pow(jScrollPane1.getPreferredSize().getHeight(),2)/(
-                TablaListaDeUsuarios.getRowHeight()*TablaListaDeUsuarios.getRowCount());
-        
-        scrollCustom.setThumbSize((int)newScrollBarHeight);
-    }
-    
-    public void eliminarUsuarioDeLaTabla(Usuario usuario){
-        int indiceDeTabla=usuarios.indexOf(usuario);
-        modeloDeListaDeUsuarios.removeRow(indiceDeTabla);
-    }
-    
-    public void modificarUsuarioDeLaTabla(int indice, Usuario usuario){
-        int npermisos=0;
-        boolean [] permisos = {usuario.isGestionarVentas(),usuario.isGestionarUsuarios(),usuario.isGestionarProveedores()
-        ,usuario.isGestionarClientes(),usuario.isGestionarInventario(),usuario.isGenerarReportes()};
-        for(boolean permiso: permisos){
-            if (permiso)
-                npermisos+=1;
-        }
-        modeloDeListaDeUsuarios.setValueAt(usuario.getNombre(),indice ,1);
-        modeloDeListaDeUsuarios.setValueAt(npermisos+"/"+permisos.length,indice ,2);
-    }
-    
-    
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel PanelBotonesCRUD;
-    private javax.swing.JTable TablaListaDeUsuarios;
-    private javax.swing.JLabel TituloDeModulo;
-    private javax.swing.JLabel btnAgregar;
-    private javax.swing.JLabel btnConfiguracion;
-    private javax.swing.JLabel btnEliminar;
-    private javax.swing.JLabel btnHome;
-    private javax.swing.JLabel btnModificar;
-    private javax.swing.JLabel btnSalir;
-    private javax.swing.JPanel buscador;
-    private javax.swing.JPanel contenedorPrincipal;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblDia;
-    private javax.swing.JLabel lblHora;
-    private javax.swing.JLabel lblSeleccion;
-    private javax.swing.JPanel selectorSeleccion;
-    // End of variables declaration//GEN-END:variables
-
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         Selector selectorModificado=((Selector)evt.getSource());
@@ -416,9 +276,9 @@ public class PanelDeUsuarios extends javax.swing.JPanel implements PropertyChang
             case "SSeleccion":
                     try {
                         if((int)evt.getNewValue()==0){
-                            TablaListaDeUsuarios.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+                            tablaUsuarios.getTabla().setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
                         }else{
-                            TablaListaDeUsuarios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                            tablaUsuarios.getTabla().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                         }
                     } catch (Exception e) {
                         System.err.println(e);

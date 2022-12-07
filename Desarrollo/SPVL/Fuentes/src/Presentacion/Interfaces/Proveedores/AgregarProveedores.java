@@ -1,12 +1,8 @@
 package Presentacion.Interfaces.Proveedores;
 
-import Presentacion.Interfaces.Inventario.*;
-import Datos.Entidades.Departamento;
 import Datos.Entidades.Proveedor;
-import Negocio.ControlInventario;
 import Negocio.ControlProveedores;
 import Presentacion.Interfaces.FramePrincipal;
-import Presentacion.Interfaces.Selector;
 import Presentacion.Interfaces.TextFieldRedondeado;
 import Presentacion.Interfaces.VentanaEmergente;
 import Presentacion.Utilidades.UtilidadesFuentes;

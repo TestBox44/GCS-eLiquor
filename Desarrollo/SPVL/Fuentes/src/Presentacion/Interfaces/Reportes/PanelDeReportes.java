@@ -95,7 +95,7 @@ public class PanelDeReportes extends JPanel{
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         
-        panelModuloReportes=new PanelModulo(parent);
+        panelModuloReportes=new PanelModulo(parent,"/Presentacion/Imagenes/Paneles/Boton Ayuda/TutorialReportes.png");
         panelModuloReportes.setTituloPanelModulo("R E P O R T E S", Color.decode("#408D9D"));
         gbc.insets = new Insets((int)(8.0/panelModuloReportes.basePanelHeight*panelModuloReportes.getPreferredSize().getHeight()), 0, 0, 0);
         gbc.gridx=0;

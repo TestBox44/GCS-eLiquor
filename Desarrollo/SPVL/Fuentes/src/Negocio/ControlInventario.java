@@ -2,9 +2,11 @@ package Negocio;
 
 import Datos.DAO.DepartamentoDAO;
 import Datos.DAO.DepartamentoProductoDAO;
+import Datos.DAO.EntregaDAO;
 import Datos.DAO.ProductoDAO;
 import Datos.Entidades.Departamento;
 import Datos.Entidades.DepartamentoProducto;
+import Datos.Entidades.Entrega;
 import Datos.Entidades.Producto;
 import java.util.ArrayList;
 
@@ -22,8 +24,7 @@ public class ControlInventario {
         
         for(Object d: ddao.listar()){
             Departamento nuevoDepartamento;
-            nuevoDepartamento = new Departamento(((Departamento)d).getIdDepartamento(),((Departamento)d).getNombre(),
-            ((Departamento)d).isMostrarEnCaja(), ((Departamento)d).getFechaRegistro());
+            nuevoDepartamento = new Departamento(((Departamento)d).getIdDepartamento(),((Departamento)d).getNombre(), ((Departamento)d).getFechaRegistro());
             
             
                     
@@ -71,8 +72,7 @@ public class ControlInventario {
         
         DepartamentoDAO ddao=new DepartamentoDAO();
         ddao.add(new Object[]{
-            nuevoDepartamento.getFechaRegistro(), nuevoDepartamento.getNombre(),nuevoDepartamento.getCantidad(),
-            nuevoDepartamento.isMostrarEnCaja()}    
+            nuevoDepartamento.getFechaRegistro(), nuevoDepartamento.getNombre(),nuevoDepartamento.getCantidad()}    
         );
 
     }
@@ -145,7 +145,7 @@ public class ControlInventario {
         
         DepartamentoDAO ddao=new DepartamentoDAO();
         Object[] datos={departamentoModificado.getFechaRegistro(),departamentoModificado.getNombre(),
-            departamentoModificado.getCantidad(), departamentoModificado.isMostrarEnCaja(),
+            departamentoModificado.getCantidad(),
         departamentoModificado.getIdDepartamento()};
         
         ddao.actualizar(datos);
@@ -181,7 +181,7 @@ public class ControlInventario {
     public static void eliminarProductos(ArrayList<Producto> productosABorrar){
         ProductoDAO pdao=new ProductoDAO();
         for (Producto producto: productosABorrar) {
-            pdao.eliminar(producto.getIdProducto());
+            pdao.eliminacionLogica(producto.getIdProducto());
             eliminarProductoDeDepartamento(producto.getIdProducto());
             
         }
@@ -202,5 +202,17 @@ public class ControlInventario {
         
         ProductoDAO pdao=new ProductoDAO();
         return pdao.setLastId();
+    }
+    
+    public static void registrarEntrega(Entrega nuevaEntrega){
+        EntregaDAO edao = new EntregaDAO();
+        Object[] datos={
+            nuevaEntrega.getCosto(),
+            nuevaEntrega.getCantidad(),
+            nuevaEntrega.getFechaEntrega(),
+            nuevaEntrega.getItem().getIdProducto(),
+            nuevaEntrega.getProveedor().getIdProveedor()
+        };
+        edao.add(datos);
     }
 }

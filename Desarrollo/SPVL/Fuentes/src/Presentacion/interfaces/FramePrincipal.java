@@ -21,6 +21,7 @@ import Presentacion.Interfaces.Reportes.Reportes;
 import Presentacion.Interfaces.Usuarios.Usuarios;
 import Presentacion.Interfaces.Ventas.Ventas;
 import Presentacion.Interfaces.Configuracion.Configuracion;
+import Presentacion.Interfaces.Ventas.PanelDeVentas;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 /**
@@ -72,51 +73,50 @@ public class FramePrincipal extends javax.swing.JFrame {
         //Cambiar a partir de aqui
         
         //Descomenta las tres lineas de abajo para entrar directamente al modulo de login
-        /*Login login = new Login();
+        Login login = new Login();
         ContenedorPaneles.add("login",login);
         layoutContenedorPaneles.show(ContenedorPaneles, "login");
-        */
         
+            
         //Descomenta las tres lineas de abajo para entrar directamente al modulo de usuarios
-        /*Usuarios usuarios = new Usuarios();
+        /*Usuarios usuarios = new Usuarios(ContenedorPaneles);
         ContenedorPaneles.add("usuarios",usuarios);
         layoutContenedorPaneles.show(ContenedorPaneles, "usuarios");*/
         
         
         //Descomenta las tres lineas de abajo para entrar directamente al modulo de inventario
-        /*
-        Inventario inventario = new Inventario();
+        /*Inventario inventario = new Inventario(ContenedorPaneles);
         ContenedorPaneles.add("inventario",inventario);
         layoutContenedorPaneles.show(ContenedorPaneles, "inventario");*/
         
         //Descomenta las tres lineas de abajo para entrar directamente al modulo de ventas
-        /*Ventas ventas = new Ventas();
+        /*Ventas ventas = new Ventas(ContenedorPaneles);
         ContenedorPaneles.add("ventas",ventas);
-        layoutContenedorPaneles.show(ContenedorPaneles, "ventas");
-        */
+        layoutContenedorPaneles.show(ContenedorPaneles, "ventas");*/
+
         
         //Descomenta las tres lineas de abajo para entrar directamente al modulo de reportes
         /*Reportes reportes = new Reportes(ContenedorPaneles);
         ContenedorPaneles.add("reportes",reportes);
-        layoutContenedorPaneles.show(ContenedorPaneles, "reportes");*/
-        
+        layoutContenedorPaneles.show(ContenedorPaneles, "reportes");
+        */
         //Descomenta las tres lineas de abajo para entrar directamente al modulo de proveedores
         /*Proveedores proveedores = new Proveedores(ContenedorPaneles);
         ContenedorPaneles.add("proveedores",proveedores);
-        layoutContenedorPaneles.show(ContenedorPaneles, "proveedores");*/
-        
+        layoutContenedorPaneles.show(ContenedorPaneles, "proveedores");
+        */
         //Descomenta las tres lineas de abajo para entrar directamente al modulo de cliente
-        Clientes clientes = new Clientes(ContenedorPaneles);
+        /*Clientes clientes = new Clientes(ContenedorPaneles);
         ContenedorPaneles.add("clientes",clientes);
         layoutContenedorPaneles.show(ContenedorPaneles, "clientes");
-        
+        */
         //Descomenta las tres lineas de abajo para entrar directamente a la configuracion
        /* Configuracion configuracion = new Configuracion(ContenedorPaneles);
         ContenedorPaneles.add("configuracion",configuracion);
         layoutContenedorPaneles.show(ContenedorPaneles, "configuracion");*/
-        }
         //Fin de zona de debug
         //-------------------------------------------------------------------------------------------------------------------------
+    }
     }
 
     /**

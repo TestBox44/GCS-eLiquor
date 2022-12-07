@@ -40,8 +40,8 @@ public class Item extends PanelImagen{
         nombre.setOpaque(false);
         subtitulo=new JTextPane();
         subtitulo.setOpaque(false);
-        nombre.setFont(UtilidadesFuentes.InterLight.deriveFont(20.0f));
-        subtitulo.setFont(UtilidadesFuentes.InterLight.deriveFont(20.0f));
+        nombre.setFont(UtilidadesFuentes.InterLight.deriveFont(17.0f));
+        subtitulo.setFont(UtilidadesFuentes.InterLight.deriveFont(17.0f));
         nombre.setForeground(Color.decode("#8C8C8C"));
         subtitulo.setForeground(Color.decode("#8C8C8C"));
         nombre.setHighlighter(null);

@@ -4,6 +4,7 @@ import Datos.Entidades.Entrega;
 import Presentacion.Interfaces.FramePrincipal;
 import Presentacion.Interfaces.TextFieldRedondeado;
 import Presentacion.Interfaces.VentanaEmergente;
+import Presentacion.Interfaces.Ventas.VentaPago2;
 import Presentacion.Utilidades.UtilidadesFuentes;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -35,13 +36,14 @@ public class IngresoProducto1 extends VentanaEmergente{
     private TextFieldRedondeado txtCantidad;
     private JLabel lblCosto;
     private TextFieldRedondeado txtCosto;
-    
+    private Entrega nuevaEntrega;
     public IngresoProducto1(PanelDeInventario panelPrincipalDeModuloDeInventario,Entrega nuevaEntrega) {
         super("/Presentacion/Imagenes/Paneles/Inventario/PanelIngresoProducto1.png");
         cambiarDisposicionDePanelDeBotones(VentanaEmergente.PRIMERVENTANA);
         this.panelPrincipalDeModuloDeInventario=panelPrincipalDeModuloDeInventario;
+        this.nuevaEntrega=nuevaEntrega;
         setTextoTitulo("INGRESO");
-        setColorTitulo(Color.decode("#F59E4D"));
+        setColorTitulo(Color.decode("#D9AA4F"));
         JPanel cuerpo = getCuerpo();
         cuerpo.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -191,11 +193,26 @@ public class IngresoProducto1 extends VentanaEmergente{
                 }
             }
         });
+        txtCantidad.setText(Integer.toString(nuevaEntrega.getCantidad()));
+        txtCosto.setText(Double.toString(nuevaEntrega.getCosto()));
     }
 
     @Override
     public void btnSiguientePresionado(MouseEvent evt) {
+        try{
+            nuevaEntrega.setCantidad(Integer.parseInt(txtCantidad.getText()));
+        }catch(NumberFormatException er){
+            nuevaEntrega.setCantidad(0);
+        }
+        try{
+            nuevaEntrega.setCosto(Double.parseDouble(txtCosto.getText()));
+        }catch(NumberFormatException er){
+            nuevaEntrega.setCosto(0);
+        }
         ((FramePrincipal)((JFrame) SwingUtilities.getWindowAncestor(this))).cerrarPanelesEmergentes();
+         IngresoProducto2 ingresoProducto2 = new IngresoProducto2(panelPrincipalDeModuloDeInventario,nuevaEntrega);
+         ((FramePrincipal) SwingUtilities.getWindowAncestor(panelPrincipalDeModuloDeInventario)).mostrarPanelEmergente(ingresoProducto2);
+         ingresoProducto2.requestFocus();
     }
 
     

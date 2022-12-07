@@ -18,8 +18,7 @@ public class UsuarioDAO implements CRUD{
         int r = 0;
         int id=setLastId()+1;
         String sql = 
-            "insert into usuarios(nombre, PIN, gestionarVentas, gestionarUsuarios, gestionarProveedores, "
-                + "gestionarClientes, gestionarInventario, generarReportes,idUsuario)values(?,?,?,?,?,?,?,?,?)";
+            "insert into usuarios(nombre, PIN, gestionarVentas, gestionarUsuarios, gestionarProveedores, gestionarClientes, gestionarInventario, generarReportes,estado,ultimoIngreso,fechaRegistro,estadoEliminacion,idUsuario)values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try{
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
@@ -31,7 +30,11 @@ public class UsuarioDAO implements CRUD{
             ps.setObject(6, o[5]);
             ps.setObject(7, o[6]);
             ps.setObject(8, o[7]);
-            ps.setObject(9, id);
+            ps.setObject(9, o[8]);
+            ps.setObject(10, o[9]);
+            ps.setObject(11, o[10]);
+            ps.setObject(12, 0);
+            ps.setObject(13, id);
             r = ps.executeUpdate();
         }catch(SQLException e){
              System.out.println(e.toString());
@@ -43,7 +46,7 @@ public class UsuarioDAO implements CRUD{
     @Override
     public List listar() {
         List<Usuario> lista = new ArrayList<>();
-        String sql = "select * from usuarios";
+        String sql = "select * from usuarios where estadoEliminacion=0";
         try{
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
@@ -59,6 +62,12 @@ public class UsuarioDAO implements CRUD{
                 u.setGestionarClientes(rs.getBoolean(7));
                 u.setGestionarInventario(rs.getBoolean(8));
                 u.setGenerarReportes(rs.getBoolean(9));
+                u.setEstado(rs.getBoolean(10));
+                Date fechaCargada = rs.getDate(11);
+                if(fechaCargada!=null){
+                    u.setUltimoIngreso(fechaCargada.toLocalDate());
+                }
+                u.setFechaRegistro(rs.getDate(12).toLocalDate());
                 lista.add(u);
             }
         }catch(SQLException e){
@@ -79,12 +88,25 @@ public class UsuarioDAO implements CRUD{
             System.out.println(e.toString());
         }
     }
+    
+    public void eliminacionLogica(int id){
+        String sql = "update usuarios set estadoEliminacion=? where IdUsuario=?";
+        try{
+           con = cn.Conectar();
+           ps = con.prepareStatement(sql);
+           ps.setInt(1, 1);
+           ps.setInt(2, id);
+           ps.executeUpdate();
+       }catch(SQLException e){
+            System.out.println(e.toString());
+        }
+    }
 
     @Override
     public int actualizar(Object[] o) {
         int r = 0;
         String sql = "update usuarios set nombre=?,PIN=?,gestionarVentas=?,gestionarUsuarios=?,"
-                + " gestionarProveedores=?, gestionarClientes=?,gestionarInventario=?,generarReportes=?  where IdUsuario=?";
+                + " gestionarProveedores=?, gestionarClientes=?,gestionarInventario=?,generarReportes=?, estado=?, ultimoIngreso=?  where IdUsuario=?";
         try{
            con = cn.Conectar();
            ps = con.prepareStatement(sql);
@@ -97,6 +119,8 @@ public class UsuarioDAO implements CRUD{
            ps.setObject(7, o[6]);
            ps.setObject(8, o[7]);
            ps.setObject(9, o[8]);
+           ps.setObject(10, o[9]);
+           ps.setObject(11, o[10]);
            r = ps.executeUpdate();
        }catch(SQLException e){
             System.out.println(e.toString());

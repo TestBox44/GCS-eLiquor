@@ -27,6 +27,11 @@ public class PasswordFieldRedondeado extends JPasswordField{
         super(4);
         setOpaque(false); // As suggested by @AVD in comment.
     }
+    
+    public PasswordFieldRedondeado(int columnas) {
+        super(columnas);
+        setOpaque(false); // As suggested by @AVD in comment.
+    }
 
     public int getGrosorBorde() {
         return grosorBorde;

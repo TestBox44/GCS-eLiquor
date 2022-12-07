@@ -18,7 +18,7 @@ public class ProveedorDAO implements CRUD{
         int r = 0;
         int id=setLastId()+1;
         String sql = 
-            "insert into proveedor(razonSocial, correo, telefono, fechaRegistro,idProveedor)values(?,?,?,?,?)";
+            "insert into proveedor(razonSocial, correo, telefono, fechaRegistro,estadoEliminacion,idProveedor)values(?,?,?,?,?,?)";
         try{
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
@@ -26,7 +26,8 @@ public class ProveedorDAO implements CRUD{
             ps.setObject(2, o[1]);
             ps.setObject(3, o[2]);
             ps.setObject(4, o[3]);
-            ps.setObject(5, id);
+            ps.setObject(5, 0);
+            ps.setObject(6, id);
             r = ps.executeUpdate();
         }catch(SQLException e){
              System.out.println(e.toString());
@@ -38,7 +39,7 @@ public class ProveedorDAO implements CRUD{
     @Override
     public List listar() {
         List<Proveedor> lista = new ArrayList<>();
-        String sql = "select * from proveedor";
+        String sql = "select * from proveedor where estadoEliminacion=0";
         try{
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
@@ -71,6 +72,19 @@ public class ProveedorDAO implements CRUD{
         }
     }
 
+    public void eliminacionLogica(int id){
+        String sql = "update proveedor set estadoEliminacion=? where IdProveedor=?";
+        try{
+           con = cn.Conectar();
+           ps = con.prepareStatement(sql);
+           ps.setInt(1, 1);
+           ps.setInt(2, id);
+           ps.executeUpdate();
+       }catch(SQLException e){
+            System.out.println(e.toString());
+        }
+    }
+    
     @Override
     public int actualizar(Object[] o) {
         int r = 0;

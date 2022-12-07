@@ -1,11 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package Presentacion.Interfaces.Ventas;
 
 import java.awt.BorderLayout;
-import javax.swing.JPanel;
+import java.awt.Container;
 
 /**
  *
@@ -13,14 +9,14 @@ import javax.swing.JPanel;
  */
 public class Ventas extends javax.swing.JPanel {
 
-    private JPanel panelDeVentas;
+    private PanelDeVentas panelDeVentas;
+    Container parent;
     
-    public Ventas() {
+    public Ventas(Container parent) {
         initComponents();
         setOpaque(false);
-        //panelDeUsuarios.setPreferredSize(new Dimension(1360,768));
-        panelDeVentas=new PanelDeVentas();
-        panelDeVentas.setBounds(0, 0, 1360, 768);
+        panelDeVentas=new PanelDeVentas(parent);
+        //panelDeReportes.setBounds(0, 0, 1360, 768);
         add(panelDeVentas,BorderLayout.CENTER);
     }
 

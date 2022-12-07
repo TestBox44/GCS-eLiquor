@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/Presentacion/Interfaces/Inventario/PanelDeInventario.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>442</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Datos/DAO/CRUD.java</file>
+            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/FramePrincipal.java</file>
+            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/Menu/Menu.java</file>
+            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/Inventario/PanelDeInventario.java</file>
+            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/Ventas/VentaPago2.java</file>
+            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/Ventas/PanelDeVentas.java</file>
+            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/Ventas/EditarItem.java</file>
+            <file>file:/D:/UNMSM/Ciclo%206/Gestion%20de%20la%20configuracion%20de%20software/Proyecto/NeoVision/Desarrollo/SPVL/Fuentes/src/Presentacion/Interfaces/Item.java</file>
         </group>
     </open-files>
 </project-private>

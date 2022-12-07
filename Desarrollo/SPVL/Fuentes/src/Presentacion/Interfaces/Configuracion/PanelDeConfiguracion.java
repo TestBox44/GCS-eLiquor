@@ -51,6 +51,7 @@ public class PanelDeConfiguracion extends JPanel{
     private Timer timerAlertaGuardado;
     
     public PanelDeConfiguracion(Container parent) {
+        
         this.parent=parent;
         panelPrincipalConfiguracion=this;
         iniciarComponentes();
@@ -61,7 +62,8 @@ public class PanelDeConfiguracion extends JPanel{
                         lblDatosGuardados.setForeground(new Color(0,0,0,0));
                     }
                 });
-                timerAlertaGuardado.setRepeats(false);
+        timerAlertaGuardado.setRepeats(false);
+        panelModuloConfiguracion.getPanelContenedorComponentes().desactivarBtnAyuda(); 
     }
     private void iniciarComponentes(){
         setOpaque(false);
