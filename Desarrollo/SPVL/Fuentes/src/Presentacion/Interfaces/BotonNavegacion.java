@@ -109,8 +109,7 @@ class BotonNavegacion extends JPanel{
             panelTutorial.setLayout(null);
             
             PanelImagen panelNuevoBotonAyuda=new PanelImagen("/Presentacion/Imagenes/BotonAyudaPequeño.png");
-            Point p = new Point(this.getLocation());
-            SwingUtilities.convertPointToScreen(p, this);
+            Point p = SwingUtilities.convertPoint(this,this.getX(),this.getY(),((JFrame) SwingUtilities.getWindowAncestor(parentContainer)));
             panelNuevoBotonAyuda.setBounds(this.getX(),(int)p.getY(),this.getWidth(),this.getHeight());
             panelNuevoBotonAyuda.setCursor(this.getCursor());
             panelNuevoBotonAyuda.addMouseListener(new MouseAdapter(){
