@@ -394,51 +394,63 @@ public class Menu extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSalirMousePressed
 
     private void btnModuloUsuariosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloUsuariosMouseReleased
-        JPanel parent = (JPanel)getParent();
-        CardLayout layout = (CardLayout) parent.getLayout();
-        Presentacion.Interfaces.Usuarios.Usuarios usuarios = new Presentacion.Interfaces.Usuarios.Usuarios(parent);
-        parent.add("usuarios",usuarios);
-        layout.show(parent, "usuarios");
+        if(btnModuloUsuarios.isEnabled()){
+            JPanel parent = (JPanel)getParent();
+            CardLayout layout = (CardLayout) parent.getLayout();
+            Presentacion.Interfaces.Usuarios.Usuarios usuarios = new Presentacion.Interfaces.Usuarios.Usuarios(parent);
+            parent.add("usuarios",usuarios);
+            layout.show(parent, "usuarios");
+        }
     }//GEN-LAST:event_btnModuloUsuariosMouseReleased
 
     private void btnModuloVentasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloVentasMouseReleased
-        JPanel parent = (JPanel)getParent();
-        CardLayout layout = (CardLayout) parent.getLayout();
-        Presentacion.Interfaces.Ventas.Ventas ventas = new Presentacion.Interfaces.Ventas.Ventas(parent);
-        parent.add("ventas",ventas);
-        layout.show(parent, "ventas");
+        if(btnModuloVentas.isEnabled()){
+            JPanel parent = (JPanel)getParent();
+            CardLayout layout = (CardLayout) parent.getLayout();
+            Presentacion.Interfaces.Ventas.Ventas ventas = new Presentacion.Interfaces.Ventas.Ventas(parent);
+            parent.add("ventas",ventas);
+            layout.show(parent, "ventas");
+        }
     }//GEN-LAST:event_btnModuloVentasMouseReleased
 
     private void btnModuloInventarioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloInventarioMouseReleased
-        JPanel parent = (JPanel)getParent();
-        CardLayout layout = (CardLayout) parent.getLayout();
-        Presentacion.Interfaces.Inventario.Inventario inventario = new Presentacion.Interfaces.Inventario.Inventario(parent);
-        parent.add("inventario",inventario);
-        layout.show(parent, "inventario");
+        if(btnModuloInventario.isEnabled()){
+            JPanel parent = (JPanel)getParent();
+            CardLayout layout = (CardLayout) parent.getLayout();
+            Presentacion.Interfaces.Inventario.Inventario inventario = new Presentacion.Interfaces.Inventario.Inventario(parent);
+            parent.add("inventario",inventario);
+            layout.show(parent, "inventario");
+        }
     }//GEN-LAST:event_btnModuloInventarioMouseReleased
 
     private void btnModuloReportesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloReportesMouseReleased
-        JPanel parent = (JPanel)getParent();
-        CardLayout layout = (CardLayout) parent.getLayout();
-        Presentacion.Interfaces.Reportes.Reportes reportes = new Presentacion.Interfaces.Reportes.Reportes(parent);
-        parent.add("reportes",reportes);
-        layout.show(parent, "reportes");
+        if(btnModuloReportes.isEnabled()){
+            JPanel parent = (JPanel)getParent();
+            CardLayout layout = (CardLayout) parent.getLayout();
+            Presentacion.Interfaces.Reportes.Reportes reportes = new Presentacion.Interfaces.Reportes.Reportes(parent);
+            parent.add("reportes",reportes);
+            layout.show(parent, "reportes");
+        }
     }//GEN-LAST:event_btnModuloReportesMouseReleased
 
     private void btnModuloProveedoresMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloProveedoresMouseReleased
-        JPanel parent = (JPanel)getParent();
-        CardLayout layout = (CardLayout) parent.getLayout();
-        Presentacion.Interfaces.Proveedores.Proveedores reportes = new Presentacion.Interfaces.Proveedores.Proveedores(parent);
-        parent.add("proveedores",reportes);
-        layout.show(parent, "proveedores");
+        if(btnModuloProveedores.isEnabled()){
+            JPanel parent = (JPanel)getParent();
+            CardLayout layout = (CardLayout) parent.getLayout();
+            Presentacion.Interfaces.Proveedores.Proveedores reportes = new Presentacion.Interfaces.Proveedores.Proveedores(parent);
+            parent.add("proveedores",reportes);
+            layout.show(parent, "proveedores");
+        }
     }//GEN-LAST:event_btnModuloProveedoresMouseReleased
 
     private void btnModuloClientesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModuloClientesMouseReleased
-        JPanel parent = (JPanel)getParent();
-        CardLayout layout = (CardLayout) parent.getLayout();
-        Presentacion.Interfaces.Clientes.Clientes clientes = new Presentacion.Interfaces.Clientes.Clientes(parent);
-        parent.add("clientes",clientes);
-        layout.show(parent, "clientes");
+        if(btnModuloClientes.isEnabled()){
+            JPanel parent = (JPanel)getParent();
+            CardLayout layout = (CardLayout) parent.getLayout();
+            Presentacion.Interfaces.Clientes.Clientes clientes = new Presentacion.Interfaces.Clientes.Clientes(parent);
+            parent.add("clientes",clientes);
+            layout.show(parent, "clientes");
+        }
     }//GEN-LAST:event_btnModuloClientesMouseReleased
 
     private void btnConfiguracionMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfiguracionMouseReleased

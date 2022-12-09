@@ -76,6 +76,38 @@ public class UsuarioDAO implements CRUD{
         return lista;
     }
 
+    public List listarUsuarioActivos(){
+        List<Usuario> lista = new ArrayList<>();
+        String sql = "select * from usuarios where estadoEliminacion=0 and estado=1";
+        try{
+            con = cn.Conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Usuario u = new Usuario();
+                u.setIdUsuario(rs.getInt(1));
+                u.setNombre(rs.getString(2));
+                u.setPIN(rs.getInt(3));
+                u.setGestionarVentas(rs.getBoolean(4));
+                u.setGestionarUsuarios(rs.getBoolean(5));
+                u.setGestionarProveedores(rs.getBoolean(6));
+                u.setGestionarClientes(rs.getBoolean(7));
+                u.setGestionarInventario(rs.getBoolean(8));
+                u.setGenerarReportes(rs.getBoolean(9));
+                u.setEstado(rs.getBoolean(10));
+                Date fechaCargada = rs.getDate(11);
+                if(fechaCargada!=null){
+                    u.setUltimoIngreso(fechaCargada.toLocalDate());
+                }
+                u.setFechaRegistro(rs.getDate(12).toLocalDate());
+                lista.add(u);
+            }
+        }catch(SQLException e){
+             System.out.println(e.toString());
+         }
+        return lista;
+    }    
+    
     @Override
     public void eliminar(int id) {
         String sql = "delete from usuarios where idUsuario=?";

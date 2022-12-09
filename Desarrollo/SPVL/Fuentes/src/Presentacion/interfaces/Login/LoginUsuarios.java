@@ -1,13 +1,10 @@
 package Presentacion.Interfaces.Login;
 
-import Datos.DAO.UsuarioDAO;
-import Datos.Entidades.Usuario;
 import Negocio.ControlLogin;
 import Presentacion.Interfaces.PanelImagen;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -21,10 +18,10 @@ import javax.swing.table.DefaultTableModel;
 import Presentacion.Interfaces.ScrollBarCustom;
 import Presentacion.Utilidades.UtilidadesFuentes;
 import java.awt.CardLayout;
-import java.awt.Graphics;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.HierarchyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JPanel;
 
 /**
  *
@@ -101,12 +98,23 @@ public class LoginUsuarios extends javax.swing.JPanel {
             }
         }
     });
-        mostrarUsuariosEnLista();
+        
+        addHierarchyListener(new HierarchyListener(){
+            @Override
+            public void hierarchyChanged(HierarchyEvent e) {
+                btnSiguiente.setEnabled(false);
+                btnSiguiente.setVisible(false);
+                mostrarUsuariosEnLista();
+            }
+        
+        });
+
     }
     
     private void mostrarUsuariosEnLista(){
     //Metodo donde se cargaran los usuarios de la BD y se mostraran en la lista
     //Se debe ejecutar al inicio
+        modeloListaDeUsuarios.setRowCount(0);
         datosDeUsuarios=ControlLogin.mostrarListaDeUsuarios();
         for (int i = 0; i < datosDeUsuarios.length; i++) {
             añadirUsuarioALista((String)datosDeUsuarios[i][1]);

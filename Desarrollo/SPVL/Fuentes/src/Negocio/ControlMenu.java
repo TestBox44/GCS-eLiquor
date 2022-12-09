@@ -15,7 +15,7 @@ import java.util.List;
 public class ControlMenu {
     public static boolean [] cargarPermisosDeUsuario(int indice){
         UsuarioDAO udao = new UsuarioDAO();
-        List<Usuario> usuarios = udao.listar();
+        List<Usuario> usuarios = udao.listarUsuarioActivos();
         boolean [] permisos = {usuarios.get(indice).isGestionarVentas(),
             usuarios.get(indice).isGestionarUsuarios(), usuarios.get(indice).isGestionarProveedores(),
             usuarios.get(indice).isGestionarClientes(), usuarios.get(indice).isGestionarInventario(),
