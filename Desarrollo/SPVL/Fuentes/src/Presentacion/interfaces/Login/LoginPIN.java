@@ -51,7 +51,6 @@ public class LoginPIN extends javax.swing.JPanel {
             public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
                 lblAlerta.setVisible(false);
                 String string;
-                System.out.println(text);
                 if(text.matches("[0-9]+")){
                     
                     if(!text.isEmpty()){

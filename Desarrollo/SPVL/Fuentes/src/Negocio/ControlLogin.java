@@ -11,7 +11,7 @@ import java.util.List;
 public class ControlLogin {
     public static Object[][] mostrarListaDeUsuarios(){
         UsuarioDAO udao = new UsuarioDAO();
-        List<Usuario> usuarios = udao.listar();
+        List<Usuario> usuarios = udao.listarUsuarioActivos();
         Object[][] datosUsuario= new Object[usuarios.size()][2];
         for (int i = 0; i < usuarios.size(); i++) {
             datosUsuario[i][0]=((Usuario)(usuarios.get(i))).getIdUsuario();
@@ -26,7 +26,7 @@ public class ControlLogin {
     */
     public static boolean verificarPassword(int indice, int ps){
         UsuarioDAO udao = new UsuarioDAO();
-        List<Usuario> usuarios=udao.listar();
+        List<Usuario> usuarios=udao.listarUsuarioActivos();
         /*Se usa el id como indice porque internamente los id se definen segun
         el orden de registro*/
         return usuarios.get(indice).getPIN()==ps;

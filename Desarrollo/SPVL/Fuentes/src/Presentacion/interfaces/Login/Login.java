@@ -4,6 +4,9 @@
  */
 package Presentacion.Interfaces.Login;
 
+import Datos.Entidades.Usuario;
+import java.util.ArrayList;
+
 /**
  *
  * @author sortizu
@@ -42,7 +45,7 @@ public class Login extends javax.swing.JPanel {
     public void setIndiceSeleccion(int indiceSeleccion) {
         this.indiceSeleccion = indiceSeleccion;
     }
-    
+
     
     
     /**
@@ -62,6 +65,8 @@ public class Login extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1360, 768));
         setLayout(new java.awt.CardLayout());
         add(loginUsuarios, "loginUsuarios");
+        loginUsuarios.getAccessibleContext().setAccessibleName("");
+
         add(loginPIN, "loginPIN");
     }// </editor-fold>//GEN-END:initComponents
 
